@@ -21,16 +21,13 @@ function App() {
   return (
     <>
     <GlobalFonts />
-    <div className="App">
+    <div>
       <header className="App-header">
         <p>
           September 8, 2024 · Portland, Oregon
         </p>
         <Link to='/rsvp'>TODO: rsvp button</Link>
       </header>
-
-      <section></section>
-      <section></section>
 
       <section>
         <HeroSection

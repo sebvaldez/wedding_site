@@ -7,6 +7,7 @@ const Navbar = styled.nav`
   padding: 0 2rem 0 2rem;
   margin: 0 auto;
   margin-top: 2rem;
+  margin-bottom: .5rem;
   display: flex;
   justify-content: space-between;
   align-item: center;
@@ -30,7 +31,7 @@ const StyledNavLink = styled(NavLink).attrs({ activeClassName })`
   &.${activeClassName} {
     text-decoration: underline !important; // Increased specificity
   }
-
+  font-family: 'Montserrat', sans-serif; /* Use the font here */
   color: #000000;
   text-decoration: none;
   margin: 0 1rem;
@@ -46,21 +47,28 @@ const Box = styled.div`
 `
 
 const H1 = styled.h1`
+  font-family: 'Montserrat', sans-serif; /* Use the font here */
   font-weight: 400;
   font-size: 2rem;
 `
 
-const LargeButton = styled.button`
+const LargeButtonLink = styled(NavLink).attrs({ activeClassName })`
   background: transparent;
   border-style: solid;
   border-radius: 0;
   font-size: calc((1.1 - 1) * 1.2vw + 1rem);
   padding: 1.3rem 2.171rem;
-  a {
-    style: none;
-    cursor: pointer;
+  text-decoration: none;
+  cursor: pointer;
+
+  &.${activeClassName} {
+    color: #ff6347;
+    font-weight: bold;
+    text-decoration: underline !important; // Increased specificity
   }
-`
+
+  color: #000000;
+`;
 
 const Header = () => {
   return (
@@ -73,9 +81,7 @@ const Header = () => {
         <StyledNavLink to='/travel'>Travel</StyledNavLink>
         <StyledNavLink to='/registry'>Registry</StyledNavLink>
       </Box>
-      <LargeButton>
-        <StyledNavLink to='/rsvp'>RSVP</StyledNavLink>
-      </LargeButton>
+      <LargeButtonLink to='/rsvp'>RSVP</LargeButtonLink>
     </Navbar>
   )
 }

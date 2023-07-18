@@ -7,7 +7,8 @@ const HeroContainer = styled.section`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 500px;
+    height: 600px;  // Adjust this as needed
+    width: 100vw;  // Takes up full width
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,12 +19,13 @@ const HeroContainer = styled.section`
 `;
 
 const HeroText = styled.h1`
-    font-size: 2.5rem;
+    font-size: 4.5rem;
+    font-weight: 500;
     margin-bottom: 1rem;
 `;
 
 const SubText = styled.p`
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-bottom: 2rem;
 `;
 
