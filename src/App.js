@@ -2,6 +2,7 @@ import './App.css';
 import { Link } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components';
 import HeroSection from './components/HeroContainer';
+import Timeline from './components/Timeline'
 
 const GlobalFonts = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;1,200;1,300&display=swap');
@@ -52,21 +53,8 @@ function App() {
         </div>
         <br />
 
-        <div>
-          <h2>Event Timeline:</h2>
-          <p>1</p>
-          <p>2</p>
-          <p>3</p>
-          <p>4</p>
-          <p>5</p>
-          <p>6</p>
-          <p>7</p>
-          <p>8</p>
-          <p>9</p>
-          <p>10</p>
-          <p>11</p>
-          <p>12</p>
-        </div>
+        <Timeline />
+
         <br />
       </section>
     </div>
