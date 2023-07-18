@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MapContainer, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import 'leaflet.gridlayer.googlemutant';
