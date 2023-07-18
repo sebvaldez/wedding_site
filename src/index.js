@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import App from './App';
 import {FourOhFour} from './pages/FourOhFour';
 import {Travel} from './pages/Travel'
@@ -23,6 +24,7 @@ root.render(
 
         <Route path='*' element={<FourOhFour />} />
       </Routes>
+      <Footer />
     </Router>
   </React.StrictMode>
 );
