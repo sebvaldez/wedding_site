@@ -1,6 +1,7 @@
 import './App.css';
 import { Link } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components';
+import HeroSection from './components/HeroContainer';
 
 const GlobalFonts = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;1,200;1,300&display=swap');
@@ -31,9 +32,13 @@ function App() {
       <section></section>
 
       <section>
-        <h2>Wedding Day</h2>
-        <h3>September 8, 2024</h3>
+        <HeroSection
+          backgroundImage="https://theevergreenpdx.com/app/uploads/2015/11/Staheli-Wedding-247-FINAL-2550x1700.jpg"
+          heroText="Wedding Day"
+          subText="September 8, 2024"
+        />
       </section>
+
       <section>
         <div>
           <h2>Location</h2>
