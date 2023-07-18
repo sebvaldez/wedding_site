@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
+import {FourOhFour} from './pages/FourOhFour';
+import {Location} from './pages/Location'
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route path='/' element={<App/>} />
+        <Route path='/location' element={<Location/>} />
+        <Route path='*' element={<FourOhFour />} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 
