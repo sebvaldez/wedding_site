@@ -20,7 +20,7 @@ function App() {
       <section>
         <div>
           <h2>Location</h2>
-          <a href="#">The Evergreen 618 Alder St Portland, Oregon</a>
+          <span style={{textDecoration: 'underline', color: 'blue'}}>The Evergreen 618 Alder St Portland, Oregon</span>
         </div>
         <br />
 
