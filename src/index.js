@@ -6,7 +6,6 @@ import App from './App';
 import {FourOhFour} from './pages/FourOhFour';
 import {Location} from './pages/Location'
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
