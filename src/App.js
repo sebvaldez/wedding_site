@@ -23,7 +23,7 @@ function App() {
         <div style={{ padding: '2rem .2rem' }}>
         <h1>Please join us on September 8, 2024 as we celebrate our wedding in Portland, Oregon.</h1>
         <p>Cocktail | Formal Attire</p>
-        <img src="https://picsum.photos/800/550" width='800px' height='800px' alt="Placeholder Image" />
+        <img src="https://picsum.photos/800/550" width='800px' height='800px' alt="" />
         </div>
 
         <br />

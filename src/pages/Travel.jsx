@@ -21,21 +21,21 @@ export const Travel = () => {
           <div style={{ display: 'flex', flexGrow: 1, alignItems: 'center', justifyContent: 'space-evenly' }}>
 
             <div style={{ display: 'flex', flexGrow: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
-              <img src='https://www.nicepng.com/png/detail/213-2134205_united-airlines-logo-emblem-png-united-airlines-logo.png' width='320px' height='200px' />
+              <img src='https://www.nicepng.com/png/detail/213-2134205_united-airlines-logo-emblem-png-united-airlines-logo.png' width='320px' height='200px' alt="" />
               <span style={{ textDecoration: 'underline', color: 'blue' }}>
                 Book of of SFO
               </span>
             </div>
 
             <div style={{ display: 'flex', flexGrow: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
-              <img src='https://1000logos.net/wp-content/uploads/2019/08/southwest-airlines-logo.png' width='320px' height='200px' />
+              <img src='https://1000logos.net/wp-content/uploads/2019/08/southwest-airlines-logo.png' width='320px' height='200px' alt="" />
               <span style={{ textDecoration: 'underline', color: 'blue' }}>
                 Book of of SMF
               </span>
             </div>
 
             <div style={{ display: 'flex', flexGrow: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
-              <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-IGXrLfVQqcOQEAbv7xNCr7EyZub6Ivmctw&usqp=CAU' width='320px' height='200px' />
+              <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-IGXrLfVQqcOQEAbv7xNCr7EyZub6Ivmctw&usqp=CAU' width='320px' height='200px' alt="" />
               <span style={{ textDecoration: 'underline', color: 'blue' }}>
                 Book of of SMF or SFO
               </span>
@@ -101,7 +101,7 @@ export const Travel = () => {
             VIEW ON MAP
           </span>
           <br />
-          <img src='https://picsum.photos/450/450' width='450px' height='450px' />
+          <img src='https://picsum.photos/450/450' width='450px' height='450px' alt="" />
           <br />
           <small>Estimated travel time from the above Hotel Blocks to the Wedding Venue is between 8 - 12 minutes on Sundays between 3:00 and 4:00 pm.</small>
           <br />
