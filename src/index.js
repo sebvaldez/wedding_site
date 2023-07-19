@@ -5,10 +5,11 @@ import { GlobalFonts, GlobalStyle } from './styles';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import App from './App';
-import {FourOhFour} from './pages/FourOhFour';
-import {Travel} from './pages/Travel'
-import {WeddingRegistry} from './pages/WeddingRegistry'
-import {Rsvp} from './pages/Rsvp'
+import { FourOhFour } from './pages/FourOhFour';
+import { Gallery } from './pages/Gallery';
+import { Travel } from './pages/Travel'
+import { WeddingRegistry } from './pages/WeddingRegistry'
+import { Rsvp } from './pages/Rsvp'
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,6 +21,7 @@ root.render(
       <Header/>
         <Routes>
           <Route path='/' element={<App/>} />
+          <Route path='/gallery' element={<Gallery/>} />
           <Route path='/travel' element={<Travel/>} />
           <Route path='/registry' element={<WeddingRegistry/>} />
           <Route path='/rsvp' element={<Rsvp/>} />

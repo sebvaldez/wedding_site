@@ -80,6 +80,7 @@ const Header = () => {
         <StyledNavLink to='/'>Wedding</StyledNavLink>
         <StyledNavLink to='/travel'>Travel</StyledNavLink>
         <StyledNavLink to='/registry'>Registry</StyledNavLink>
+        <StyledNavLink to='/gallery'>Gallery</StyledNavLink>
       </Box>
       <LargeButtonLink to='/rsvp'>RSVP</LargeButtonLink>
     </Navbar>
