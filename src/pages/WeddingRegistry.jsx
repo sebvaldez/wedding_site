@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
+import HeroSection from '../components/HeroContainer'
 
 export const WeddingRegistry = () => {
   return (
     <Container md>
-      <h2>Registry Page</h2>
-      <Link to='/'>Back</Link>
+      <HeroSection
+        backgroundImage="https://picsum.photos/3840/2400"
+        heroText="Wedding Registry"
+      />
+      <section style={{ height: '350px' }}>
+        <Link to='/'>Back</Link>
+      </section>
     </Container>
   )
 }

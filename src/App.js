@@ -6,17 +6,12 @@ import Timeline from './components/Timeline'
 function App() {
   return (
     <>
-      <Container md={800}>
-        <p>
-          September 8, 2024 · Portland, Oregon
-        </p>
-        <Link to='/rsvp'>TODO: rsvp button</Link>
-      </Container>
-
         <HeroSection
           backgroundImage="https://theevergreenpdx.com/app/uploads/2015/11/Staheli-Wedding-247-FINAL-2550x1700.jpg"
           heroText="Wedding Day"
-          subText="September 8, 2024"
+          subText="September 8, 2024 · Portland, Oregon"
+          buttonText='RSVP'
+          buttonLink='/rsvp'
         />
 
       <Container md={800}>
