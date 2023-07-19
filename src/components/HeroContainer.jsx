@@ -7,8 +7,9 @@ const HeroContainer = styled.section`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 600px;  // Adjust this as needed
-    width: 100vw;  // Takes up full width
+    height: 600px;
+    width: 100%;  // Updated from 100vw to 100%
+    overflow: hidden;  // Ensure children do not overflow
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,6 +18,7 @@ const HeroContainer = styled.section`
     text-align: center;
     padding: 0 2rem;
 `;
+
 
 const HeroText = styled.h1`
     font-size: 4.5rem;

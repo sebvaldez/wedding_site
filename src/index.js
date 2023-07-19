@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './index.css';
+import { GlobalFonts, GlobalStyle } from './styles';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import App from './App';
@@ -14,16 +14,17 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <GlobalStyle />
+    <GlobalFonts />
     <Router>
       <Header/>
-      <Routes>
-        <Route path='/' element={<App/>} />
-        <Route path='/travel' element={<Travel/>} />
-        <Route path='/registry' element={<WeddingRegistry/>} />
-        <Route path='/rsvp' element={<Rsvp/>} />
-
-        <Route path='*' element={<FourOhFour />} />
-      </Routes>
+        <Routes>
+          <Route path='/' element={<App/>} />
+          <Route path='/travel' element={<Travel/>} />
+          <Route path='/registry' element={<WeddingRegistry/>} />
+          <Route path='/rsvp' element={<Rsvp/>} />
+          <Route path='*' element={<FourOhFour />} />
+        </Routes>
       <Footer />
     </Router>
   </React.StrictMode>

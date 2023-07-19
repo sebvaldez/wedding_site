@@ -14,7 +14,7 @@ const FooterContainer = styled.footer`
 const NavContainer = styled.div`
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    width: 100vw;
     padding: 0 2rem; // Add horizontal padding
     margin-bottom: 2.2rem;
 `;
