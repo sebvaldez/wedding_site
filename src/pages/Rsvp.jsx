@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
+import Container from '../components/Container'
 
 export const Rsvp = () => {
   return (
-    <div className='App-header'>
+    <Container md>
       <h2>Rsvp Page</h2>
       <Link to='/'>Back</Link>
-    </div>
+    </Container>
   )
 }
