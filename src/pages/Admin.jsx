@@ -78,12 +78,19 @@ const Admin = () => {
   };
 
   const mockApiCall = (email, password) => {
-    if (email === 'seb@example.com' && password === 'admin') {
+    const validEmails = [
+      'valdez.sebastian@gmail.com',
+      'allegracesena@gmail.com',
+      'dev@example.com'
+    ];
+
+    if (validEmails.includes(email) && password === 'admin') {
       return true;
     } else {
       return false;
     }
   };
+
 
   return (
     <>
