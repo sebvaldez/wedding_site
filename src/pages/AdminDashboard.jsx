@@ -2,7 +2,33 @@ import React from 'react';
 import styled from 'styled-components';
 import Container from '../components/Container'
 import { useTable, useSortBy, usePagination } from 'react-table';
-import data from '../utils/dummyFamilyData.json';
+// import data from '../utils/dummyFamilyData.json';
+
+let data = [
+  {
+    "firstName": "Allegra",
+    "lastName": "Cesena",
+    "email": "allegracesena@gmail.com",
+    "phoneNumber": 2096630485,
+    "checkIn": false,
+    "plannedTransportation": "Renting a Car",
+    "dinnerSelection": "Vegetable Polenta Torte",
+    "specialSippingpreference": "Red Wine",
+    "emailedInvitation": true
+  },
+  {
+    "firstName": "Sebastian",
+    "lastName": "Valdez",
+    "email": "valdez.sebastian4@gmail.com",
+    "phoneNumber": 4152994331,
+    "checkIn": true,
+    "plannedTransportation": "Uber or Lyft",
+    "dinnerSelection": "Chicken Saltimcbocca",
+    "specialSippingpreference": "IPA",
+    "emailedInvitation": false
+  },
+];
+
 
 const TextReminderButton = styled.button`
   padding: 8px 20px;
@@ -154,6 +180,7 @@ function MyTable({ handleTextReminderClick, handleEmailInvitation, columns }) {
 }
 
 const AdminDashboard = () => {
+
   const handleTextReminderClick = (guest) => {
     window.alert(`Sent text to ${guest.firstName} ${guest.lastName} at: ${guest.phoneNumber}`);
   };
