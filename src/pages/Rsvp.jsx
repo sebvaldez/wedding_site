@@ -1,8 +1,12 @@
-import { Link } from 'react-router-dom'
-import HeroSection from '../components/HeroContainer'
-import Container from '../components/Container'
+import { Link, useLocation } from 'react-router-dom';
+import HeroSection from '../components/HeroContainer';
+import Container from '../components/Container';
 
 export const Rsvp = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const emailParam = searchParams.get('email') || '';
+
   return (
     <Container md>
       <HeroSection
@@ -21,8 +25,8 @@ export const Rsvp = () => {
         </div>
 
         <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required />
+          <label htmlFor="email">Email:</label>
+          <input type="email" id="email" name="email" required defaultValue={emailParam} />
         </div>
 
         <div>
