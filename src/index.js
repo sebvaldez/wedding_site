@@ -5,12 +5,14 @@ import { GlobalFonts, GlobalStyle } from './styles';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import App from './App';
+import Admin from './pages/Admin';
 import { FourOhFour } from './pages/FourOhFour';
 import { Gallery } from './pages/Gallery';
 import { Travel } from './pages/Travel'
 import { WeddingRegistry } from './pages/WeddingRegistry'
 import { Rsvp } from './pages/Rsvp'
 import reportWebVitals from './reportWebVitals';
+import AdminDashboard from './pages/AdminDashboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +23,8 @@ root.render(
       <Header/>
         <Routes>
           <Route path='/' element={<App/>} />
+          <Route path='/admin' element={<Admin/>} />
+          <Route path='/dashboard' element={<AdminDashboard/>} />
           <Route path='/gallery' element={<Gallery/>} />
           <Route path='/travel' element={<Travel/>} />
           <Route path='/registry' element={<WeddingRegistry/>} />
