@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    overflow-x: hidden;
+    // overflow-x: hidden; break dropdown nav , fix latter
   }
   body {
     line-height: 1;

@@ -21,13 +21,14 @@ const HeroContainer = styled.section`
 
 
 const HeroText = styled.h1`
-    font-size: 4.5rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
+    font-size: 4.2rem;
+    font-weight: 200;
+    margin-bottom: 1.3rem;
 `;
 
 const SubText = styled.p`
     font-size: 2rem;
+    font-weight: 300;
     margin-bottom: 2rem;
 `;
 

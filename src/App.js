@@ -79,16 +79,6 @@ const RelationshipSection = styled.div`
   }
 `;
 
-// const InfoWrapper = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 1rem; // Space between stacked sections
-
-//   @media (min-width: 768px) { // For desktop and above
-//     flex-direction: row;
-//     justify-content: space-between;
-//   }
-// `;
 const InfoWrapper = styled.div`
   display: flex;
   flex-wrap: wrap; // This will allow sections to wrap to the next line if they don't fit
@@ -96,32 +86,20 @@ const InfoWrapper = styled.div`
 
   @media (max-width: 768px) { // For mobile
     flex-direction: column; // Stack the sections vertically for mobile
-    align-items: center; 
+    align-items: center;
   }
 `;
 
-// const InfoSection = styled.div`
-//   flex: 1;
-//   margin: 1rem; // Increased spacing around each section for mobile
-//   font-size: 0.9em; // Slightly reduced font size for mobile
-  
-//   @media (min-width: 768px) { // For desktop and above
-//     margin: 0;
-//     max-width: calc(33% - 1rem); // Distributes the space evenly between sections with a gap in between
-//     font-size: 1em; // Resets the font size to default for desktop
-//   }
-// `;
-
 const InfoSection = styled.div`
   flex: 1;
-  margin: 1rem; 
-  font-size: 0.9em; 
+  margin: 1rem;
+  font-size: 0.9em;
   width: 100%; // Takes full width on mobile
-  
+
   @media (min-width: 768px) {
     margin: 0 1rem; // Adds horizontal margin on desktop
     max-width: calc(33.33% - 2rem); // Divided by three minus the left and right margins
-    font-size: 1em; 
+    font-size: 1em;
   }
 `;
 
@@ -132,7 +110,7 @@ function App() {
     <>
       <HeroSection
         backgroundImage="https://theevergreenpdx.com/app/uploads/2015/11/Staheli-Wedding-247-FINAL-2550x1700.jpg"
-        heroText="Allegra & Sebastian"
+        heroText='Allegra & Sebastian'
         subText="September 8, 2024 · Portland, Oregon"
         buttonText='RSVP'
         buttonLink='/rsvp'
@@ -164,7 +142,7 @@ function App() {
               <span style={{ textDecoration: 'underline', color: 'blue' }}>The Evergreen 618 Alder St Portland, Oregon</span>
             </Section>
           </InfoSection>
-          
+
           <InfoSection>
             <Section title="Arrival">
               <p>Should you arrive prior to the 4 PM entry time, you are welcome to pop into The Loyal Legion Bar and Restaurant next door and grab a drink until it is time for entry.</p>
