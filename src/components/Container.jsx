@@ -19,8 +19,8 @@ const media = Object.keys(sizes).reduce((acc, label) => {
 }, {});
 
 
-const Container = styled.div`
-  width: 100%;
+const Container = styled.section`
+  // width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

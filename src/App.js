@@ -26,11 +26,11 @@ const ResponsiveImage = styled.img`
 `;
 
 const InvitationSection = styled.div`
-  padding: 2rem 0.2rem;
+  padding: 2rem 1.4rem;
   text-align: center;
 
   h1 {
-    font-size: 1.5rem;  // Start with a suitable size for mobile
+    font-size: 1.2rem;  // Start with a suitable size for mobile
   }
 
   p {
@@ -79,11 +79,10 @@ const RelationshipSection = styled.div`
   }
 `;
 
-const InfoWrapper = styled.div`
+const InfoWrapper = styled.section`
   display: flex;
   flex-wrap: wrap; // This will allow sections to wrap to the next line if they don't fit
   justify-content: space-between; // Provides even spacing between the sections
-
   @media (max-width: 768px) { // For mobile
     flex-direction: column; // Stack the sections vertically for mobile
     align-items: center;
@@ -94,7 +93,9 @@ const InfoSection = styled.div`
   flex: 1;
   margin: 1rem;
   font-size: 0.9em;
-  width: 100%; // Takes full width on mobile
+  // width: 100%; // Takes full width on mobile
+  padding: .8rem 0;
+  text-align: center;
 
   @media (min-width: 768px) {
     margin: 0 1rem; // Adds horizontal margin on desktop
@@ -122,45 +123,53 @@ function App() {
         <p>Cocktail | Formal Attire</p>
       </InvitationSection>
 
-        <ResponsiveImage src="https://picsum.photos/800/550" alt="Wedding invitation" />
+      <ResponsiveImage src="https://picsum.photos/800/550" alt="Wedding invitation" />
 
-        <Section title="Our Relationship" md={800}>
-          <RelationshipSection>
-            <div>
-              <h2>He said:</h2>
-              {/* Content or story about him will go here */}
-            </div>
-            <div>
-              <h2>She said:</h2>
-              {/* Content or story about her will go here */}
-            </div>
-          </RelationshipSection>
-        </Section>
-        <InfoWrapper>
-          <InfoSection>
-            <Section title="Location">
-              <span style={{ textDecoration: 'underline', color: 'blue' }}>The Evergreen 618 Alder St Portland, Oregon</span>
-            </Section>
-          </InfoSection>
+      <Section title="Our Relationship" md={800}>
+        <RelationshipSection>
+          <div>
+            <h2><em>He said...</em></h2>
+            <blockquote>I love my bee bee</blockquote>
+          </div>
 
-          <InfoSection>
-            <Section title="Arrival">
-              <p>Should you arrive prior to the 4 PM entry time, you are welcome to pop into The Loyal Legion Bar and Restaurant next door and grab a drink until it is time for entry.</p>
-              <p>Please do not enter the venue prior to 4 PM unless otherwise requested by the couple, so as to permit our vendors to complete their set up without interruption.</p>
-            </Section>
-          </InfoSection>
-
-          <InfoSection>
-            <Section title="Weather">
-              <p>This is a climate controlled, indoor event venue with central AC | Heat.</p>
-              <p>Guests should expect outdoor temperatures between 85 and 75 degrees.</p>
-            </Section>
-          </InfoSection>
-        </InfoWrapper>
-
-      <Section md={800}>
-        <Timeline />
+          <div>
+            <h2><em>She said...</em></h2>
+            <blockquote>I love my bee bee</blockquote>
+          </div>
+        </RelationshipSection>
       </Section>
+
+      <InfoWrapper>
+        <InfoSection>
+          <Section title="Location">
+            <span style={{ textDecoration: 'underline', color: 'blue', textAlign: 'center' }}>The Evergreen <br /> 618 Alder St <br /> Portland, Oregon</span>
+          </Section>
+        </InfoSection>
+
+        <InfoSection>
+          <Section title="Weather">
+            <p>This is a climate controlled, indoor event venue with central AC | Heat.</p>
+            <br />
+            <p>Guests should expect outdoor temperatures between 85 and 75 degrees.</p>
+          </Section>
+        </InfoSection>
+
+        <InfoSection>
+          <Section title="Arrival">
+            <p>Should you arrive prior to the 4 PM entry time, you are welcome to pop into The Loyal Legion Bar and Restaurant next door and grab a drink until it is time for entry.</p>
+            <br />
+            <p>Please do not enter the venue prior to 4 PM unless otherwise requested by the couple, so as to permit our vendors to complete their set up without interruption.</p>
+          </Section>
+        </InfoSection>
+
+        <InfoSection>
+          <Section md={800} title='Event Timeline'>
+            <Timeline />
+          </Section>
+        </InfoSection>
+      </InfoWrapper>
+
+
     </>
   );
 }

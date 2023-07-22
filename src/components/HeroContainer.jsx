@@ -22,15 +22,16 @@ const HeroContainer = styled.section`
 `;
 
 
-const HeroText = styled.h1`
+const HeroText = styled.h2`
     font-size: 4.2rem;
     font-weight: 200;
-    margin-bottom: 1.3rem;
+    line-height: 1.3;
 `;
 
 const SubText = styled.p`
     font-size: 2rem;
     font-weight: 300;
+    margin-top: 1.5rem;
     margin-bottom: 2rem;
 `;
 
@@ -45,7 +46,7 @@ const HeroButton = styled(Link)`
 const HeroSection = ({ backgroundImage, heroText, subText, buttonText, buttonLink }) => {
   return (
     <HeroContainer backgroundImage={backgroundImage}>
-      <HeroText>{heroText}</HeroText>
+      {heroText.split(' ').map(char => <HeroText>{char}</HeroText>)}
       <SubText>{subText}</SubText>
       {buttonText && buttonLink && <HeroButton to={buttonLink}>{buttonText}</HeroButton>}
     </HeroContainer>

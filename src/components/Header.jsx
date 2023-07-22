@@ -175,7 +175,18 @@ const Header = () => {
     <animated.div style={fadeIn}>
       <Navbar ref={navbarRef}>
         <NavBrand>
-          <H1>Allegra &amp; Sebastian Wedding</H1>
+          <img
+            style={{ paddingRight: '5px' }}
+            width='30px'
+            height='30px'
+            alt='Nav Brand Icon'
+            src='https://static.vecteezy.com/system/resources/previews/024/251/955/original/coffee-branch-icon-in-black-and-white-color-vector.jpg'
+          />
+          <H1>
+            <em>
+              Our Wedding
+            </em>
+          </H1>
         </NavBrand>
 
         <Hamburger onClick={handleHamburgerClick}>
