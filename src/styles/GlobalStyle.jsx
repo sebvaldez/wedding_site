@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    overflow-x: hidden;
   }
   body {
     line-height: 1;
@@ -32,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
     color: #333;
     background-color: #fff;
     margin: 0;
@@ -45,6 +46,7 @@ const GlobalStyle = createGlobalStyle`
   @media (min-width: 768px) {
     body {
       font-size: 18px;
+      line-heigh: 1.6
     }
   }
 `;
