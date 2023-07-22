@@ -14,7 +14,6 @@ const Navbar = styled.div`
   flex-grow: .5;
   height: 4rem;
   margin: 0 auto;
-  position: relative; // This ensures the dropdown is positioned relative to the navbar
   padding: 0 2rem 0 2rem;
   justify-content: space-between;
   align-item: center;
@@ -113,23 +112,21 @@ const Hamburger = styled.div`
 `;
 
 const DropdownMenu = styled.div`
-  display: flex; // default to flex
+  display: flex;
   align-items: center;
   justify-content: space-evenly;
 
   @media (max-width: 768px) {
-    flex-direction: column; // stack the links vertically
-    position: absolute;
-    top: 100%;  // right below the header
-    width: 200px; // or adjust as needed
-    right: 0;
+    flex-direction: column;
+    position: absolute; // make it absolute so it positions relative to the Navbar
+    top: 100%;  // place it right below the Navbar
+    right: 0; // align it to the right edge of the Navbar
+    width: 200px;
     background-color: white;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    position: fixed;
-    top: 4rem; // or the height of your Navbar
-    right: 0;
-    & a {  // targeting links directly inside the DropdownMenu
-      margin: 0.5rem 0;  // adding vertical margin to space out the links
+
+    & a {
+      margin: 0.5rem 0;
     }
   }
 `;

@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
   }
-  html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, ul, li, form, label, table, tbody, tfoot, thead, tr, th, td {
+  html, body, span, h1, h2, h3, h4, h5, h6, p, a, ul, li, form, label, table, tbody, tfoot, thead, tr, th, td {
     margin: 0;
     padding: 0;
     border: 0;
