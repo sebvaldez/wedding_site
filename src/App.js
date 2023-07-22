@@ -110,7 +110,7 @@ function App() {
   return (
     <>
       <HeroSection
-        backgroundImage="https://theevergreenpdx.com/app/uploads/2015/11/Staheli-Wedding-247-FINAL-2550x1700.jpg"
+        backgroundImage="https://lh3.googleusercontent.com/pw/AIL4fc_pV4EI6MopIz1PGfgJbV-RnSt__AKCpxwloDSLLZyXMsEEXZuFV4jVGywAAPlEZpjhdJMjQU0nCGEiv5h5uayK6G-VvTCL1M4hYauOtSwBX5jF3lMGWY-QMKCknSmbuD0S67ypxQVg2UVsioEMxGbC=w1440-h1800-s-no?authuser=0"
         heroText='Allegra & Sebastian'
         subText="September 8, 2024 · Portland, Oregon"
         buttonText='RSVP'
@@ -140,6 +140,11 @@ function App() {
       </Section>
 
       <InfoWrapper>
+        <HeroSection
+          height={'380px'}
+          backgroundImage="https://theevergreenpdx.com/app/uploads/2015/11/Staheli-Wedding-247-FINAL-2550x1700.jpg"
+          heroText='Wedding Day'
+        />
         <InfoSection>
           <Section title="Location">
             <span style={{ textDecoration: 'underline', color: 'blue', textAlign: 'center' }}>The Evergreen <br /> 618 Alder St <br /> Portland, Oregon</span>
