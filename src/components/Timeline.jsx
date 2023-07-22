@@ -17,7 +17,6 @@ const EventItem = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 5px;
-    border: 1px solid #000;
 `;
 
 const Event = styled.p`
