@@ -7,7 +7,7 @@ const HeroContainer = styled.section`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 600px;
+    height: ${props => props.height ? props.height : '600px'};
     width: 100%;  // Updated from 100vw to 100%
     overflow: hidden;  // Ensure children do not overflow
     display: flex;
@@ -43,9 +43,9 @@ const HeroButton = styled(Link)`
     font-size: 1rem;
 `;
 
-const HeroSection = ({ backgroundImage, heroText, subText, buttonText, buttonLink }) => {
+const HeroSection = ({ height, backgroundImage, heroText, subText, buttonText, buttonLink }) => {
   return (
-    <HeroContainer backgroundImage={backgroundImage}>
+    <HeroContainer height={height} backgroundImage={backgroundImage}>
       {heroText.split(' ').map(char => <HeroText>{char}</HeroText>)}
       <SubText>{subText}</SubText>
       {buttonText && buttonLink && <HeroButton to={buttonLink}>{buttonText}</HeroButton>}
