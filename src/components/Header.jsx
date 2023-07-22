@@ -43,17 +43,6 @@ const StyledNavLink = styled(NavLink)`
   `}
 `;
 
-const Box = styled.div`
-  @media (max-width: 768px) {
-    display: none;  // hide the links on mobile view
-  }
-  display: flex;
-  flex-grow: .3;
-  padding: 0px 0.2rem;
-  align-items: center;
-  justify-content: space-evenly;
-`
-
 const H1 = styled.h1`
   @media (max-width: 768px) {
     font-size: 1rem;  // reduce font size for mobile
