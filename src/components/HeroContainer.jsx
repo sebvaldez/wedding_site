@@ -17,6 +17,8 @@ const HeroContainer = styled.section`
     color: #fff;
     text-align: center;
     padding: 0 2rem;
+    position: relative;
+    z-index: 500;
 `;
 
 

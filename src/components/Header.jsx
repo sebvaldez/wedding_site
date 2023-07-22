@@ -6,14 +6,14 @@ import { useSpring, animated } from 'react-spring';
 const Navbar = styled.div`
   @media (max-width: 768px) {
     padding: 0 1rem;  // reduce padding on mobile
+    z-index: 2000;
+    position: relative;
   }
+
   display: flex;
   flex-grow: .5;
   height: 4rem;
   margin: 0 auto;
-
-
-  margin-bottom: .5rem;
   position: relative; // This ensures the dropdown is positioned relative to the navbar
   padding: 0 2rem 0 2rem;
   justify-content: space-between;
@@ -30,6 +30,7 @@ const NavBrand = styled.div`
   align-items: center;
   justify-content: center;
 `
+
 const StyledNavLink = styled(NavLink)`
   font-family: 'Montserrat', sans-serif; /* Use the font here */
   color: #000000;
@@ -51,6 +52,7 @@ const H1 = styled.h1`
   font-weight: 400;
   font-size: 2rem;
 `
+
 const LargeButtonLink = styled(NavLink)`
   @media (max-width: 375px) {
     font-size: calc((1.1 - 1) * 1.2vw + 0.8rem);
@@ -73,7 +75,7 @@ const LargeButtonLink = styled(NavLink)`
     color: #000;  // Black text
     border: 2px solid #000;  // Black border
 
-    &:hover {  
+    &:hover {
       background-color: #000;  // Black background on hover for active state
       color: #FFF;  // White text on hover
     }
@@ -82,13 +84,12 @@ const LargeButtonLink = styled(NavLink)`
     color: #FFF;  // White text
     border: 2px solid #000;  // Black border
 
-    &:hover {  
+    &:hover {
       background-color: #FFF;  // White background on hover for non-active state
       color: #000;  // Black text on hover
     }
   `}
 `;
-
 
 const Hamburger = styled.div`
   @media (max-width: 768px) {
@@ -124,14 +125,11 @@ const DropdownMenu = styled.div`
     right: 0;
     background-color: white;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    
+    position: fixed;
+    top: 4rem; // or the height of your Navbar
+    right: 0;
     & a {  // targeting links directly inside the DropdownMenu
       margin: 0.5rem 0;  // adding vertical margin to space out the links
-    }
-
-    &.open {
-      display: flex;
     }
   }
 `;
