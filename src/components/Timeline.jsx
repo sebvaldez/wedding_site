@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { animated, useSpring } from 'react-spring';
+import { useInView } from 'react-intersection-observer';
 
 const TimelineContainer = styled.div`
     display: grid;
@@ -28,21 +30,50 @@ const Time = styled.p`
     margin: 0;
 `;
 
+const AnimatedEventItem = animated(EventItem);
+
+const AnimatedTimelineItem = ({ event, time }) => {
+  const [inViewRef, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
+
+  const animationProps = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0px)' : 'translateY(30px)',
+    delay: 100,
+  });
+
+  return (
+    <AnimatedEventItem style={animationProps} ref={inViewRef}>
+      <Event>{event}</Event>
+      <Time>{time}</Time>
+    </AnimatedEventItem>
+  );
+}
+
 const Timeline = () => {
+  const events = [
+    { event: 'Arrival', time: '4:00 PM' },
+    { event: 'Ceremony', time: '4:30 PM' },
+    { event: 'Cocktail Hour', time: '5:00 PM' },
+    { event: 'Find Seating', time: '6:00 PM' },
+    { event: 'Introductions', time: '6:15 PM' },
+    { event: 'First Dance', time: '6:20 PM' },
+    { event: 'Dinner', time: '6:30 PM' },
+    { event: 'Toasts', time: '7:15 PM' },
+    { event: 'Dancing', time: '7:45 PM' },
+    { event: 'Last Call', time: '9:30 PM' },
+    { event: 'Send Off Toast', time: '9:50 PM' },
+    { event: 'Departure', time: '10:00 PM' },
+
+  ];
+
   return (
     <TimelineContainer>
-      <EventItem><Event>Arrival</Event> <Time>4:00 PM</Time></EventItem>
-      <EventItem><Event>Ceremony</Event> <Time>4:30 PM</Time></EventItem>
-      <EventItem><Event>Cocktail Hour</Event> <Time>5:00 PM</Time></EventItem>
-      <EventItem><Event>Find Seating</Event> <Time>6:00 PM</Time></EventItem>
-      <EventItem><Event>Introductions</Event> <Time>6:15 PM</Time></EventItem>
-      <EventItem><Event>First Dance</Event> <Time>6:20 PM</Time></EventItem>
-      <EventItem><Event>Dinner</Event> <Time>6:30 PM</Time></EventItem>
-      <EventItem><Event>Toasts</Event> <Time>7:15 PM</Time></EventItem>
-      <EventItem><Event>Dancing</Event> <Time>7:45 PM</Time></EventItem>
-      <EventItem><Event>Last Call</Event> <Time>9:30 PM</Time></EventItem>
-      <EventItem><Event>Send Off Toast</Event> <Time>9:50 PM</Time></EventItem>
-      <EventItem><Event>Departure</Event> <Time>10:00 PM</Time></EventItem>
+      {events.map((e, index) => (
+        <AnimatedTimelineItem key={index} event={e.event} time={e.time} />
+      ))}
     </TimelineContainer>
   );
 }
