@@ -48,7 +48,6 @@ const CardImage = styled.img`
   max-height: 200px;  // Ensure it doesn't get too tall (optional)
 `;
 
-
 const CardText = styled.p`
   text-align: center;
   margin: 1rem 0;  // Add some spacing between the text and the link

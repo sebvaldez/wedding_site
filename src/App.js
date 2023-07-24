@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import Modal from './components/Modal';
 import HeroSection from './components/HeroContainer';
 import Timeline from './components/Timeline';
 import Container from './components/Container'
+import InfoWrapper from './components/InfoWrapper';
+import InfoSection from './components/InfoSection';
+import ResponsiveImage from './components/ResponsiveImage'
 
 const StyledSectionTitle = styled.h2`
     font-size: 2.2rem;  // Increase the size for the title
@@ -17,13 +22,6 @@ const Section = ({ title, children, ...containerProps }) => (
     {children}
   </Container>
 );
-
-const ResponsiveImage = styled.img`
-  width: 100%;
-  height: auto;
-  display: block;  // To remove any spacing below the image
-  margin: 1rem 0;  // Add some spacing above and below the image
-`;
 
 const InvitationSection = styled.div`
   padding: 2rem 1.4rem;
@@ -79,40 +77,16 @@ const RelationshipSection = styled.div`
   }
 `;
 
-const InfoWrapper = styled.section`
-  display: flex;
-  flex-wrap: wrap; // This will allow sections to wrap to the next line if they don't fit
-  justify-content: space-between; // Provides even spacing between the sections
-  @media (max-width: 768px) { // For mobile
-    flex-direction: column; // Stack the sections vertically for mobile
-    align-items: center;
-  }
-`;
-
-const InfoSection = styled.div`
-  flex: 1;
-  margin: 1rem;
-  font-size: 0.9em;
-  // width: 100%; // Takes full width on mobile
-  padding: .8rem 0;
-  text-align: center;
-
-  @media (min-width: 768px) {
-    margin: 0 1rem; // Adds horizontal margin on desktop
-    max-width: calc(33.33% - 2rem); // Divided by three minus the left and right margins
-    font-size: 1em;
-  }
-`;
-
-
-
 function App() {
+  const [isModalOpen, setModalOpen] = useState(false);
+
   return (
     <>
       <HeroSection
         backgroundImage="https://lh3.googleusercontent.com/pw/AIL4fc_pV4EI6MopIz1PGfgJbV-RnSt__AKCpxwloDSLLZyXMsEEXZuFV4jVGywAAPlEZpjhdJMjQU0nCGEiv5h5uayK6G-VvTCL1M4hYauOtSwBX5jF3lMGWY-QMKCknSmbuD0S67ypxQVg2UVsioEMxGbC=w1440-h1800-s-no?authuser=0"
+        HeroTextFontWeight={'500'}
         heroText='Allegra & Sebastian'
-        subText="September 8, 2024 · Portland, Oregon"
+        subText="September 8, 2024 Portland, Oregon"
         buttonText='RSVP'
         buttonLink='/rsvp'
       />
@@ -120,8 +94,15 @@ function App() {
       <InvitationSection>
         <h1>Please join us on September 8, 2024 as we celebrate our wedding in Portland, Oregon.</h1>
         <br />
-        <p>Cocktail | Formal Attire</p>
+        <p onClick={() => setModalOpen(true)}>Cocktail | Formal Attire</p>
       </InvitationSection>
+
+      {isModalOpen && (
+        <Modal onClose={() => setModalOpen(false)}>
+          {/* Your responsive image */}
+          <img src="https://www.paperlesspost.com/blog/wp-content/uploads/info_cocktail_6-01.png" alt="Cocktail | Formal Attire"  style={{ maxWidth: '100%', height: 'auto' }} />
+        </Modal>
+      )}
 
       <ResponsiveImage src="https://picsum.photos/800/550" alt="Wedding invitation" />
 
@@ -143,11 +124,14 @@ function App() {
         <HeroSection
           height={'380px'}
           backgroundImage="https://theevergreenpdx.com/app/uploads/2015/11/Staheli-Wedding-247-FINAL-2550x1700.jpg"
+          HeroTextFontWeight={'500'}
           heroText='Wedding Day'
         />
         <InfoSection>
           <Section title="Location">
-            <span style={{ textDecoration: 'underline', color: 'blue', textAlign: 'center' }}>The Evergreen <br /> 618 Alder St <br /> Portland, Oregon</span>
+            <Link to='https://www.google.com/maps/place/The+Evergreen/@45.5178488,-122.6592722,17z/data=!3m1!4b1!4m6!3m5!1s0x5495a0a72fdd55f3:0x74f7e22136d74a4e!8m2!3d45.5178488!4d-122.6592722!16s%2Fg%2F11c3vxydlr?entry=ttu' target='_blank'>
+              The Evergreen <br /> 618 Alder St <br /> Portland, Oregon
+            </Link>
           </Section>
         </InfoSection>
 
