@@ -1,11 +1,7 @@
 import styled from 'styled-components'
 import { useSpring, animated, config } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
-import Container from '../components/Container'
 import HeroSection from '../components/HeroContainer'
-import InfoWrapper from '../components/InfoWrapper'
-import InfoSection from '../components/InfoSection'
-import Map from '../components/Map'
 
 // Container for all cards
 const CardContainer = styled.div`
