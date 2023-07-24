@@ -23,13 +23,13 @@ const HeroContainer = styled.section`
 
 
 const HeroText = styled.h2`
-    font-size: 4.2rem;
-    font-weight: 200;
+    font-size: ${props => props.HeroTextFontSize ? props.HeroTextFontSize : '4.2rem'};
+    font-weight: ${props => props.HeroTextFontWeight ? props.HeroTextFontWeight : '200'};
     line-height: 1.3;
 `;
 
 const SubText = styled.p`
-    font-size: 2rem;
+    font-size: ${props => props.SubTextFontSize ? props.SubTextFontSize : '2rem'};
     font-weight: 300;
     margin-top: 1.5rem;
     margin-bottom: 2rem;
@@ -43,11 +43,22 @@ const HeroButton = styled(Link)`
     font-size: 1rem;
 `;
 
-const HeroSection = ({ height, backgroundImage, heroText, subText, buttonText, buttonLink }) => {
+const HeroSection = ({ height, backgroundImage, heroText, HeroTextFontSize, HeroTextFontWeight, subText, SubTextFontSize, buttonText, buttonLink }) => {
   return (
-    <HeroContainer height={height} backgroundImage={backgroundImage}>
-      {heroText.split(' ').map(char => <HeroText>{char}</HeroText>)}
-      <SubText>{subText}</SubText>
+    <HeroContainer
+      height={height}
+      backgroundImage={backgroundImage}
+    >
+      {heroText.split(' ').map(char => (
+        <HeroText
+          HeroTextFontSize={HeroTextFontSize}
+          HeroTextFontWeight={HeroTextFontWeight}
+        >
+          {char}
+        </HeroText>)
+      )
+      }
+      <SubText SubTextFontSize={SubTextFontSize}>{subText}</SubText>
       {buttonText && buttonLink && <HeroButton to={buttonLink}>{buttonText}</HeroButton>}
     </HeroContainer>
   );
