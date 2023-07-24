@@ -72,7 +72,6 @@ const AnimatedCard = animated(Card);
 
 const Hotels = () => {
   const [inViewRef1, inView1] = useInView({ triggerOnce: false, threshold: 0.1 });
-  const [inViewRef2, inView2] = useInView({ triggerOnce: false, threshold: 0.1 });
   const [inViewRef3, inView3] = useInView({ triggerOnce: false, threshold: 0.1 });
   const [inViewRef4, inView4] = useInView({ triggerOnce: false, threshold: 0.1 });
 
@@ -80,13 +79,6 @@ const Hotels = () => {
     opacity: inView1 ? 1 : 0,
     transform: inView1 ? 'translateY(0px)' : 'translateY(30px)',
     delay: 100,
-    config: config.slow
-  });
-
-  const animationProps2 = useSpring({
-    opacity: inView2 ? 1 : 0,
-    transform: inView2 ? 'translateY(0px)' : 'translateY(30px)',
-    delay: 150, // slightly delayed compared to the first card for a staggered effect
     config: config.slow
   });
 
