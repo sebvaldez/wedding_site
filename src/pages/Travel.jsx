@@ -71,8 +71,8 @@ const AnimatedCard = animated(Card);
 
 const Hotels = () => {
   const [inViewRef1, inView1] = useInView({ triggerOnce: false, threshold: 0.1 });
+  const [inViewRef2, inView2] = useInView({ triggerOnce: false, threshold: 0.1 });
   const [inViewRef3, inView3] = useInView({ triggerOnce: false, threshold: 0.1 });
-  const [inViewRef4, inView4] = useInView({ triggerOnce: false, threshold: 0.1 });
 
   const animationProps1 = useSpring({
     opacity: inView1 ? 1 : 0,
@@ -81,16 +81,16 @@ const Hotels = () => {
     config: config.slow
   });
 
-  const animationProps3 = useSpring({
-    opacity: inView3 ? 1 : 0,
-    transform: inView3 ? 'translateY(0px)' : 'translateY(30px)',
+  const animationProps2 = useSpring({
+    opacity: inView2 ? 1 : 0,
+    transform: inView2 ? 'translateY(0px)' : 'translateY(30px)',
     delay: 200, // further delay
     config: config.slow
   });
 
-  const animationProps4 = useSpring({
-    opacity: inView4 ? 1 : 0,
-    transform: inView4 ? 'translateY(0px)' : 'translateY(30px)',
+  const animationProps3 = useSpring({
+    opacity: inView3 ? 1 : 0,
+    transform: inView3 ? 'translateY(0px)' : 'translateY(30px)',
     delay: 250, // even further delay
     config: config.slow
   });
@@ -119,7 +119,7 @@ const Hotels = () => {
           </CardLink>
         </AnimatedCard>
 
-        <AnimatedCard style={animationProps3} ref={inViewRef3}>
+        <AnimatedCard style={animationProps2} ref={inViewRef2}>
           <CardHeader>RESIDENCE INN, PEARL DISTRICT</CardHeader>
           <CardText>
             1150 NW 9th Ave<br />
@@ -134,7 +134,7 @@ const Hotels = () => {
           </CardLink>
         </AnimatedCard>
 
-        <AnimatedCard style={animationProps4} ref={inViewRef4}>
+        <AnimatedCard style={animationProps3} ref={inViewRef3}>
           <CardText>
             Estimated travel time from the above Hotel Blocks to the Wedding Venue is between 8 - 12 minutes on Sundays between 3:00 and 4:00 pm.
           </CardText>
@@ -207,7 +207,6 @@ export const Travel = () => {
       <HeroSection
         backgroundImage="https://i.pinimg.com/originals/1f/83/64/1f8364a507bac22709d0b1c062a5b266.jpg"
         height={'380px'}
-        HeroTextFontSize={'3.2rem'}
         HeroTextFontWeight={'500'}
         heroText="What to Do"
       />
