@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCar, faCircleInfo, faCloudSun, faMapPin, } from '@fortawesome/free-solid-svg-icons';
 import Modal from './components/Modal';
 import HeroSection from './components/HeroContainer';
 import Timeline from './components/Timeline';
@@ -16,9 +18,9 @@ const StyledSectionTitle = styled.h2`
     color: #333;  // Darker color for more contrast
 `;
 
-const Section = ({ title, children, ...containerProps }) => (
+const Section = ({ title, icon, children, ...containerProps }) => (
   <Container {...containerProps}>
-    {title && <StyledSectionTitle>{title}</StyledSectionTitle>}
+    {title && <StyledSectionTitle>{title} {icon && icon}</StyledSectionTitle>}
     {children}
   </Container>
 );
@@ -94,7 +96,7 @@ function App() {
       <InvitationSection>
         <h1>Please join us on September 8, 2024 as we celebrate our wedding in Portland, Oregon.</h1>
         <br />
-        <p onClick={() => setModalOpen(true)}>Cocktail | Formal Attire</p>
+        <p onClick={() => setModalOpen(true)}>Cocktail | Formal Attire <FontAwesomeIcon icon={faCircleInfo} size='md' /></p>
       </InvitationSection>
 
       {isModalOpen && (
@@ -128,7 +130,7 @@ function App() {
           heroText='Wedding Day'
         />
         <InfoSection>
-          <Section title="Location">
+          <Section title="Location" icon={<FontAwesomeIcon icon={faMapPin} size='sm' />}>
             <Link to='https://www.google.com/maps/place/The+Evergreen/@45.5178488,-122.6592722,17z/data=!3m1!4b1!4m6!3m5!1s0x5495a0a72fdd55f3:0x74f7e22136d74a4e!8m2!3d45.5178488!4d-122.6592722!16s%2Fg%2F11c3vxydlr?entry=ttu' target='_blank'>
               The Evergreen <br /> 618 Alder St <br /> Portland, Oregon
             </Link>
@@ -136,7 +138,7 @@ function App() {
         </InfoSection>
 
         <InfoSection>
-          <Section title="Weather">
+          <Section title="Weather" icon={<FontAwesomeIcon icon={faCloudSun} size='sm' />}>
             <p>This is a climate controlled, indoor event venue with central AC | Heat.</p>
             <br />
             <p>Guests should expect outdoor temperatures between 85 and 75 degrees.</p>
@@ -144,7 +146,7 @@ function App() {
         </InfoSection>
 
         <InfoSection>
-          <Section title="Arrival">
+          <Section title="Arrival" icon={<FontAwesomeIcon icon={faCar} size='sm' />}>
             <p>Should you arrive prior to the 4 PM entry time, you are welcome to pop into The Loyal Legion Bar and Restaurant next door and grab a drink until it is time for entry.</p>
             <br />
             <p>Please do not enter the venue prior to 4 PM unless otherwise requested by the couple, so as to permit our vendors to complete their set up without interruption.</p>
