@@ -182,11 +182,13 @@ const Header = () => {
             alt='Nav Brand Icon'
             src='https://static.vecteezy.com/system/resources/previews/024/251/955/original/coffee-branch-icon-in-black-and-white-color-vector.jpg'
           />
-          <H1>
-            <em>
-              Our Wedding
-            </em>
-          </H1>
+          <NavLink to='/'>
+            <H1>
+              <em>
+                Our Wedding
+              </em>
+            </H1>
+          </NavLink>
         </NavBrand>
 
         <Hamburger onClick={handleHamburgerClick}>
