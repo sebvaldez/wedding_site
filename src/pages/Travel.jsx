@@ -165,6 +165,14 @@ export const Travel = () => {
 
       <CardContainer>
         <Card>
+          <CardHeader>
+            The following airlines out of Sacramento International Airport (SMF)
+            and San Franscisco International Airport (SFO) have direct flights to Portland (PDX) throughout the year.
+          </CardHeader>
+        </Card>
+
+
+        <Card>
           <CardImage src='https://logos-world.net/wp-content/uploads/2020/11/United-Airlines-Logo.png' alt="United Airlines Logo" />
           <CardLink href='https://www.united.com/en/us' target='_blank'>
             Book out of SFO
@@ -207,12 +215,9 @@ export const Travel = () => {
 
       <CardContainer>
         <Card>
-          <CardText>
-            With over 90 distinct districts within Portland, the city can be seen as divided into 4 main quadrants for you to explore - North, South, East and West.
-          </CardText>
-          <CardText>
+          <CardHeader>
             Burnside Street divides Portland’s north and south quadrants, while the Willamette River divides it’s east and west quadrants, and there is great food, adventures, and shopping to be had across all.
-          </CardText>
+          </CardHeader>
         </Card>
 
         <Card>
