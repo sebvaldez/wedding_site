@@ -16,40 +16,43 @@ const Navbar = styled.div`
   margin: 0 auto;
   padding: 0 2rem 0 2rem;
   justify-content: space-between;
-  align-item: center;
+  align-items: center;
 `
 
 const NavBrand = styled.div`
   @media (max-width: 768px) {
     margin-left: .5rem;  // reduce margin for mobile
+    padding-left: 0;
   }
   padding: .2rem;
   display:flex;
-  margin-left: 3rem;
+  margin-left: 1rem;
   align-items: center;
   justify-content: center;
 `
 
 const StyledNavLink = styled(NavLink)`
-  font-family: 'Montserrat', sans-serif; /* Use the font here */
+  font-family: 'Montserrat', sans-serif;
   color: #000000;
   text-decoration: none;
   margin: 0 1rem;
 
-  ${props => props.isActive && `
+  &.active{
     color: #ff6347;
     font-weight: bold;
     text-decoration: underline;
-  `}
+  }
 `;
 
 const H1 = styled.h1`
   @media (max-width: 768px) {
     font-size: 1rem;  // reduce font size for mobile
   }
+  // @media (min-width: 769px) {
+  //   font-size: 1.2rem;  // reduce font size for mobile
+  // }
   font-family: 'Montserrat', sans-serif; /* Use the font here */
   font-weight: 400;
-  font-size: 2rem;
 `
 
 const LargeButtonLink = styled(NavLink)`
@@ -61,6 +64,7 @@ const LargeButtonLink = styled(NavLink)`
     font-size: calc((1.1 - 1) * 1.2vw + 0.9rem);
     padding: 1.2rem 1.8rem;
   }
+
   background: transparent;
   border-style: solid;
   border-radius: 0;
@@ -68,39 +72,40 @@ const LargeButtonLink = styled(NavLink)`
   padding: 1.3rem 2.171rem;
   text-decoration: none;
   cursor: pointer;
+  background-color: #000;  // Black background for non-active state
+  color: #FFF;  // White text
+  border: 2px solid #000;  // Black border
+  &:hover {
+    background-color: #FFF;  // White background on hover for non-active state
+    color: #000;  // Black text on hover
+  }
 
-  ${props => props.isActive ? `
-    background-color: #FFF; // White background for active state
-    color: #000;  // Black text
-    border: 2px solid #000;  // Black border
+  &.active {
+    background-color: #ff6347; // White background for active state
+    color: #fff;  // Black text
+    border: 2px solid #fff;  // Black border
 
     &:hover {
       background-color: #000;  // Black background on hover for active state
       color: #FFF;  // White text on hover
     }
-  ` : `
-    background-color: #000;  // Black background for non-active state
-    color: #FFF;  // White text
-    border: 2px solid #000;  // Black border
-
-    &:hover {
-      background-color: #FFF;  // White background on hover for non-active state
-      color: #000;  // Black text on hover
-    }
-  `}
+  }
 `;
 
 const Hamburger = styled.div`
+  @media (min-width: 769px) {
+    display: none;
+  }
+
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
 
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
+  flex-direction: row;
 
   div {
     width: 2rem; // increased width slightly
@@ -115,6 +120,20 @@ const DropdownMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+
+  transform: translateY(0);
+  visibility: visible;
+  @media (min-width: 769px) {
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    flex-direction: row;
+
+    & a {
+      margin: 0.5rem 1rem; // Adjust this to your preference
+    }
+  }
+
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -131,24 +150,24 @@ const DropdownMenu = styled.div`
   }
 `;
 
-
 const AnimatedDropdownMenu = animated(DropdownMenu);
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navbarRef = useRef(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const fadeIn = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    delay: 250,
-  });
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
 
-  const slideDown = useSpring({
-    transform: menuOpen ? 'translateY(0)' : 'translateY(-100%)',
-    visibility: menuOpen ? 'visible' : 'hidden',
-  });
+    window.addEventListener('resize', handleResize);
 
+    return () => {
+      // Cleanup the event listener
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -162,6 +181,21 @@ const Header = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+  const navbarRef = useRef(null);
+
+  const isMobile = windowWidth <= 768; // Check if the viewport width is less than or equal to 768px
+
+  const fadeIn = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    delay: 250,
+  });
+
+  const slideDown = useSpring({
+    transform: isMobile ? (menuOpen ? 'translateY(0)' : 'translateY(-100%)') : 'translateY(0)',
+    visibility: isMobile ? (menuOpen ? 'visible' : 'hidden') : 'visible',
+  });
 
   const handleLinkClick = useCallback(() => {
     setMenuOpen(false);
@@ -201,35 +235,35 @@ const Header = () => {
           <StyledNavLink
             to='/'
             onClick={handleLinkClick}
-            isActive={window.location.pathname === '/'}
+            className="nav-link"
           >
             Wedding
           </StyledNavLink>
           <StyledNavLink
             to='/travel'
             onClick={handleLinkClick}
-            isActive={window.location.pathname === '/travel'}
+            className="nav-link"
           >
             Travel
           </StyledNavLink>
           <StyledNavLink
             to='/registry'
             onClick={handleLinkClick}
-            isActive={window.location.pathname === '/registry'}
+            className="nav-link"
           >
             Registry
           </StyledNavLink>
           <StyledNavLink
             to='/gallery'
             onClick={handleLinkClick}
-            isActive={window.location.pathname === '/gallery'}
+            className="nav-link"
           >
             Gallery
           </StyledNavLink>
           <LargeButtonLink
             to='/rsvp'
             onClick={handleLinkClick}
-            isActive={window.location.pathname === '/rsvp'}
+            className="nav-link"
           >
             RSVP
           </LargeButtonLink>
