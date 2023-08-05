@@ -46,18 +46,6 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-const StyledContainer = styled.div`
-  background-color: #ff6347;
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-
-  & > * {
-    color: #FFF;
-  }
-`;
-
-
 const H1 = styled.h1`
   @media (max-width: 768px) {
     font-size: 1rem;  // reduce font size for mobile
