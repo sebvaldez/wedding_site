@@ -101,12 +101,11 @@ function App() {
 
       {isModalOpen && (
         <Modal onClose={() => setModalOpen(false)}>
-          {/* Your responsive image */}
-          <img src="https://www.paperlesspost.com/blog/wp-content/uploads/info_cocktail_6-01.png" alt="Cocktail | Formal Attire"  style={{ maxWidth: '100%', height: 'auto' }} />
+          <ResponsiveImage src="https://www.paperlesspost.com/blog/wp-content/uploads/info_cocktail_6-01.png" alt="Cocktail | Formal Attire" />
         </Modal>
       )}
 
-      <ResponsiveImage src="https://picsum.photos/800/550" alt="Wedding invitation" />
+      {/* <ResponsiveImage src="https://picsum.photos/800/550" alt="Wedding invitation" /> */}
 
       <Section title="Our Relationship" md={800}>
         <RelationshipSection>
@@ -122,14 +121,14 @@ function App() {
         </RelationshipSection>
       </Section>
 
-      <InfoWrapper>
         <HeroSection
           height={'380px'}
           backgroundImage="https://theevergreenpdx.com/app/uploads/2015/11/Staheli-Wedding-247-FINAL-2550x1700.jpg"
           HeroTextFontWeight={'500'}
           heroText='Wedding Day'
         />
-        <InfoSection>
+      <InfoWrapper>
+        <InfoSection spanColumns>
           <Section title="Location" icon={<FontAwesomeIcon icon={faMapPin} size='sm' />}>
             <Link to='https://www.google.com/maps/place/The+Evergreen/@45.5178488,-122.6592722,17z/data=!3m1!4b1!4m6!3m5!1s0x5495a0a72fdd55f3:0x74f7e22136d74a4e!8m2!3d45.5178488!4d-122.6592722!16s%2Fg%2F11c3vxydlr?entry=ttu' target='_blank'>
               The Evergreen <br /> 618 Alder St <br /> Portland, Oregon
@@ -137,15 +136,15 @@ function App() {
           </Section>
         </InfoSection>
 
-        <InfoSection>
+        <InfoSection spanColumns>
           <Section title="Weather" icon={<FontAwesomeIcon icon={faCloudSun} size='sm' />}>
             <p>This is a climate controlled, indoor event venue with central AC | Heat.</p>
             <br />
-            <p>Guests should expect outdoor temperatures between 85 and 75 degrees.</p>
+            <p>Guests should expect outdoor temperatures between 75 and 85 degrees.</p>
           </Section>
         </InfoSection>
 
-        <InfoSection>
+        <InfoSection spanColumns>
           <Section title="Arrival" icon={<FontAwesomeIcon icon={faCar} size='sm' />}>
             <p>Should you arrive prior to the 4 PM entry time, you are welcome to pop into The Loyal Legion Bar and Restaurant next door and grab a drink until it is time for entry.</p>
             <br />
@@ -153,7 +152,7 @@ function App() {
           </Section>
         </InfoSection>
 
-        <InfoSection>
+        <InfoSection spanColumns>
           <Section md={800} title='Event Timeline'>
             <Timeline />
           </Section>
