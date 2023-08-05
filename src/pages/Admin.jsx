@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from 'styled-components';
 
 const LoginContainer = styled.div`
@@ -61,67 +62,69 @@ const LoginButton = styled.button`
 `;
 
 const Admin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const { loginWithRedirect } = useAuth0();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  return <button onClick={() => loginWithRedirect()}>Log In</button>;
+  // const [email, setEmail] = useState('');
+  // const [passwordx , setPassword] = useState('');
+  // const navigate = useNavigate();
 
-    const isAuthenticated = mockApiCall(email, password);
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
 
-    if (isAuthenticated) {
-      navigate('/dashboard');
-    } else {
-      alert('Invalid credentials. Please try again.');
-    }
-  };
+  //   const isAuthenticated = mockApiCall(email, password);
 
-  const mockApiCall = (email, password) => {
-    const validEmails = [
-      'valdez.sebastian@gmail.com',
-      'allegracesena@gmail.com',
-      'dev@example.com'
-    ];
+  //   if (isAuthenticated) {
+  //     navigate('/dashboard');
+  //   } else {
+  //     alert('Invalid credentials. Please try again.');
+  //   }
+  // };
 
-    if (validEmails.includes(email) && password === 'admin') {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  // const mockApiCall = (email, password) => {
+  //   const validEmails = [
+  //     'valdez.sebastian@gmail.com',
+  //     'allegracesena@gmail.com',
+  //     'dev@example.com'
+  //   ];
 
+  //   if (validEmails.includes(email) && password === 'admin') {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
-  return (
-    <>
-      <LoginContainer>
-        <Heading>Admin Login</Heading>
-        <form onSubmit={handleLogin}>
-          <InputGroup>
-            <Label>Email:</Label>
-            <Input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </InputGroup>
+  // return (
+  //   <>
+  //     <LoginContainer>
+  //       <Heading>Admin Login</Heading>
+  //       <form onSubmit={handleLogin}>
+  //         <InputGroup>
+  //           <Label>Email:</Label>
+  //           <Input
+  //             type="email"
+  //             value={email}
+  //             onChange={(e) => setEmail(e.target.value)}
+  //             required
+  //           />
+  //         </InputGroup>
 
-          <InputGroup>
-            <Label>Password:</Label>
-            <Input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </InputGroup>
+  //         <InputGroup>
+  //           <Label>Password:</Label>
+  //           <Input
+  //             type="password"
+  //             value={password}
+  //             onChange={(e) => setPassword(e.target.value)}
+  //             required
+  //           />
+  //         </InputGroup>
 
-          <LoginButton type="submit">Login</LoginButton>
-        </form>
-      </LoginContainer>
-    </>
-  );
+  //         <LoginButton type="submit">Login</LoginButton>
+  //       </form>
+  //     </LoginContainer>
+  //   </>
+  // );
 };
 
 export default Admin;

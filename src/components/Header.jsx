@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSpring, animated } from 'react-spring';
+import { useAuth0 } from "@auth0/auth0-react";
+import LogoutButton from './Logout';
 
 const Navbar = styled.div`
   @media (max-width: 768px) {
@@ -43,6 +45,18 @@ const StyledNavLink = styled(NavLink)`
     text-decoration: underline;
   }
 `;
+
+const StyledContainer = styled.div`
+  background-color: #ff6347;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+
+  & > * {
+    color: #FFF;
+  }
+`;
+
 
 const H1 = styled.h1`
   @media (max-width: 768px) {
@@ -155,6 +169,8 @@ const AnimatedDropdownMenu = animated(DropdownMenu);
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { isAuthenticated } = useAuth0();
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -232,6 +248,21 @@ const Header = () => {
         </Hamburger>
 
         <AnimatedDropdownMenu style={slideDown}>
+          {
+            isAuthenticated && (
+              <>
+                <StyledNavLink
+                  to='/dashboard'
+                  onClick={handleLinkClick}
+                  activeClassName="active"
+                >
+                  Dashboard
+                </StyledNavLink>
+                <LogoutButton />
+              </>
+            )
+          }
+
           <StyledNavLink
             to='/'
             onClick={handleLinkClick}
