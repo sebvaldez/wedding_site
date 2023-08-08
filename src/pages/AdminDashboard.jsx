@@ -2,33 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Container from '../components/Container'
 import { useTable, useSortBy, usePagination } from 'react-table';
-// import data from '../utils/dummyFamilyData.json';
-
-let data = [
-  {
-    "firstName": "Allegra",
-    "lastName": "Cesena",
-    "email": "allegracesena@gmail.com",
-    "phoneNumber": 2096630485,
-    "checkIn": false,
-    "plannedTransportation": "Renting a Car",
-    "dinnerSelection": "Vegetable Polenta Torte",
-    "specialSippingpreference": "Red Wine",
-    "emailedInvitation": true
-  },
-  {
-    "firstName": "Sebastian",
-    "lastName": "Valdez",
-    "email": "valdez.sebastian4@gmail.com",
-    "phoneNumber": 4152994331,
-    "checkIn": true,
-    "plannedTransportation": "Uber or Lyft",
-    "dinnerSelection": "Chicken Saltimcbocca",
-    "specialSippingpreference": "IPA",
-    "emailedInvitation": false
-  },
-];
-
+import { useGetAllMembers } from '../hooks/members';
+import { useSendEmail, useSendText } from '../hooks/communications';
+import Toast from '../components/Toast';
 
 const TextReminderButton = styled.button`
   padding: 8px 20px;
@@ -67,7 +43,7 @@ const AlreadySentButton = styled(TextReminderButton)`
   background-color: lightgray;
 `;
 
-function MyTable({ handleTextReminderClick, handleEmailInvitation, columns }) {
+function MyTable({ columns, data }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -180,14 +156,12 @@ function MyTable({ handleTextReminderClick, handleEmailInvitation, columns }) {
 }
 
 const AdminDashboard = () => {
+  const { data: members, isLoading, isError, error } = useGetAllMembers();
+  const { mutate: sendText, isLoading: isTextLoading, toastMessage: textToastMessage } = useSendText()
+  const { mutate: sendEmail, isLoading: isEmailLoading, toastMessage: emailToastMessage } = useSendEmail();
 
-  const handleTextReminderClick = (guest) => {
-    window.alert(`Sent text to ${guest.firstName} ${guest.lastName} at: ${guest.phoneNumber}`);
-  };
-
-  const handleEmailInvitation = (guest) => {
-    window.alert(`Emailed invitation to ${guest.email}`);
-  };
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error: {error.message}</p>;
 
   const columns = [
     {
@@ -236,8 +210,10 @@ const AdminDashboard = () => {
       Header: "Text Reminder",
       disableSortBy: true,
       Cell: ({ row: { original } }) => (
-        <TextReminderButton onClick={() => handleTextReminderClick(original)}>
-          Text Reminder
+        <TextReminderButton
+          disabled={isTextLoading}
+          onClick={() => sendText({ memberId: original.id, firstName: original.firstName }) }>
+            Text Reminder
         </TextReminderButton>
       )
     },
@@ -247,14 +223,16 @@ const AdminDashboard = () => {
       Cell: ({ row: { original } }) => {
         if (original.emailedInvitation) {
           return (
-            <AlreadySentButton disabled onClick={() => handleEmailInvitation(original)}>
+            <AlreadySentButton disabled onClick={() => sendEmail({ memberId: original.id, firstName: original.firstName }) }>
               Invitation Sent
             </AlreadySentButton>
           );
         } else {
           return (
-            <TextReminderButton onClick={() => handleEmailInvitation(original)}>
-              Send Invitation
+            <TextReminderButton
+              disabled={isEmailLoading}
+              onClick={() => sendEmail({ memberId: original.id, firstName: original.firstName }) }>
+                Send Invitation
             </TextReminderButton>
           );
         }
@@ -265,10 +243,11 @@ const AdminDashboard = () => {
   return (
     <Container>
       <MyTable
-        handleTextReminderClick={handleTextReminderClick}
-        handleEmailInvitation={handleEmailInvitation}
+        data={members}
         columns={columns}
       />
+    {textToastMessage && <Toast message={textToastMessage} />}
+    {emailToastMessage && <Toast message={emailToastMessage} />}
     </Container>
   );
 }
