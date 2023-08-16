@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import ApiProvider from './providers/ApiProvider';
 import { GlobalFonts, GlobalStyle } from './styles';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 import App from './App';
 import Admin from './pages/Admin';
 import { FourOhFour } from './pages/FourOhFour';
@@ -46,7 +47,11 @@ root.render(
             <Route path='/gallery' element={<Gallery />} />
             <Route path='/travel' element={<Travel />} />
             <Route path='/registry' element={<WeddingRegistry />} />
-            <Route path='/rsvp' element={<Rsvp />} />
+            {/* <Route path='/rsvp' element={
+              <ApiProvider>
+                <Rsvp />
+              </ApiProvider>
+            } /> */}
             <Route path='*' element={<FourOhFour />} />
           </Routes>
           <Footer />
