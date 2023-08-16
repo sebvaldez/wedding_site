@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Container from '../components/Container';
+import Container from '../components/common/Container';
 
 const timRobinsonGifs = [
   'https://media.giphy.com/media/bjB3gtFvREqqr5NAHW/giphy.gif',

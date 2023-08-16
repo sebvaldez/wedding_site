@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useSpring, animated, config } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
-import HeroSection from '../components/HeroContainer'
+import HeroSection from '../components/layout/HeroContainer'
 
 // Container for all cards
 const CardContainer = styled.div`

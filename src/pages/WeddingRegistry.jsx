@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import Container from '../components/Container'
-import HeroSection from '../components/HeroContainer'
+import Container from '../components/common/Container'
+import HeroSection from '../components/layout/HeroContainer'
 
 export const WeddingRegistry = () => {
   return (

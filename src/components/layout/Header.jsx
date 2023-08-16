@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSpring, animated } from 'react-spring';
 import { useAuth0 } from "@auth0/auth0-react";
-import LogoutButton from './Logout';
+import LogoutButton from '../Logout';
 
 const Navbar = styled.div`
   @media (max-width: 768px) {

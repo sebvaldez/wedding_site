@@ -2,28 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCar, faCircleInfo, faCloudSun, faMapPin, } from '@fortawesome/free-solid-svg-icons';
-import Modal from './components/Modal';
-import HeroSection from './components/HeroContainer';
+import { faCar, faCircleInfo, faMapPin, } from '@fortawesome/free-solid-svg-icons';
+import Modal from './components/common/Modal';
+import HeroSection from './components/layout/HeroContainer';
 import Timeline from './components/Timeline';
-import Container from './components/Container'
+import Section from './components/layout/Section';
 import InfoWrapper from './components/InfoWrapper';
-import InfoSection from './components/InfoSection';
-import ResponsiveImage from './components/ResponsiveImage'
-
-const StyledSectionTitle = styled.h2`
-    font-size: 2.2rem;  // Increase the size for the title
-    margin-bottom: 1.5rem;  // Space below the h2 heading
-    font-weight: thin;  // Bold font weight to make it stand out
-    color: #333;  // Darker color for more contrast
-`;
-
-const Section = ({ title, icon, children, ...containerProps }) => (
-  <Container {...containerProps}>
-    {title && <StyledSectionTitle>{title} {icon && icon}</StyledSectionTitle>}
-    {children}
-  </Container>
-);
+import InfoSection from './components/layout/InfoSection';
+import ResponsiveImage from './components/layout/ResponsiveImage'
+import WeatherSection from './components/WeatherSection';
 
 const InvitationSection = styled.div`
   padding: 2rem 1.4rem;
@@ -137,11 +124,7 @@ function App() {
         </InfoSection>
 
         <InfoSection spanColumns>
-          <Section title="Weather" icon={<FontAwesomeIcon icon={faCloudSun} size='sm' />}>
-            <p>This is a climate controlled, indoor event venue with central AC | Heat.</p>
-            <br />
-            <p>Guests should expect outdoor temperatures between 75 and 85 degrees.</p>
-          </Section>
+          <WeatherSection />
         </InfoSection>
 
         <InfoSection spanColumns>

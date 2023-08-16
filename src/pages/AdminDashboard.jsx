@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Container from '../components/Container'
 import { useTable, useSortBy, usePagination } from 'react-table';
 import { useGetAllMembers } from '../hooks/members';
 import { useSendEmail, useSendText } from '../hooks/communications';
-import Toast from '../components/Toast';
+import Toast from '../components/common/Toast';
 
 const TextReminderButton = styled.button`
   padding: 8px 20px;
@@ -17,9 +16,11 @@ const TextReminderButton = styled.button`
 `;
 
 const StyledTable = styled.table`
-  width: 100%;
+  // width: 100%;
+  // padding .2rem 2rem;
   border-collapse: collapse;
-
+  // margin: .5rem auto;
+  align-text: center;
   th, td {
     border: 1px solid #ddd;
     padding: 8px 12px;
@@ -155,6 +156,26 @@ function MyTable({ columns, data }) {
   );
 }
 
+/*
+
+toughts for admin dashboard
+
+table with all users
+show/hide column gear
+  looks at view view port for defaults
+
+stats page:
+  from sendGrid for opened emails
+  chart show users updates over time
+
+  /admin/dashboard
+  /admin/stats
+
+  do we need to change 'admin' button
+
+*/
+
+
 const AdminDashboard = () => {
   const { data: members, isLoading, isError, error } = useGetAllMembers();
   const { mutate: sendText, isLoading: isTextLoading, toastMessage: textToastMessage } = useSendText()
@@ -241,14 +262,14 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <Container>
+    <>
       <MyTable
         data={members}
         columns={columns}
       />
     {textToastMessage && <Toast message={textToastMessage} />}
     {emailToastMessage && <Toast message={emailToastMessage} />}
-    </Container>
+    </>
   );
 }
 
