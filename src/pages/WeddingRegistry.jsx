@@ -116,7 +116,7 @@ export const WeddingRegistry = () => {
   return (
     <Container md>
       <HeroSection
-        backgroundImage="https://picsum.photos/3840/2400"
+        backgroundImage="https://demo.dethemes.com/story/topbar-multipage/images/gift-registry-1.jpg"
         heroText="Registry"
         height={'400px'}
       />
