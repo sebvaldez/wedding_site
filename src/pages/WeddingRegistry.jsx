@@ -114,7 +114,7 @@ const registyList = [
 
 export const WeddingRegistry = () => {
   return (
-    <Container md>
+    <Container>
       <HeroSection
         backgroundImage="https://demo.dethemes.com/story/topbar-multipage/images/gift-registry-1.jpg"
         heroText="Registry"
@@ -128,12 +128,13 @@ export const WeddingRegistry = () => {
       </Message>
 
       <RegistryContainer>
-        { registyList.map(item => (
-          <RegistryItem style={{backgroundImage: `url(${item.logo})`}}>
+        { registyList.map((item, idx) => (
+          <RegistryItem key={idx} style={{backgroundImage: `url(${item.logo})`}}>
             <RegistryLink href={item.url} target='_blank' aria-label={`Link to ${item.vendor} registry`}></RegistryLink>
           </RegistryItem>
         ))}
       </RegistryContainer>
+
     </Container>
   )
 }

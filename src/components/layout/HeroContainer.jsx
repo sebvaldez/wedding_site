@@ -19,8 +19,7 @@ const HeroContainer = styled.section`
     padding: 0 2rem;
     position: relative;
     z-index: 500;
-`;
-
+`
 
 const HeroText = styled.h2`
     font-size: ${props => props.HeroTextFontSize ? props.HeroTextFontSize : '4.2rem'};
@@ -49,8 +48,9 @@ const HeroSection = ({ height, backgroundImage, heroText, HeroTextFontSize, Hero
       height={height}
       backgroundImage={backgroundImage}
     >
-      {heroText.split(' ').map(char => (
+      {heroText.split(' ').map((char, idx) => (
         <HeroText
+          key={idx}
           HeroTextFontSize={HeroTextFontSize}
           HeroTextFontWeight={HeroTextFontWeight}
         >
