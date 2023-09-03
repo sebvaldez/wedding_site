@@ -19,6 +19,11 @@ const HeroContainer = styled.section`
     padding: 0 2rem;
     position: relative;
     z-index: 500;
+
+    @media (max-width: 768px) {  // This is a typical breakpoint for mobile, adjust as necessary
+      height: 320px;
+      background-size: 105%;  // Increasing the size to "zoom out"
+  }
 `
 
 const HeroText = styled.h2`

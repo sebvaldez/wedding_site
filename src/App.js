@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCar, faCircleInfo, faMapPin, } from '@fortawesome/free-solid-svg-icons';
-import Modal from './components/common/Modal';
+import { faCar, faMapPin, } from '@fortawesome/free-solid-svg-icons';
 import HeroSection from './components/layout/HeroContainer';
 import Timeline from './components/Timeline';
 import Section from './components/layout/Section';
@@ -67,40 +66,32 @@ const RelationshipSection = styled.div`
 `;
 
 function App() {
-  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <>
       <HeroSection
-        backgroundImage="https://lh3.googleusercontent.com/pw/AIL4fc_pV4EI6MopIz1PGfgJbV-RnSt__AKCpxwloDSLLZyXMsEEXZuFV4jVGywAAPlEZpjhdJMjQU0nCGEiv5h5uayK6G-VvTCL1M4hYauOtSwBX5jF3lMGWY-QMKCknSmbuD0S67ypxQVg2UVsioEMxGbC=w1440-h1800-s-no?authuser=0"
-        HeroTextFontWeight={'500'}
-        heroText='Allegra & Sebastian'
-        subText="September 8, 2024 Portland, Oregon"
-        buttonText='RSVP'
-        buttonLink='/rsvp'
+        backgroundImage="https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/asw_home_img_web.jpg"
+        HeroTextFontWeight={'350'}
+        heroText=' '
+        subText=' '
       />
 
       <InvitationSection>
-        <h1>Please join us on September 8, 2024 as we celebrate our wedding in Portland, Oregon.</h1>
-        <br />
-        <p onClick={() => setModalOpen(true)}>Cocktail | Formal Attire <FontAwesomeIcon icon={faCircleInfo} size='md' /></p>
+        <h1>
+          <em>Please join us on September 8, 2024 as we celebrate our wedding in Portland, Oregon.</em>
+        </h1>
       </InvitationSection>
 
-      {isModalOpen && (
-        <Modal onClose={() => setModalOpen(false)}>
-          <ResponsiveImage src="https://www.paperlesspost.com/blog/wp-content/uploads/info_cocktail_6-01.png" alt="Cocktail | Formal Attire" />
-        </Modal>
-      )}
-
-      {/* <ResponsiveImage src="https://picsum.photos/800/550" alt="Wedding invitation" /> */}
-
-      <Section title="Our Relationship" md={800}>
+      <Section title="Our Relationship">
         <RelationshipSection>
+          <ResponsiveImage height={'380px'} src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/he_said_img_web.jpg'/>
           <div>
             <h2><em>He said...</em></h2>
             <blockquote>I love my bee bee</blockquote>
           </div>
 
+
+          <ResponsiveImage height={'380px'} src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/she_said_img_web.jpg'/>
           <div>
             <h2><em>She said...</em></h2>
             <blockquote>I love my bee bee</blockquote>
@@ -110,7 +101,7 @@ function App() {
 
         <HeroSection
           height={'380px'}
-          backgroundImage="https://theevergreenpdx.com/app/uploads/2015/11/Staheli-Wedding-247-FINAL-2550x1700.jpg"
+          backgroundImage="https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/the_evergreen.jpg"
           HeroTextFontWeight={'500'}
           heroText='Wedding Day'
         />
@@ -120,6 +111,24 @@ function App() {
             <Link to='https://www.google.com/maps/place/The+Evergreen/@45.5178488,-122.6592722,17z/data=!3m1!4b1!4m6!3m5!1s0x5495a0a72fdd55f3:0x74f7e22136d74a4e!8m2!3d45.5178488!4d-122.6592722!16s%2Fg%2F11c3vxydlr?entry=ttu' target='_blank'>
               The Evergreen <br /> 618 Alder St <br /> Portland, Oregon
             </Link>
+          </Section>
+        </InfoSection>
+
+        <InfoSection spanColumns>
+          <Section title='Event Attire'>
+            <h1 style={{ fontSize: '1.5rem'}}>Cocktail</h1>
+            <ResponsiveImage src="https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/attire_img.png" alt="Wedding invitation" />
+            <p>
+              All guests are welcome (but not required) to dress in our color palette!
+            </p>
+
+            <br />
+
+            <h2><em style={{ fontWeight: '600'}}>Please refrain from wearing the following items:</em></h2>
+            <p>
+              <em style={{ fontWeight: '600'}}>Denim, Shorts, Baseball Caps, Athletic Wear, Athletic Shoes.</em>
+            </p>
+
           </Section>
         </InfoSection>
 
