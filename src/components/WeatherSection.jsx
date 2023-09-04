@@ -1,6 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudSun } from '@fortawesome/free-solid-svg-icons';
 import Section from './layout/Section';
 
 // const dummyForecastData = {
@@ -52,12 +50,6 @@ const WeatherSection = () => {
     <div>
       <Section
         title="Weather"
-        icon={
-          <FontAwesomeIcon
-            icon={faCloudSun}
-            size='sm'
-          />
-        }
       >
         Expect temperatures between 75-85 degrees F
         {/* <p><strong>City:</strong> {dummyForecastData.city}</p>
