@@ -6,10 +6,12 @@ const GlobalFonts = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Bellota+Text:wght@100;200;300;400&display=swap');
 
   body {
-    font-family: 'Montserrat', sans-serif; /* Use the font here */
-    /* font-family: 'Tenor Sans', serif; */
+    font-family: 'Montserrat', sans-serif;
     /* font-family: 'Bellota Text', cursive; */
     /* uncomment the font you want to use */
+  }
+  h2 {
+    font-family: 'Tenor Sans', serif;
   }
 `;
 
