@@ -2,6 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+const overlayMixin = `
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1; // Reduced from -500 to ensure it's just behind the content
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+`;
+
 const HeroContainer = styled.section`
     background-image: url(${props => props.backgroundImage});
     background-position: center;
@@ -21,18 +34,7 @@ const HeroContainer = styled.section`
     z-index: 500;
     text-shadow: 0px 4px 15px rgb(43 40 40 / 75%);
 
-
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      bottom: 0px;
-      left: 0px;
-      z-index: -500;
-      background-color: rgba(0,0,0,0.25);
-  }
+    ${({ overlay }) => overlay && overlayMixin}
 `
 
 const HeroText = styled.h2`
@@ -56,9 +58,10 @@ const HeroButton = styled(Link)`
     font-size: 1rem;
 `;
 
-const HeroSection = ({ height, backgroundImage, heroText, HeroTextFontSize, HeroTextFontWeight, subText, SubTextFontSize, buttonText, buttonLink }) => {
+const HeroSection = ({ height, overlay=true, backgroundImage, heroText, HeroTextFontSize, HeroTextFontWeight, subText, SubTextFontSize, buttonText, buttonLink }) => {
   return (
     <HeroContainer
+      overlay={overlay}
       height={height}
       backgroundImage={backgroundImage}
     >

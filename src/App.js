@@ -73,6 +73,7 @@ function App() {
       <HeroSection
         backgroundImage="https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/asw_home_img_web.jpg"
         HeroTextFontWeight={'350'}
+        overlay={false}
         heroText=' '
         subText=' '
       />
