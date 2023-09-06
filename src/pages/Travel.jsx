@@ -158,7 +158,7 @@ export const Travel = () => {
         height={'400px'}
         backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/portland_travel_hero_img.jpg'
         HeroTextFontSize={'5rem'}
-        HeroTextFontWeight={'500'}
+        HeroTextFontWeight={'300'}
         heroText="Travel"
       />
 
@@ -197,7 +197,7 @@ export const Travel = () => {
       <HeroSection
         backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/where_to_stay_img.jpg'
         height={'400px'}
-        HeroTextFontWeight={'500'}
+        HeroTextFontWeight={'300'}
         heroText="Where to Stay"
         SubTextFontSize={'1.8rem'}
       />
@@ -206,8 +206,8 @@ export const Travel = () => {
 
       <HeroSection
         backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/rose_garden_img.jpg'
-        height={'380px'}
-        HeroTextFontWeight={'500'}
+        height={'400px'}
+        HeroTextFontWeight={'300'}
         heroText="What to Do"
       />
 
