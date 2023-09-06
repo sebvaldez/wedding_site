@@ -7,7 +7,7 @@ import LogoutButton from '../Logout';
 
 const Navbar = styled.div`
   @media (max-width: 768px) {
-    padding: 0 1rem;  // reduce padding on mobile
+    padding: 0 2rem 0 0;  // reduce padding on mobile
     z-index: 2000;
     position: relative;
   }
@@ -22,15 +22,22 @@ const Navbar = styled.div`
 `
 
 const NavBrand = styled.div`
-  @media (max-width: 768px) {
-    margin-left: .5rem;  // reduce margin for mobile
+@media (max-width: 768px) {
+    margin-left: .5rem;
     padding-left: 0;
   }
+
   padding: .2rem;
   display:flex;
-  margin-left: 1rem;
   align-items: center;
-  justify-content: center;
+  gap: .3rem;
+  justify-content: flex-left;
+  z-indez: 1000;
+
+  img {
+    padding: .4rem;
+    width: 18%;
+  }
 `
 
 const StyledNavLink = styled(NavLink)`
@@ -50,10 +57,7 @@ const H1 = styled.h1`
   @media (max-width: 768px) {
     font-size: 1rem;  // reduce font size for mobile
   }
-  // @media (min-width: 769px) {
-  //   font-size: 1.2rem;  // reduce font size for mobile
-  // }
-  font-family: 'Montserrat', sans-serif; /* Use the font here */
+  font-family: 'Tenor Sans', serif;
   font-weight: 400;
 `
 
@@ -214,11 +218,8 @@ const Header = () => {
       <Navbar ref={navbarRef}>
         <NavBrand>
           <img
-            style={{ paddingRight: '5px' }}
-            width='30px'
-            height='30px'
-            alt='Nav Brand Icon'
-            src='https://static.vecteezy.com/system/resources/previews/024/251/955/original/coffee-branch-icon-in-black-and-white-color-vector.jpg'
+            alt='Allegra and Sebastian Wedding Icon'
+            src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/header/navbrand_logo.png'
           />
           <NavLink to='/'>
             <H1>
