@@ -26,7 +26,6 @@ const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: .2rem .2rem;
 
   ${props => props.sm && media.sm`width: ${props.sm}px;`}
   ${props => props.md && media.md`width: ${props.md}px;`}
