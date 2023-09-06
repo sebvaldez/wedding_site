@@ -19,10 +19,19 @@ const HeroContainer = styled.section`
     padding: 0 2rem;
     position: relative;
     z-index: 500;
+    text-shadow: 0px 4px 15px rgb(43 40 40 / 75%);
 
-    @media (max-width: 768px) {  // This is a typical breakpoint for mobile, adjust as necessary
-      height: 320px;
-      background-size: 105%;  // Increasing the size to "zoom out"
+
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      z-index: -500;
+      background-color: rgba(0,0,0,0.25);
   }
 `
 

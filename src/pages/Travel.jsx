@@ -127,7 +127,7 @@ const Hotels = () => {
             (503) 220-1339
           </CardText>
           <CardLink
-            href='https://www.marriott.com/en-us/hotels/pdxpd-residence-inn-portland-downtown-pearl-district/overview/'
+            href='https://www.marriott.com/event-reservations/reservation-link.mi?id=1689711999522&key=GRP&app=resvlink'
             target='_blank'
           >
             BOOK NOW
@@ -156,7 +156,7 @@ export const Travel = () => {
     <>
       <HeroSection
         height={'400px'}
-        backgroundImage="https://images.unsplash.com/photo-1589211963780-1f74f3864f74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/portland_travel_hero_img.jpg'
         HeroTextFontSize={'5rem'}
         HeroTextFontWeight={'500'}
         heroText="Travel"
@@ -172,31 +172,31 @@ export const Travel = () => {
 
 
         <Card>
-          <CardImage src='https://logos-world.net/wp-content/uploads/2020/11/United-Airlines-Logo.png' alt="United Airlines Logo" />
+          <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/united_airlines_logo.png' alt="United Airlines Logo" />
           <CardLink href='https://www.united.com/en/us' target='_blank'>
-            Book out of SFO
+            Book out of SFO | DEN
           </CardLink>
         </Card>
 
         <Card>
-          <CardImage src='https://1000logos.net/wp-content/uploads/2019/08/southwest-airlines-logo.png' alt="Southwest Airlines Logo" />
+          <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/southwest_airlines_logo.png' alt="Southwest Airlines Logo" />
           <CardLink href='https://www.southwest.com/' target='_blank'>
-            Book out of SMF
+            Book out of SMF | DEN
           </CardLink>
         </Card>
 
         <Card>
-          <CardImage src='https://www.logo.wine/a/logo/Alaska_Airlines/Alaska_Airlines-Logo.wine.svg' alt="Airline Logo" />
+          <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/alaska_airlines_logo.svg' alt="Alaska Airlines Logo" />
           <CardLink href='https://www.alaskaair.com/' target='_blank'>
-            Book out of SMF or SFO
+            Book out of SMF | SFO
           </CardLink>
         </Card>
 
       </CardContainer>
 
       <HeroSection
-        backgroundImage="https://jesswandering.com/wp-content/uploads/2021/09/Cabin-5-819x1024.jpg"
-        height={'380px'}
+        backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/where_to_stay_img.jpg'
+        height={'400px'}
         HeroTextFontWeight={'500'}
         heroText="Where to Stay"
         SubTextFontSize={'1.8rem'}
@@ -205,7 +205,7 @@ export const Travel = () => {
       <Hotels />
 
       <HeroSection
-        backgroundImage="https://i.pinimg.com/originals/1f/83/64/1f8364a507bac22709d0b1c062a5b266.jpg"
+        backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/rose_garden_img.jpg'
         height={'380px'}
         HeroTextFontWeight={'500'}
         heroText="What to Do"
@@ -219,21 +219,21 @@ export const Travel = () => {
         </Card>
 
         <Card>
-          <CardLink href="https://goo.gl/maps/esqCoN5YsChviWbAA" target='_blank'>EAT AND DRINK</CardLink>
+          <CardLink href='https://goo.gl/maps/esqCoN5YsChviWbAA' target='_blank'>EAT AND DRINK</CardLink>
           <CardText>
             At food carts, subterranean bars, and white-tablecloth restaurants, chefs gather some of the region’s finest ingredients to transform into immaculate sushi, handmade pastas, and imaginative pintxos. For a city its size, Portland’s restaurant scene is impressively multifaceted — traditional and offbeat, covering hundreds of cuisines from various countries and regions around the world.
           </CardText>
         </Card>
 
         <Card>
-          <CardLink href="https://goo.gl/maps/7pjs5JGQZoyweF2C9" target='_blank'>CHOOSE YOUR ADVENTURE</CardLink>
+          <CardLink href='https://goo.gl/maps/7pjs5JGQZoyweF2C9' target='_blank'>CHOOSE YOUR ADVENTURE</CardLink>
           <CardText>
             You’ve heard the saying, “Keep Portland weird,” but its also full of wonder. Across every one of its bridges is a unique experience waiting. Whether you’re looking for outdoor recreation, live music, sporting events, or amusement parks, the city has endless options for all.
           </CardText>
         </Card>
 
         <Card>
-          <CardLink href="https://goo.gl/maps/o8vb5zRvQQD4yMrNA" target='_blank'>GET THRIFTY</CardLink>
+          <CardLink href='https://goo.gl/maps/o8vb5zRvQQD4yMrNA' target='_blank'>GET THRIFTY</CardLink>
           <CardText>
             Portland boasts nearly 50 vintage shops, offering up meticulously curated — and constantly updated — collections of costume jewelry, traditionally tailored suits and, of course, racks upon racks of dresses that span decades. The city’s vintage bounty has fashion-savvy visitors stuffing their suitcases to the limit with secondhand goodies.
           </CardText>
