@@ -68,57 +68,58 @@ const Message = styled.h3`
   font-weight: 500;
 `
 
-const registyList = [
+const registryList = [
   {
     vendor: 'CB2',
     url: 'https://www.cb2.com/gift-registry/allegra-sebastian-cesena-valdez/r6741434',
-    logo: 'https://images.squarespace-cdn.com/content/v1/6059ecd2c49f5d3d9ef9a9ed/1617306626011-1C6XZRUS8I3N1HXILPWI/CB2+LOGO.png'
+    logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/cb2.png'
   },
   {
     vendor: 'Amazon',
     url: 'https://www.amazon.com/wedding/sebastian-valdez-allegra-cesena--september-2024/registry/1E1UPPAJDB28H',
-    logo: 'https://logolook.net/wp-content/uploads/2021/03/Amazon-logo.png'
+    logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/amazon.png'
   },
   {
     vendor: 'Crate & Barrel',
     url: 'https://www.crateandbarrel.com/gift-registry/allegra-sebastian-cesena/r6774244',
-    logo: 'https://logos-world.net/wp-content/uploads/2022/04/Crate-Barrel-Logo.png'
+    logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/crate_and_barrel.png'
   },
   {
     vendor: 'West Elm | William Sonoma',
     url: 'https://www.westelm.com/registry/501182762/registry-list.html?cm_ven=afshoppromo&bnrid=3917500&cm_ite=&cm_cat=64733',
-    logo: 'https://searchlogovector.com/wp-content/uploads/2020/02/west-elm-logo-vector.png'
+    logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/west_elm_william_sonoma.png'
   },
   {
     vendor: 'Target',
     url: 'https://www.target.com/gift-registry/gift/cesena-valdez',
-    logo: 'https://1000logos.net/wp-content/uploads/2017/06/Target-logo-1.png'
+    logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/target.png'
   },
   {
     vendor: 'notNeutral',
     url: 'https://www.notneutral.com/wishlist/shared/index/code/QpATSrUAVhnJxsrUTGXToQ9JnpO0uPQT/',
-    logo: 'https://www.notneutral.com/pub/media/logo/stores/1/logo.svg'
+    logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/notneutral.svg'
   },
   {
     vendor: 'Sur la Table',
     url: 'https://www.surlatable.com/giftregistry-customershow?ID=93aff6fff7f5d61bd90909c55f',
-    logo: 'https://searchlogovector.com/wp-content/uploads/2018/05/sur-la-table-logo-vector.png'
+    logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/sur_la_table.png'
   },
   {
     vendor: 'Clive Coffee',
     url: 'https://clivecoffee.com/products/vst-precision-portafilter-ridged-basket-58mm-20g',
-    logo: 'https://directory.sca.coffee/custom/domain_1/image_files/440_photo_643.png'
+    logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/clive_coffee.png'
   },
-]
+];
+
 
 
 export const WeddingRegistry = () => {
   return (
     <Container>
       <HeroSection
-        backgroundImage="https://demo.dethemes.com/story/topbar-multipage/images/gift-registry-1.jpg"
+        backgroundImage="https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/gift_hero_img.jpg"
         heroText="Registry"
-        height={'400px'}
+        height={'380px'}
       />
 
       <Message>
@@ -128,7 +129,7 @@ export const WeddingRegistry = () => {
       </Message>
 
       <RegistryContainer>
-        { registyList.map((item, idx) => (
+        { registryList.map((item, idx) => (
           <RegistryItem key={idx} style={{backgroundImage: `url(${item.logo})`}}>
             <RegistryLink href={item.url} target='_blank' aria-label={`Link to ${item.vendor} registry`}></RegistryLink>
           </RegistryItem>
