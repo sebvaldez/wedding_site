@@ -223,7 +223,7 @@ const Header = () => {
           <NavLink to='/'>
             <H1>
               <em>
-                Our Wedding
+                Welcome to our Wedding
               </em>
             </H1>
           </NavLink>
