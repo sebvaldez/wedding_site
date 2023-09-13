@@ -10,6 +10,7 @@ import InfoWrapper from './components/InfoWrapper';
 import InfoSection from './components/layout/InfoSection';
 import ResponsiveImage from './components/layout/ResponsiveImage'
 import SheSaidQuote from './components/SheSaidQuote';
+import HeSaidQuote from './components/HeSaidQuote';
 import WeatherSection from './components/WeatherSection';
 
 const InvitationSection = styled.div`
@@ -86,10 +87,9 @@ function App() {
 
       <Section title="Our Relationship">
         <RelationshipSection>
-          <ResponsiveImage height={'380px'} src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/he_said_img_web.jpg'/>
+          <ResponsiveImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/he_said_img_web.jpg'/>
           <div>
-            <h2><em>He said...</em></h2>
-            <blockquote>I love my bee bee</blockquote>
+            <HeSaidQuote />
           </div>
 
 
