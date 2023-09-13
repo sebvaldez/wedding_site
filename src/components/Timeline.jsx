@@ -58,13 +58,11 @@ const Timeline = () => {
     { event: 'Ceremony', time: '4:30 PM' },
     { event: 'Cocktail Hour', time: '5:00 PM' },
     { event: 'Find Seating', time: '6:00 PM' },
-    { event: 'Introductions', time: '6:15 PM' },
-    { event: 'First Dance', time: '6:20 PM' },
-    { event: 'Dinner', time: '6:30 PM' },
+    { event: 'First Dance', time: '6:05 PM' },
+    { event: 'Dinner', time: '6:15 PM' },
     { event: 'Toasts', time: '7:15 PM' },
-    { event: 'Dancing', time: '7:45 PM' },
-    { event: 'Last Call', time: '9:30 PM' },
-    { event: 'Send Off Toast', time: '9:50 PM' },
+    { event: 'Dancing', time: '7:30 PM' },
+    { event: 'Last Dance', time: '9:55 PM' },
     { event: 'Departure', time: '10:00 PM' },
 
   ];
