@@ -165,8 +165,8 @@ export const Travel = () => {
       <CardContainer>
         <Card>
           <CardHeader>
-            The following airlines out of Sacramento International Airport (SMF)
-            and San Franscisco International Airport (SFO) have direct flights to Portland (PDX) throughout the year.
+            The following airlines out of Sacramento International Airport (SMF),
+            San Franscisco International Airport (SFO), and Denver International Airport (DEN) have direct flights to Portland (PDX) throughout the year.
           </CardHeader>
         </Card>
 
