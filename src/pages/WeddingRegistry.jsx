@@ -124,7 +124,8 @@ export const WeddingRegistry = () => {
 
       <Message>
         Please do not feel that you have to buy us a wedding gift. Your Presence will be more than we could have hoped for.
-      <br />
+        <br /><br />
+
         However, if you do wish to participate in the time - honoured gift giving tradition. A list of items and ideas is available at the web below. Your contribution to our wishing well would be warmly appreciated.
       </Message>
 
