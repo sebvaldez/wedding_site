@@ -22,10 +22,10 @@ const HeSaidQuote = () => {
         we reached out to each other. This kind of friendship grew into a relationship once she moved to the Bay Area. During this time we had some of the most memorable laughs and conversations while exploring great coffee and food.
         <br /><br />
 
-        Having Allegra in my life is like have a secret power up! Whether it lasts months or hours,
+        Having Allegra in my life is like having a secret power up! Whether they lasts months or hours,
         she takes an interest in my hobbies and work, sharing my enthusiasm each step of the way.
-        Experiencing this in a relationship is something i’ve not had before.
-        I love the particular ways in which she keeps me organized (even my doom piles, haha sorry babe).
+        Experiencing this in a relationship is something I&apos;ve not had before.
+        I love the particular ways in which she keeps me organized (even with my doom piles, haha sorry babe).
         <br /><br />
 
         As the moment approached to shop for a ring, I felt an immense pressure to find the perfect one,
