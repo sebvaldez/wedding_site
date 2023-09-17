@@ -3,21 +3,33 @@ import { useSpring, animated, config } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
 import HeroSection from '../components/layout/HeroContainer'
 
+const TravelHeader = styled.h1`
+  text-align: center;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  padding: 1.8rem;
+
+  @media (min-width: 1024px) {
+    padding: 2rem 5rem 0 5rem;
+    font-size: 1.5rem;
+  }
+`;
+
 // Container for all cards
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   padding-bottom: 2rem;
+
   // For larger screens
   @media (min-width: 768px) {
-    padding: 3rem 0;
+    padding: 3rem 1.2rem;
     flex-direction: row;
     align-items: baseline;
   }
 `;
-
 // Individual card style
 const Card = styled.div`
   display: flex;
@@ -25,21 +37,19 @@ const Card = styled.div`
   align-items: center;
   justify-content: space-evenly;
   margin: 2rem 0; // Add some vertical spacing between cards on mobile
-  flex-grow: 1;
+  flex-grow: .1;
   background-color: ${props => props.backgroundColor || 'transparent'}; // Adding background-color functionality here
 
   @media (min-width: 768px) {
     margin: 0 1rem;  // Add some horizontal spacing between cards on desktop
   }
 `;
-
 const CardHeader = styled.h2`
   font-weight: bold;
   text-align: center;
   margin: 0; // Ensure there's no extra margin from default h2 styles
-  padding: 0 1rem;
+  padding: 2rem 1rem;
 `;
-
 const CardImage = styled.img`
   width: 320px;   // Set the width, let the height auto adjust
   height: auto;   // This maintains the original image aspect ratio
@@ -47,7 +57,6 @@ const CardImage = styled.img`
   display: block;  // Remove any gaps under the image
   max-height: 200px;  // Ensure it doesn't get too tall (optional)
 `;
-
 const CardText = styled.p`
   text-align: center;
   margin: 1rem 0;  // Add some spacing between the text and the link
@@ -98,11 +107,11 @@ const Hotels = () => {
   return (
     <>
       <CardContainer>
-        <Card>
+        {/* <Card>
           <CardHeader>
             We have rooms blocked off for wedding guests at the following West Portland Hotels:
           </CardHeader>
-        </Card>
+        </Card> */}
 
         <AnimatedCard style={animationProps1} ref={inViewRef1}>
           <CardHeader>THE HOTEL VANCE</CardHeader>
@@ -120,7 +129,7 @@ const Hotels = () => {
         </AnimatedCard>
 
         <AnimatedCard style={animationProps2} ref={inViewRef2}>
-          <CardHeader>RESIDENCE INN, PEARL DISTRICT</CardHeader>
+          <CardHeader>RESIDENCE INN, PEARL</CardHeader>
           <CardText>
             1150 NW 9th Ave<br />
             Portland, OR<br />
@@ -134,7 +143,7 @@ const Hotels = () => {
           </CardLink>
         </AnimatedCard>
 
-        <AnimatedCard style={animationProps3} ref={inViewRef3}>
+        {/* <AnimatedCard style={animationProps3} ref={inViewRef3}>
           <CardText>
             Estimated travel time from the above Hotel Blocks to the Wedding Venue is between 8 - 12 minutes on Sundays between 3:00 and 4:00 pm.
           </CardText>
@@ -144,7 +153,7 @@ const Hotels = () => {
           >
             VIEW ON MAP
           </CardLink>
-        </AnimatedCard>
+        </AnimatedCard> */}
       </CardContainer>
     </>
   );
@@ -161,15 +170,12 @@ export const Travel = () => {
         HeroTextFontWeight={'300'}
         heroText="Travel"
       />
-
-      <CardContainer>
-        <Card>
-          <CardHeader>
+        <TravelHeader>
             The following airlines out of Sacramento International Airport (SMF),
             San Franscisco International Airport (SFO), and Denver International Airport (DEN) have direct flights to Portland (PDX) throughout the year.
-          </CardHeader>
-        </Card>
+        </TravelHeader>
 
+      <CardContainer>
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/united_airlines_logo.png' alt="United Airlines Logo" />
@@ -202,7 +208,17 @@ export const Travel = () => {
         SubTextFontSize={'1.8rem'}
       />
 
+      <TravelHeader>
+        We have rooms blocked off for wedding guests at the following West Portland Hotels:
+      </TravelHeader>
+
       <Hotels />
+
+      <Card style={{ marginBottom: '2rem' }}>
+        <TravelHeader>
+          Estimated travel time from the above Hotel Blocks to the Wedding Venue is between 8 - 12 minutes on Sundays between 3:00 and 4:00 pm.
+        </TravelHeader>
+      </Card>
 
       <HeroSection
         backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/rose_garden_img.jpg'
@@ -211,12 +227,11 @@ export const Travel = () => {
         heroText="What to Do"
       />
 
+        <TravelHeader>
+          Burnside Street divides Portland’s north and south quadrants, while the Willamette River divides it’s east and west quadrants, and there is great food, adventures, and shopping to be had across all.
+        </TravelHeader>
+
       <CardContainer>
-        <Card>
-          <CardHeader>
-            Burnside Street divides Portland’s north and south quadrants, while the Willamette River divides it’s east and west quadrants, and there is great food, adventures, and shopping to be had across all.
-          </CardHeader>
-        </Card>
 
         <Card>
           <CardLink href='https://goo.gl/maps/esqCoN5YsChviWbAA' target='_blank'>EAT AND DRINK</CardLink>
