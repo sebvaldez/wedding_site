@@ -81,7 +81,6 @@ const AnimatedCard = animated(Card);
 const Hotels = () => {
   const [inViewRef1, inView1] = useInView({ triggerOnce: false, threshold: 0.1 });
   const [inViewRef2, inView2] = useInView({ triggerOnce: false, threshold: 0.1 });
-  const [inViewRef3, inView3] = useInView({ triggerOnce: false, threshold: 0.1 });
 
   const animationProps1 = useSpring({
     opacity: inView1 ? 1 : 0,
@@ -97,22 +96,9 @@ const Hotels = () => {
     config: config.slow
   });
 
-  const animationProps3 = useSpring({
-    opacity: inView3 ? 1 : 0,
-    transform: inView3 ? 'translateY(0px)' : 'translateY(30px)',
-    delay: 250, // even further delay
-    config: config.slow
-  });
-
   return (
     <>
       <CardContainer>
-        {/* <Card>
-          <CardHeader>
-            We have rooms blocked off for wedding guests at the following West Portland Hotels:
-          </CardHeader>
-        </Card> */}
-
         <AnimatedCard style={animationProps1} ref={inViewRef1}>
           <CardHeader>THE HOTEL VANCE</CardHeader>
           <CardText>
@@ -142,18 +128,6 @@ const Hotels = () => {
             BOOK NOW
           </CardLink>
         </AnimatedCard>
-
-        {/* <AnimatedCard style={animationProps3} ref={inViewRef3}>
-          <CardText>
-            Estimated travel time from the above Hotel Blocks to the Wedding Venue is between 8 - 12 minutes on Sundays between 3:00 and 4:00 pm.
-          </CardText>
-          <CardLink
-            href="https://www.google.com/maps/@/data=!3m1!4b1!4m3!11m2!2swaEFAX1NTpmwyrRFOvhUtA!3e3?entry=tts&shorturl=1"
-            target='_blank'
-          >
-            VIEW ON MAP
-          </CardLink>
-        </AnimatedCard> */}
       </CardContainer>
     </>
   );

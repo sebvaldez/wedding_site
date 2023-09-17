@@ -37,10 +37,7 @@ const RegistryItem = styled.div`
     &:hover {
       background-color: rgba(211, 211, 211, 0.5);
     }
-    // @media (min-width: 601px) {
-    //   width: 150px;
-    //   height: 150px;
-    // }
+
     @media (min-width: 801px) {
       width: 200px;
       height: 200px;
@@ -61,12 +58,17 @@ const RegistryLink = styled.a`
     }
 `;
 
+
 const Message = styled.h3`
   text-align: center;
   margin: 1rem 0;
   padding: 0 1.2rem;
-  font-weight: 500;
-`
+  font-size: 1.2rem;
+  @media (min-width: 1024px) {
+    padding: 2rem 5rem 0 5rem;
+    font-size: 1.5rem;
+  }
+`;
 
 const registryList = [
   {
@@ -111,8 +113,6 @@ const registryList = [
   },
 ];
 
-
-
 export const WeddingRegistry = () => {
   return (
     <Container>
@@ -123,10 +123,10 @@ export const WeddingRegistry = () => {
       />
 
       <Message>
-        Please do not feel that you have to buy us a wedding gift. Your Presence will be more than we could have hoped for.
+        Please do not feel that you have to buy us a wedding gift. Your presence will be more than we could have hoped for.
         <br /><br />
 
-        However, if you do wish to participate in the time - honoured gift giving tradition. A list of items and ideas is available at the web below. Your contribution to our wishing well would be warmly appreciated.
+        However, if you do wish to participate in the time - honoured gift giving tradition, a list of items and ideas is available at the web below. Your contribution to our wishing well would be warmly appreciated.
       </Message>
 
       <RegistryContainer>
