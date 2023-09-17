@@ -6,20 +6,32 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from '../Logout';
 
 const Navbar = styled.div`
-  @media (max-width: 768px) {
-    padding: 0 2rem 0 0;  // reduce padding on mobile
-    z-index: 2000;
-    position: relative;
-  }
-
   display: flex;
-  flex-grow: .5;
   height: 4rem;
   margin: 0 auto;
-  padding: 0 2rem 0 2rem;
-  justify-content: space-between;
+  padding: 0 2rem;
+  justify-content: space-between;  // Change from space-around to space-between
   align-items: center;
-`
+  z-index: 2000;
+  position: relative;
+  gap: .3rem;
+  max-width: 100%; // This will be your container's maximum width; adjust as needed
+
+  // Tablet styles (for screens larger than 768px)
+  @media (min-width: 769px) {
+    padding: 0 2rem;  // adjust padding for tablet
+    height: 4.5rem;
+  }
+
+  // Desktop styles (for screens larger than 1024px)
+  @media (min-width: 1025px) {
+    flex-grow: .5;
+    // padding: 0 9.5rem;
+    height: 5rem;
+    max-width: 85%;  // Decreasing the maximum width on desktops for tighter grouping; adjust as needed
+  }
+`;
+
 
 const NavBrand = styled.div`
 @media (max-width: 768px) {
@@ -73,7 +85,7 @@ const LargeButtonLink = styled(NavLink)`
 
   background: transparent;
   border-style: solid;
-  border-radius: 0;
+  border-radius: .2rem;
   font-size: calc((1.1 - 1) * 1.2vw + 1rem);
   padding: 1.3rem 2.171rem;
   text-decoration: none;
