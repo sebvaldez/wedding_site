@@ -2,7 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledQuote = styled.blockquote`
-`
+text-align: center;
+  @media (max-width: 1024px) {
+    // For viewports smaller than 1024px, the max-width will be the full viewport width
+    max-width: calc(85vw);
+  }
+  max-width: calc(65vw);
+  margin: 0 auto;  // centers the container on larger screens
+`;
 
 const SheSaidQuote = () => {
   return (
