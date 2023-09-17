@@ -6,11 +6,13 @@ import { useInView } from 'react-intersection-observer';
 const TimelineContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 30px;
+    width: calc(55vw);
+    margin-bottom: 6rem;
     justify-content: center;
     padding: 20px;
     @media (min-width: 601px) {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
     }
 `;
 
