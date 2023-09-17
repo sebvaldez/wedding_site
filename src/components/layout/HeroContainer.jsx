@@ -37,6 +37,8 @@ const HeroContainer = styled.section`
     ${({ overlay }) => overlay && overlayMixin}
 `
 
+
+
 const HeroText = styled.h2`
     font-size: ${props => props.HeroTextFontSize ? props.HeroTextFontSize : '4.2rem'};
     font-weight: ${props => props.HeroTextFontWeight ? props.HeroTextFontWeight : '200'};
@@ -82,3 +84,5 @@ const HeroSection = ({ height, overlay=true, backgroundImage, heroText, HeroText
 }
 
 export default HeroSection;
+
+

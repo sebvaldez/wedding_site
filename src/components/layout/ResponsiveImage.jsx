@@ -1,27 +1,37 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+
 const ImageContainer = styled.div`
   width: 80%;
-  height: ${props => props.height ? props.height : 'auto'};
+  height: ${props => props.mobileHeight || '400px'};
   overflow: hidden;
   margin: 1rem 0;
 
   @media (max-width: 768px) {
     width: 100%;
   }
+
+  @media (min-width: 769px) {
+    height: ${props => props.desktopHeight || '600px'};
+  }
 `;
 
 const StyledResponsiveImage = styled.img`
-  width: 100%; // Ensure the image takes the full width of its container
-  display: block; // To remove any spacing below the image
-  max-height: 100%; // Ensure it doesn't exceed the container height
-  object-fit: cover; // This will ensure the image covers the container without skewing
+  width: 100%;
+  display: block;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: ${props => props.imagePosition || 'center center'};
 `;
 
-const ResponsiveImage = ({src, alt, height, children}) => {
+const ResponsiveImage = ({src, alt, mobileHeight, desktopHeight, imagePosition, children}) => {
   return (
-    <ImageContainer height={height}>
-      <StyledResponsiveImage src={src} alt={alt}>
+    <ImageContainer mobileHeight={mobileHeight} desktopHeight={desktopHeight}>
+      <StyledResponsiveImage
+        src={src}
+        alt={alt}
+        imagePosition={imagePosition}
+      >
         {children}
       </StyledResponsiveImage>
     </ImageContainer>
