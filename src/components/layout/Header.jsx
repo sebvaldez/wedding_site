@@ -231,7 +231,7 @@ const Header = () => {
         <NavBrand>
           <img
             alt='Allegra and Sebastian Wedding Icon'
-            src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/header/navbrand_logo.png'
+            src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/header/navbrand_logo_v2.png'
           />
           <NavLink to='/'>
             <H1>
