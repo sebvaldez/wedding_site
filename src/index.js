@@ -82,11 +82,11 @@ root.render(
             <Route path='/gallery' element={<Gallery />} />
             <Route path='/travel' element={<Travel />} />
             <Route path='/registry' element={<WeddingRegistry />} />
-            <Route path='/rsvp' element={
+            {/* <Route path='/rsvp' element={
               <ApiProvider>
                 <Rsvp />
               </ApiProvider>
-            } />
+            } /> */}
             <Route path='*' element={<FourOhFour />} />
           </Routes>
           </Container>
