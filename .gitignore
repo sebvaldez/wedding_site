@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+.vscode
+
 # dependencies
 /node_modules
 /.pnp
@@ -23,4 +25,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
-/utils/dummyFamilyData.json
+
+src/utils/dummyFamilyData.json
