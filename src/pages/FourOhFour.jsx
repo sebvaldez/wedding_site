@@ -53,6 +53,7 @@ const BackLink = styled(Link)`
 
 const ResponsiveGif = styled.img`
   max-width: 100%;
+  flex-grow: 1;
   height: auto;
 `;
 
@@ -65,7 +66,7 @@ export const FourOhFour = () => {
 
       <FourOhFourSection>
         {displayRsvpMessage ? (
-          <div style={{ height: '60vh', display: 'flex', justifyContent: 'center', flexDirection: 'column', gap: '4rem'}}>
+          <div style={{ height: '60vh', display: 'flex', flexGrow: '2', justifyContent: 'center', flexDirection: 'column', gap: '4rem'}}>
             <h2>RSVP Page</h2>
             <p>Coming soon! We're working on it.</p>
             <FontAwesomeIcon icon={faHammer} size='4x' />
