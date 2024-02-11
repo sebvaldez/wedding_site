@@ -285,13 +285,6 @@ const Header = () => {
           >
             Registry
           </StyledNavLink>
-          <StyledNavLink
-            to='/gallery'
-            onClick={handleLinkClick}
-            className="nav-link"
-          >
-            Gallery
-          </StyledNavLink>
           <LargeButtonLink
             to='/rsvp'
             onClick={handleLinkClick}
