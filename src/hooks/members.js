@@ -1,7 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuthenticatedAxios } from './useAuthenticatedAxios';
-import { useClientCredentials } from './useClientCredentials';
 import backend from '../api/backend';
 
 // Fetch a specific member
