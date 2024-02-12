@@ -1,20 +1,16 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuthenticatedAxios } from './useAuthenticatedAxios';
+import { useClientCredentials } from './useClientCredentials';
 import backend from '../api/backend';
 
 // Fetch a specific member
 export const useGetMember = (id) => {
-  const { getIdTokenClaims } = useAuth0();
+  const axiosPrivate = useAuthenticatedAxios();
 
   const getMember = async ({ queryKey }) => {
-    // _key,
     const [, id] = queryKey;
-    const claims = await getIdTokenClaims();
-    const idToken = claims.__raw;
-
-    const { data } = await backend.get('/wedding/members', {
-      headers: { 'Authorization': `Bearer ${idToken}` },
+    const { data } = await axiosPrivate.get('/wedding/members', {
       params: { id }
     });
     return data[0]; // return the only member from the results
@@ -26,7 +22,7 @@ export const useGetMember = (id) => {
 };
 
 export const useGetMemberByEmail = (email, shouldQuery) => {
-  const axiosPrivate = useAuthenticatedAxios();  // Use the custom hook
+  const axiosPrivate = useAuthenticatedAxios();  // handles injecting the token
 
   const getMemberByEmail = async ({ queryKey }) => {
     const [, email] = queryKey;
@@ -103,10 +99,39 @@ export const useUpdateMember = () => {
 
 // BULK UPDATE members
 export const useBulkUpdateMembers = () => {
-  return useMutation({
-    mutationFn: (membersToUpdate) => backend.put('/members/bulk', membersToUpdate),
-    onSuccess: (_, __, ___, queryClient) => {
-      queryClient.invalidateQueries('members');
-    },
+  const axiosPrivate = useAuthenticatedAxios(); // handles injecting the token
+
+  const bulkUpdateMembers = async (membersToUpdate) => {
+    // Format payload: Flatten if nested array, wrap in array if object
+    let formattedMembersToUpdate = [];
+
+    if (Array.isArray(membersToUpdate)) {
+      // Flatten nested arrays
+      formattedMembersToUpdate = membersToUpdate.flat();
+    } else if (typeof membersToUpdate === 'object') {
+      // Wrap object in an array
+      formattedMembersToUpdate = [membersToUpdate];
+    } else {
+      console.error('Invalid input for membersToUpdate');
+      return;
+    }
+
+    // Ensure all items are objects
+    if (formattedMembersToUpdate.some(member => typeof member !== 'object')) {
+      console.error('All items in membersToUpdate must be objects');
+      return;
+    }
+
+    console.log('bulk update members hook called with: ', JSON.stringify(formattedMembersToUpdate, null, 2));
+
+    // Proceed with the PATCH request
+    const { data } = await axiosPrivate.patch('/wedding/members/bulk', formattedMembersToUpdate);
+    return data;
+  };
+
+  return useMutation(bulkUpdateMembers, {
+    // onSuccess: (_, __, ___, queryClient) => {
+    //   queryClient.invalidateQueries('members');
+    // },
   });
 };
