@@ -4,34 +4,49 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStarOfLife } from '@fortawesome/free-solid-svg-icons';
 import { Label } from '../common/formStyles';
 
-const StyledForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0 2rem;
-    width: 100%;
-
-    @media (min-width: 768px) {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
+const StyledSelection = styled.div`
+  margin-bottom: 2.5rem;
+  padding: 0 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  @media (min-width: 768px) {
+      /* flex-direction: row; */
+      flex-wrap: wrap;
+      justify-content: space-between;
+  }
 `;
 
 const StyledSelect = styled.select`
-    padding: 0.8rem;  // Increased padding for dropdowns too
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1.2rem;  // Increased font-size for dropdowns
-    width: 100%;
-    box-sizing: border-box;
+  padding: 0.8rem;  // Increased padding for dropdowns too
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1.2rem;  // Increased font-size for dropdowns
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+const GuestName = styled.div`
+  font-size: 2rem;
+  font-weight: 300;
+  text-align: center;
+  padding: 0 0 1.2rem 0;
 `;
 
 export const GuestSelectionStep = ({ formik }) => {
 
-  return (
-    <StyledForm>
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    formik.setFieldValue(name, checked);
+  };
 
+  return (
+    <StyledSelection>
+      <GuestName>
+      Guest Selections
+      </GuestName>
       <Label>
         <span>
           Dinner Selection <FontAwesomeIcon style={{ fontSize: '.8rem', color: '#A64444' }} icon={faStarOfLife} size='xs' />
@@ -78,7 +93,22 @@ export const GuestSelectionStep = ({ formik }) => {
           <option value="White Wine">White Wine</option>
           <option value="Rose">Rose</option>
         </StyledSelect>
+
+
+        {/* Checkbox for RSVP text updates */}
+        <div style={{ marginTop: '10px' }}>
+          <input
+            type="checkbox"
+            id="rsvpTextUpdates"
+            name="rsvpTextUpdates"
+            checked={formik.values.rsvpTextUpdates}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor="rsvpTextUpdates">
+            Send me my RSVP confirmation and invite link via text message.
+          </label>
+        </div>
       </Label>
-    </StyledForm>
+    </StyledSelection>
   );
 };

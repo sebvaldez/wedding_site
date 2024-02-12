@@ -11,6 +11,11 @@ export const SubmitButton = styled.button`
     align-items: center;
     justify-content: center;
     gap: 8px;  // gap between icon and text
+
+    max-width: 450px; // Set your desired maximum width
+    width: 100%; // This will ensure the button takes the full width up to max-width
+    align-self: center;
+
     transition: background-color 0.3s ease;
     font-size: 1.2rem;  // Increased font size for visibility
 

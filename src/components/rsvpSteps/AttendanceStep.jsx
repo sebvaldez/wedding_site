@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Greeting from '../Greeting';
 
 const NotAttendingButton = styled.button`
     font-size: 1.2rem;
@@ -7,6 +8,9 @@ const NotAttendingButton = styled.button`
     color: white;
     border: none;
     border-radius: 4px;
+    max-width: 450px; // Set your desired maximum width
+    width: 100%; // This will ensure the button takes the full width up to max-width
+    align-self: center;
     cursor: pointer;
     transition: background-color 0.3s ease;
     &:hover {
@@ -21,6 +25,9 @@ const AttendingButton = styled.button`
     color: white;
     border: none;
     border-radius: 4px;
+    max-width: 450px; // Set your desired maximum width
+    width: 100%; // This will ensure the button takes the full width up to max-width
+    align-self: center;
     cursor: pointer;
     transition: background-color 0.3s ease;
     &:hover {
@@ -35,24 +42,29 @@ const AttendanceOptions = styled.div`
   margin-bottom: 4rem;
 `;
 
-export const AttendanceStep = ({ formik }) => {
+export const AttendanceStep = ({ formik, memberData }) => {
   const handleAttending = () => {
-    console.log('local attending');
-    formik.setFieldValue('checkIn', true);
+    formik.setFieldValue('attending', true);
   }
 
   const handleNotAttending = () => {
-    formik.setFieldValue('checkIn', false);
+    formik.setFieldValue('attending', false);
   }
 
   return (
-    <AttendanceOptions>
-      <NotAttendingButton onClick={handleNotAttending}>
-        I will not be attending
-      </NotAttendingButton>
-      <AttendingButton onClick={handleAttending}>
-        I will be attending
-      </AttendingButton>
-    </AttendanceOptions>
+    <>
+      <Greeting
+        firstName={ formik.values.firstName || memberData?.firstName }
+        lastName={  formik.values.lastName || memberData?.lastName }
+      />
+      <AttendanceOptions>
+        <NotAttendingButton type='submit' onClick={handleNotAttending}>
+          I will not be attending
+        </NotAttendingButton>
+        <AttendingButton type='submit' onClick={handleAttending}>
+          I will be attending
+        </AttendingButton>
+      </AttendanceOptions>
+    </>
   );
 };

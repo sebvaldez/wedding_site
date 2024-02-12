@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { useGetMemberByEmail } from '../../hooks/members';
 import { Input, SubmitButton } from '../common/formStyles';
+import { ErrorMessage } from '../common/formStyles/ErrorMessage';
 import Loading from '../common/Loading';
 
 export const EmailLookupStep = ({ formik }) => {
@@ -40,6 +41,9 @@ export const EmailLookupStep = ({ formik }) => {
 
   return (
     <>
+      <ErrorMessage>
+        {formik.errors.email}
+      </ErrorMessage>
       <h2>Guest Lookup</h2>
       <Input
         type="email"

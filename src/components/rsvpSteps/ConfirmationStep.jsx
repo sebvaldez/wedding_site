@@ -9,7 +9,7 @@ const ConfirmationText = styled.h2`
 
 export const ConfirmationStep = ({ formik }) => {
   const confirmNotAttending = () => {
-    formik.setFieldValue('checkIn', false);
+    formik.setFieldValue('attending', false);
   }
 
   return (
