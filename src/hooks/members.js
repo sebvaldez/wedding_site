@@ -37,10 +37,12 @@ export const useGetMemberByEmail = (email, shouldQuery) => {
   });
 };
 
-
 // Fetch all members
 export const useGetAllMembers = () => {
   const { getIdTokenClaims } = useAuth0();
+
+    // Define a key for your localStorage data
+    const localStorageKey = 'membersData';
 
   return useQuery(["members"], async () => {
     const claims = await getIdTokenClaims();
@@ -51,6 +53,58 @@ export const useGetAllMembers = () => {
     });
 
     return data; // returning only the data
+  },
+  {
+    // Load initial data from localStorage if available
+    initialData: () => {
+      const storedData = localStorage.getItem(localStorageKey);
+      return storedData ? JSON.parse(storedData) : undefined;
+    },
+    // Save fetched data to localStorage
+    onSuccess: (data) => {
+      localStorage.setItem(localStorageKey, JSON.stringify(data));
+    },
+    staleTime: 24 * 60 * 60 * 1000, // 24 hours
+    cacheTime: 24 * 60 * 60 * 1000,
+  });
+};
+
+// BULK UPDATE members
+export const useBulkUpdateMembers = () => {
+  const axiosPrivate = useAuthenticatedAxios(); // handles injecting the token
+
+  const bulkUpdateMembers = async (membersToUpdate) => {
+    // Format payload: Flatten if nested array, wrap in array if object
+    let formattedMembersToUpdate = [];
+
+    if (Array.isArray(membersToUpdate)) {
+      // Flatten nested arrays
+      formattedMembersToUpdate = membersToUpdate.flat();
+    } else if (typeof membersToUpdate === 'object') {
+      // Wrap object in an array
+      formattedMembersToUpdate = [membersToUpdate];
+    } else {
+      console.error('Invalid input for membersToUpdate');
+      return;
+    }
+
+    // Ensure all items are objects
+    if (formattedMembersToUpdate.some(member => typeof member !== 'object')) {
+      console.error('All items in membersToUpdate must be objects');
+      return;
+    }
+
+    console.log('bulk update members hook called with: ', JSON.stringify(formattedMembersToUpdate, null, 2));
+
+    // Proceed with the PATCH request
+    const { data } = await axiosPrivate.patch('/wedding/members/bulk', formattedMembersToUpdate);
+    return data;
+  };
+
+  return useMutation(bulkUpdateMembers, {
+    // onSuccess: (_, __, ___, queryClient) => {
+    //   queryClient.invalidateQueries('members');
+    // },
   });
 };
 
@@ -96,41 +150,3 @@ export const useUpdateMember = () => {
   });
 };
 
-// BULK UPDATE members
-export const useBulkUpdateMembers = () => {
-  const axiosPrivate = useAuthenticatedAxios(); // handles injecting the token
-
-  const bulkUpdateMembers = async (membersToUpdate) => {
-    // Format payload: Flatten if nested array, wrap in array if object
-    let formattedMembersToUpdate = [];
-
-    if (Array.isArray(membersToUpdate)) {
-      // Flatten nested arrays
-      formattedMembersToUpdate = membersToUpdate.flat();
-    } else if (typeof membersToUpdate === 'object') {
-      // Wrap object in an array
-      formattedMembersToUpdate = [membersToUpdate];
-    } else {
-      console.error('Invalid input for membersToUpdate');
-      return;
-    }
-
-    // Ensure all items are objects
-    if (formattedMembersToUpdate.some(member => typeof member !== 'object')) {
-      console.error('All items in membersToUpdate must be objects');
-      return;
-    }
-
-    console.log('bulk update members hook called with: ', JSON.stringify(formattedMembersToUpdate, null, 2));
-
-    // Proceed with the PATCH request
-    const { data } = await axiosPrivate.patch('/wedding/members/bulk', formattedMembersToUpdate);
-    return data;
-  };
-
-  return useMutation(bulkUpdateMembers, {
-    // onSuccess: (_, __, ___, queryClient) => {
-    //   queryClient.invalidateQueries('members');
-    // },
-  });
-};
