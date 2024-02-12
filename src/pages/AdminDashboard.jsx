@@ -211,8 +211,8 @@ const AdminDashboard = () => {
       Cell: ({ value }) => String(value)  // Convert the phone number to a string
     },
     {
-      Header: "Checked-in",
-      accessor: "checkIn",
+      Header: "Attending",
+      accessor: "attending",
       Cell: ({ value }) => value ? "Yes" : "No"
     },
     {
