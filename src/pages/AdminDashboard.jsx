@@ -1,10 +1,18 @@
 import React from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTable, useSortBy, usePagination } from 'react-table';
 import { useGetAllMembers } from '../hooks/members';
 import { useSendEmail, useSendText } from '../hooks/communications';
 import Toast from '../components/common/Toast';
 
+const StyledAdminLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  margin-top: 1.2rem;
+`
 const TextReminderButton = styled.button`
   padding: 8px 20px;
   background-color: #007BFF;
@@ -15,12 +23,38 @@ const TextReminderButton = styled.button`
   font-size: 0.8em;
 `;
 
+const StyledLink = styled(Link)`
+  width: 120px;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+  line-height: 30px;
+  text-decoration: none;
+  color: black;
+  background: lightgrey;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const StyledButton = styled.button`
+  width: 120px;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+  line-height: 30px;
+  color: black;
+  background: lightgrey;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none; // Add this to remove default button border styling
+`;
+
 const StyledTable = styled.table`
   // width: 100%;
-  // padding .2rem 2rem;
+  /* padding .2rem 2rem; */
   border-collapse: collapse;
   // margin: .5rem auto;
-  align-text: center;
+  text-align: center;
   th, td {
     border: 1px solid #ddd;
     padding: 8px 12px;
@@ -156,32 +190,12 @@ function MyTable({ columns, data }) {
   );
 }
 
-/*
-
-toughts for admin dashboard
-
-table with all users
-show/hide column gear
-  looks at view view port for defaults
-
-stats page:
-  from sendGrid for opened emails
-  chart show users updates over time
-
-  /admin/dashboard
-  /admin/stats
-
-  do we need to change 'admin' button
-
-*/
-
-
 const AdminDashboard = () => {
-  const { data: members, isLoading, isError, error } = useGetAllMembers();
+  const { data: members, isLoading: isLoadingData, isError, error, refetch } = useGetAllMembers();
   const { mutate: sendText, isLoading: isTextLoading, toastMessage: textToastMessage } = useSendText()
   const { mutate: sendEmail, isLoading: isEmailLoading, toastMessage: emailToastMessage } = useSendEmail();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoadingData) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;
 
   const columns = [
@@ -261,16 +275,55 @@ const AdminDashboard = () => {
     }
   ];
 
+  const handleRefresh = () => {
+    refetch({ force: true }); // This tells React Query to bypass the cache and fetch fresh data
+  };
+
   return (
-    <>
-      <MyTable
-        data={members}
-        columns={columns}
-      />
-    {textToastMessage && <Toast message={textToastMessage} />}
-    {emailToastMessage && <Toast message={emailToastMessage} />}
-    </>
+    <StyledAdminLayout>
+      <div style={{ display: 'flex', gap: '1.2rem'}}>
+        <StyledButton onClick={handleRefresh}>Refresh</StyledButton>
+        <StyledButton onClick={() => {}}>Email Guest list</StyledButton>
+        <AdminNavigationButton />
+      </div>
+
+      <Routes>
+        <Route index element={<MyTable data={members} columns={columns} />} />
+        <Route path='visualize' element={<Visualize />} />
+      </Routes>
+
+      {textToastMessage && <Toast message={textToastMessage} />}
+      {emailToastMessage && <Toast message={emailToastMessage} />}
+    </StyledAdminLayout>
   );
 }
+
+const AdminNavigationButton = () => {
+  const location = useLocation(); // Hook to get the current location
+
+  // Determine the link's destination and text based on the current path
+  let linkPath = '';
+  let linkText = '';
+
+  if (location.pathname.includes('guest-table')) {
+    linkPath = '/dashboard/visualize'; // Change to your actual path for visualization
+    linkText = 'Visualize';
+  } else if (location.pathname.includes('visualize')) {
+    linkPath = '/dashboard'; // Change to your actual path for the guest table
+    linkText = 'Guest Table';
+  } else {
+    // Default case if not in either route
+    linkPath = '/dashboard/visualize'; // Or any other default you prefer
+    linkText = 'Visualize';
+  }
+
+  return (
+    <StyledLink to={linkPath} style={{ width: '120px', height: '30px', display: 'inline-block', textAlign: 'center', lineHeight: '30px', textDecoration: 'none', color: 'black', background: 'lightgrey', borderRadius: '5px' }}>
+      {linkText}
+    </StyledLink>
+  );
+};
+
+const Visualize = () => <h1>Visualize</h1>;
 
 export default AdminDashboard;

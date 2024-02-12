@@ -114,7 +114,7 @@ root.render(
           <Routes>
             <Route path='/' element={<App />} />
             <Route path='/admin' element={<Admin />} />
-            <Route path='/dashboard' element={
+            <Route path='/dashboard/*' element={
               <ProtectedRoute>
                 <AdminDashboard />
               </ProtectedRoute>
