@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Container from '../components/common/Container';
 import HeroSection from '../components/layout/HeroContainer';
+import useGoogleAnalytics from '../hooks/useGoogleAnalytics';
 
 const RegistryContainer = styled.div`
     display: grid;
@@ -114,6 +115,8 @@ const registryList = [
 ];
 
 export const WeddingRegistry = () => {
+  const trackEvent = useGoogleAnalytics(); // track '/registry' page
+
   return (
     <Container>
       <HeroSection
@@ -132,7 +135,12 @@ export const WeddingRegistry = () => {
       <RegistryContainer>
         { registryList.map((item, idx) => (
           <RegistryItem key={idx} style={{backgroundImage: `url(${item.logo})`}}>
-            <RegistryLink href={item.url} target='_blank' aria-label={`Link to ${item.vendor} registry`}></RegistryLink>
+            <RegistryLink
+              href={item.url}
+              target='_blank'
+              aria-label={`Link to ${item.vendor} registry`}
+              onClick={() => trackEvent('Registry', 'click', item.vendor)}
+            ></RegistryLink>
           </RegistryItem>
         ))}
       </RegistryContainer>

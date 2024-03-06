@@ -6,6 +6,7 @@ import { useGetMember, useBulkUpdateMembers } from '../hooks/members';
 import Loading from '../components/common/Loading';
 import { SubmitButton, BackButton } from '../components/common/formStyles';
 import { AttendanceStep, ConfirmationStep, EmailLookupStep, GuestSelectionStep, ConfirmedStep } from '../components/rsvpSteps';
+import useGoogleAnalytics from '../hooks/useGoogleAnalytics';
 
 // http://localhost:3000/rsvp?id=24e2f24d-160d-488d-aa81-5cddc3c13bed&groupId=bd2c72a1-7540-49ef-ba6b-bb40df58f3e8
 
@@ -54,6 +55,8 @@ const rsvpStepFlow = {
 export const Rsvp = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  useGoogleAnalytics(); // track '/rsvp' page views
+
   const searchParams = new URLSearchParams(location.search);
   const idParam = searchParams.get('id') || '';
   const groupIdParam = searchParams.get('groupId') || '';

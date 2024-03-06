@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useSpring, animated, config } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
 import HeroSection from '../components/layout/HeroContainer'
+import useGoogleAnalytics from '../hooks/useGoogleAnalytics';
 
 const TravelHeader = styled.h1`
   text-align: center;
@@ -135,6 +136,9 @@ const Hotels = () => {
 
 
 export const Travel = () => {
+
+  useGoogleAnalytics() // Track '/travel' page views
+
   return (
     <>
       <HeroSection
