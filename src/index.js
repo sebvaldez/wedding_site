@@ -21,6 +21,10 @@ import ProtectedRoute from './components/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
 import AdminDashboard from './pages/AdminDashboard';
 import styled from 'styled-components';
+import ReactGA from 'react-ga';
+
+const TRACKING_ID = 'G-W8YD1SX85Y'; // Google Analytics Tracking ID
+ReactGA.initialize(TRACKING_ID);
 
 const Container = styled.div`
   width: 100%;

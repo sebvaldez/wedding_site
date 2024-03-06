@@ -4,17 +4,8 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
-const TRACKING_ID = 'G-W8YD1SX85Y'; // Google Analytics Tracking ID
-
 const useGoogleAnalytics = () => {
   const location = useLocation();
-
-  // Initialize Google Analytics
-  useEffect(() => {
-    if (process.env.REACT_APP_ENV === 'production') {
-      ReactGA.initialize(TRACKING_ID);
-    }
-  }, []);
 
   // Track page views
   useEffect(() => {
