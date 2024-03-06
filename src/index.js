@@ -20,24 +20,7 @@ import { Rsvp } from './pages/Rsvp';
 import ProtectedRoute from './components/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
 import AdminDashboard from './pages/AdminDashboard';
-
 import styled from 'styled-components';
-
-if (process.env.REACT_APP_ENV === 'production') {
-  const script1 = document.createElement("script");
-  script1.async = true;
-  script1.src = "https://www.googletagmanager.com/gtag/js?id=G-W8YD1SX85Y";
-  document.body.appendChild(script1);
-
-  const script2 = document.createElement("script");
-  script2.innerHTML = `
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-W8YD1SX85Y');
-  `;
-  document.body.appendChild(script2);
-}
 
 const Container = styled.div`
   width: 100%;
@@ -54,8 +37,6 @@ const Container = styled.div`
 
   margin: 0 auto;  // centers the container on larger screens
 `;
-
-// initialize GA here = also only initialize when react env is prod
 
 const queryClient = new QueryClient();
 
