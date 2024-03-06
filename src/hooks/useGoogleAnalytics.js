@@ -13,6 +13,7 @@ const useGoogleAnalytics = () => {
       const currentPath = location.pathname + location.search;
       ReactGA.set({ page: currentPath });
       ReactGA.pageview(currentPath);
+      console.log('GA pageview:', currentPath);
     }
   }, [location]);
 
@@ -20,6 +21,7 @@ const useGoogleAnalytics = () => {
   const trackEvent = (category = 'Event Category', action = 'Action', label = 'Label') => {
     if (process.env.REACT_APP_ENV === 'production') {
       ReactGA.event({ category, action, label });
+      console.log('GA event:', category, action, label);
     }
   };
 
