@@ -26,6 +26,23 @@ import ReactGA from 'react-ga';
 const TRACKING_ID = 'G-70ZJT8SXTR'; // Google Analytics Tracking ID
 ReactGA.initialize(TRACKING_ID);
 
+if (process.env.REACT_APP_ENV === 'production') {
+  const script1 = document.createElement("script");
+  script1.async = true;
+  script1.src = "https://www.googletagmanager.com/gtag/js?id=G-70ZJT8SXTR";
+  document.body.appendChild(script1);
+
+  const script2 = document.createElement("script");
+  script2.innerHTML = `
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-70ZJT8SXTR');
+  `;
+  document.body.appendChild(script2);
+}
+
+
 const Container = styled.div`
   width: 100%;
 
