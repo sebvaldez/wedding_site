@@ -78,6 +78,8 @@ export const Rsvp = () => {
       lastName: '',
       email: '',
       dinnerSelection: '',
+      foodAllergies: [],
+      otherFoodAllergy: '',
       attending: null,
       plannedTransportation: '',
       specialSippingPreference: '',
