@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStarOfLife } from '@fortawesome/free-solid-svg-icons';
-import { Label } from '../common/formStyles';
+import Space from '../common/Space';
+import { Label, InputSm } from '../common/formStyles';
 
 const StyledSelection = styled.div`
   margin-bottom: 2.5rem;
@@ -13,7 +14,6 @@ const StyledSelection = styled.div`
   gap: 1rem;
   align-items: center;
   @media (min-width: 768px) {
-      /* flex-direction: row; */
       flex-wrap: wrap;
       justify-content: space-between;
   }
@@ -35,7 +35,36 @@ const GuestName = styled.div`
   padding: 0 0 1.2rem 0;
 `;
 
+const ALLERGY_OPTIONS = ['None', 'Peanut', 'Gluten', 'Dairy', 'Eggs', 'Seafood', 'Tree Nuts', 'Soy', 'Other'];
+
 export const GuestSelectionStep = ({ formik }) => {
+
+  const handleAllergyChange = (event) => {
+    const { value, checked } = event.target;
+    let allergies = [...formik.values.foodAllergies] || [];
+
+    if (value === 'None' && checked) {
+      // If "None" is selected, reset the allergies array to just include "None"
+      allergies = ['None'];
+      formik.setFieldValue('otherFoodAllergy', '');
+    } else if (checked) {
+      // Remove "None" if it exists when selecting any other allergy
+      allergies = allergies.filter(allergy => allergy !== 'None');
+      allergies.push(value);
+    } else {
+      // Remove the unchecked value
+      allergies = allergies.filter(allergy => allergy !== value);
+    }
+
+    // If "Other" is unchecked, clear the otherFoodAllergy field
+    if (value === 'Other' && !checked) {
+      formik.setFieldValue('otherFoodAllergy', '');
+    }
+
+    formik.setFieldValue('foodAllergies', allergies);
+  };
+
+  const isOtherSelected = formik.values.foodAllergies.includes('Other');
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
@@ -47,6 +76,8 @@ export const GuestSelectionStep = ({ formik }) => {
       <GuestName>
       Guest Selections
       </GuestName>
+
+      {/* Selector for dinner selection */}
       <Label>
         <span>
           Dinner Selection <FontAwesomeIcon style={{ fontSize: '.8rem', color: '#A64444' }} icon={faStarOfLife} size='xs' />
@@ -63,6 +94,44 @@ export const GuestSelectionStep = ({ formik }) => {
         </StyledSelect>
       </Label>
 
+      {/* Selector for Food allergies */}
+      <Label>
+        <span>
+          Food Allergies <FontAwesomeIcon style={{ fontSize: '.8rem', color: '#A64444' }} icon={faStarOfLife} size='xs' />
+        </span>
+        <div>
+          {/* Dynamically generate checkboxes for allergies */}
+          {ALLERGY_OPTIONS.map(allergy => (
+            <div key={allergy}>
+              <input
+                type="checkbox"
+                id={`allergy-${allergy}`}
+                name="foodAllergies"
+                value={allergy}
+                checked={formik.values.foodAllergies.includes(allergy)}
+                onChange={handleAllergyChange}
+              />
+              <label htmlFor={`allergy-${allergy}`}>{allergy}</label>
+            </div>
+          ))}
+          <Space />
+          {isOtherSelected && (
+            <>
+            <InputSm
+              type="text"
+              name="otherFoodAllergy"
+              placeholder="Specify other allergy..."
+              value={formik.values.otherFoodAllergy || ''}
+              onChange={formik.handleChange}
+              style={{ marginTop: '1rem' }}
+            />
+            <Space marginBottom='1.5rem' />
+            </>
+          )}
+        </div>
+      </Label>
+
+      {/* Selector for transportation */}
       <Label>
         Planned Transportation
         <StyledSelect
@@ -77,6 +146,7 @@ export const GuestSelectionStep = ({ formik }) => {
         </StyledSelect>
       </Label>
 
+      {/* Selector for Drink preferences */}
       <Label>
         Special Sipping Preference
         <StyledSelect
@@ -93,22 +163,21 @@ export const GuestSelectionStep = ({ formik }) => {
           <option value="White Wine">White Wine</option>
           <option value="Rose">Rose</option>
         </StyledSelect>
-
-
-        {/* Checkbox for RSVP text updates */}
-        <div style={{ marginTop: '10px' }}>
-          <input
-            type="checkbox"
-            id="rsvpTextUpdates"
-            name="rsvpTextUpdates"
-            checked={formik.values.rsvpTextUpdates}
-            onChange={handleCheckboxChange}
-          />
-          <label htmlFor="rsvpTextUpdates">
-            Send me my RSVP confirmation and invite link via text message.
-          </label>
-        </div>
       </Label>
+
+      {/* Checkbox for RSVP text updates */}
+      <div style={{ marginTop: '10px' }}>
+        <input
+          type="checkbox"
+          id="rsvpTextUpdates"
+          name="rsvpTextUpdates"
+          checked={formik.values.rsvpTextUpdates}
+          onChange={handleCheckboxChange}
+        />
+        <label htmlFor="rsvpTextUpdates">
+          Send me my RSVP confirmation and invite link via text message.
+        </label>
+      </div>
     </StyledSelection>
   );
 };
