@@ -79,7 +79,7 @@ const CardLink = styled.a`
 
 const AnimatedCard = animated(Card);
 
-const Hotels = () => {
+const Hotels = ({ trackEvent }) => {
   const [inViewRef1, inView1] = useInView({ triggerOnce: false, threshold: 0.1 });
   const [inViewRef2, inView2] = useInView({ triggerOnce: false, threshold: 0.1 });
 
@@ -108,6 +108,7 @@ const Hotels = () => {
             (503) 334-2167
           </CardText>
           <CardLink
+            onClick={() => trackEvent('Travel', 'click', 'Hotel: The Hotel Vance') }
             href='https://www.marriott.com/event-reservations/reservation-link.mi?app=resvlink&id=1689261779325&key=GRP'
             target='_blank'
           >
@@ -123,6 +124,7 @@ const Hotels = () => {
             (503) 220-1339
           </CardText>
           <CardLink
+            onClick={() => trackEvent('Travel', 'click', 'Hotel: Residence Inn, Pearl') }
             href='https://www.marriott.com/event-reservations/reservation-link.mi?id=1689711999522&key=GRP&app=resvlink'
             target='_blank'
           >
@@ -137,7 +139,7 @@ const Hotels = () => {
 
 export const Travel = () => {
 
-  useGoogleAnalytics() // Track '/travel' page views
+  const trackEvent = useGoogleAnalytics();
 
   return (
     <>
@@ -157,21 +159,21 @@ export const Travel = () => {
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/united_airlines_logo.png' alt="United Airlines Logo" />
-          <CardLink href='https://www.united.com/en/us' target='_blank'>
+          <CardLink onClick={() => trackEvent('Travel', 'click', 'Airfare: SFO | DEN') } href='https://www.united.com/en/us' target='_blank'>
             Book out of SFO | DEN
           </CardLink>
         </Card>
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/southwest_airlines_logo.png' alt="Southwest Airlines Logo" />
-          <CardLink href='https://www.southwest.com/' target='_blank'>
+          <CardLink onClick={() => trackEvent('Travel', 'click', 'Airfare: SMF | DEN') } href='https://www.southwest.com/' target='_blank'>
             Book out of SMF | DEN
           </CardLink>
         </Card>
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/alaska_airlines_logo.svg' alt="Alaska Airlines Logo" />
-          <CardLink href='https://www.alaskaair.com/' target='_blank'>
+          <CardLink onClick={() => trackEvent('Travel', 'click', 'Airfare: SMF | SFO') } href='https://www.alaskaair.com/' target='_blank'>
             Book out of SMF | SFO
           </CardLink>
         </Card>
@@ -190,7 +192,7 @@ export const Travel = () => {
         We have rooms blocked off for wedding guests at the following West Portland Hotels:
       </TravelHeader>
 
-      <Hotels />
+      <Hotels trackEvent={trackEvent} />
 
       <Card style={{ marginBottom: '2rem' }}>
         <TravelHeader>
