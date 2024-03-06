@@ -14,3 +14,18 @@ export const Input = styled.input`
     border-bottom-color: #8AA399;  // sage green color when focused
   }
 `;
+
+export const InputSm = styled.input`
+  font-size: 1rem;  // larger font for visibility
+  padding: .5rem;      // increased padding for touch targets
+  width: 100%;        // utilizing the full width
+  border: none;       // removing all borders
+  border-bottom: 1px solid #d9d9d9;  // subtle bottom border
+  background-color: transparent;     // clear background
+  transition: border-color 0.3s ease;
+  text-align: center;
+  &:focus {
+    outline: none;
+    border-bottom-color: #8AA399;  // sage green color when focused
+  }
+`;
