@@ -5,7 +5,7 @@ import { COLOR_PALETTE } from '../../styles/Colors';
 const NotAttendingButton = styled.button`
     font-size: 1.2rem;
     padding: 1rem 2rem;
-    background-color: ${COLOR_PALETTE['burgundy']};
+    background-color: ${COLOR_PALETTE['rust']};
     color: white;
     border: none;
     border-radius: 4px;
@@ -15,7 +15,7 @@ const NotAttendingButton = styled.button`
     cursor: pointer;
     transition: background-color 0.3s ease;
     &:hover {
-        background-color: #9989AF; // You can adjust this for a hover color.
+        background-color: ${COLOR_PALETTE['burgundy']} // rust on hover
     }
 `;
 
@@ -32,7 +32,7 @@ const AttendingButton = styled.button`
     cursor: pointer;
     transition: background-color 0.3s ease;
     &:hover {
-        background-color: #799982; // You can adjust this for a hover color.
+        background-color: ${COLOR_PALETTE['darkGreen']}; // dark green on hover
     }
 `;
 

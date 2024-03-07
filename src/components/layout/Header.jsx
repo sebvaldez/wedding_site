@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useSpring, animated } from 'react-spring';
 import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from '../Logout';
+import { COLOR_PALETTE } from '../../styles/Colors';
 
 const Navbar = styled.div`
   display: flex;
@@ -90,22 +91,22 @@ const LargeButtonLink = styled(NavLink)`
   padding: 1.3rem 2.171rem;
   text-decoration: none;
   cursor: pointer;
-  background-color: #000;  // Black background for non-active state
+  background-color: ${COLOR_PALETTE['sageGreen']}; // sage green button
   color: #FFF;  // White text
-  border: 2px solid #000;  // Black border
+  border: 2px solid ${COLOR_PALETTE['sageGreen']}; // sage green border
   &:hover {
     background-color: #FFF;  // White background on hover for non-active state
-    color: #000;  // Black text on hover
+    color: ${COLOR_PALETTE['sageGreen']}; // sage green text on hover
   }
 
   &.active {
-    background-color: #ff6347; // White background for active state
+    background-color: ${COLOR_PALETTE['darkGreen']}; // dark green button when active
     color: #fff;  // Black text
-    border: 2px solid #fff;  // Black border
+    border: 2px solid ${COLOR_PALETTE['darkGreen']}; // dark green border
 
     &:hover {
-      background-color: #000;  // Black background on hover for active state
-      color: #FFF;  // White text on hover
+      background-color: #fff;  // Black background on hover for active state
+      color: ${COLOR_PALETTE['darkGreen']};
     }
   }
 `;

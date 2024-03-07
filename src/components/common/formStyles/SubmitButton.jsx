@@ -3,7 +3,7 @@ import { COLOR_PALETTE } from '../../../styles/Colors';
 
 export const SubmitButton = styled.button`
     padding: 1rem 2rem;  // Increased padding for easy click on mobile
-    background-color: ${COLOR_PALETTE['sageGreen']};
+    background-color: ${COLOR_PALETTE['sageGreen']}; // Sage green button when active
     color: white;
     border: none;
     border-radius: 4px;
@@ -21,7 +21,7 @@ export const SubmitButton = styled.button`
     font-size: 1.2rem;  // Increased font size for visibility
 
     &:hover {
-        background-color: ${COLOR_PALETTE['darkGreen']};
+        background-color: ${COLOR_PALETTE['darkGreen']}; // Dark green on active hover
     }
 
     &:disabled {
