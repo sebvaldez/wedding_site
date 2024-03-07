@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { COLOR_PALETTE } from '../../../styles/Colors';
 
 export const SubmitButton = styled.button`
     padding: 1rem 2rem;  // Increased padding for easy click on mobile
-    background-color: #8AA399;
+    background-color: ${COLOR_PALETTE['sageGreen']};
     color: white;
     border: none;
     border-radius: 4px;
@@ -20,11 +21,11 @@ export const SubmitButton = styled.button`
     font-size: 1.2rem;  // Increased font size for visibility
 
     &:hover {
-        background-color: #799982;
+        background-color: ${COLOR_PALETTE['darkGreen']};
     }
 
     &:disabled {
-        background-color: #A89FBF;  // Use the muted purple when disabled
+        background-color: ${COLOR_PALETTE['mauve']};
         cursor: not-allowed;
     }
 `;

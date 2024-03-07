@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import Greeting from '../Greeting';
+import { COLOR_PALETTE } from '../../styles/Colors';
 
 const NotAttendingButton = styled.button`
     font-size: 1.2rem;
     padding: 1rem 2rem;
-    background-color: #A89FBF; // muted purple
+    background-color: ${COLOR_PALETTE['burgundy']};
     color: white;
     border: none;
     border-radius: 4px;
@@ -21,7 +22,7 @@ const NotAttendingButton = styled.button`
 const AttendingButton = styled.button`
     font-size: 1.2rem;
     padding: 1rem 2rem;
-    background-color: #8AA399; // sage green
+    background-color: ${COLOR_PALETTE['sageGreen']};
     color: white;
     border: none;
     border-radius: 4px;
