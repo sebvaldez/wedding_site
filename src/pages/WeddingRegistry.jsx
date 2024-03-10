@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Container from '../components/common/Container';
 import HeroSection from '../components/layout/HeroContainer';
-import useGoogleAnalytics from '../hooks/useGoogleAnalytics';
+import usePosthog from '../hooks/usePostHog';
 
 const RegistryContainer = styled.div`
     display: grid;
@@ -115,7 +115,7 @@ const registryList = [
 ];
 
 export const WeddingRegistry = () => {
-  const trackEvent = useGoogleAnalytics(); // track '/registry' page
+  const trackEvent = usePosthog();
 
   return (
     <Container>
@@ -139,7 +139,7 @@ export const WeddingRegistry = () => {
               href={item.url}
               target='_blank'
               aria-label={`Link to ${item.vendor} registry`}
-              onClick={() => trackEvent('Registry', 'click', item.vendor)}
+              onClick={() => trackEvent('Registry', { vendorLink: item.vendor })}
             ></RegistryLink>
           </RegistryItem>
         ))}

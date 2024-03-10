@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useSpring, animated, config } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
 import HeroSection from '../components/layout/HeroContainer'
-import useGoogleAnalytics from '../hooks/useGoogleAnalytics';
+import usePosthog from '../hooks/usePostHog';
 
 const TravelHeader = styled.h1`
   text-align: center;
@@ -108,7 +108,7 @@ const Hotels = ({ trackEvent }) => {
             (503) 334-2167
           </CardText>
           <CardLink
-            onClick={() => trackEvent('Travel', 'click', 'Hotel: The Hotel Vance') }
+            onClick={() => trackEvent('Travel', { link: 'Hotel: The Hotel Vance'}) }
             href='https://www.marriott.com/event-reservations/reservation-link.mi?app=resvlink&id=1689261779325&key=GRP'
             target='_blank'
           >
@@ -124,7 +124,7 @@ const Hotels = ({ trackEvent }) => {
             (503) 220-1339
           </CardText>
           <CardLink
-            onClick={() => trackEvent('Travel', 'click', 'Hotel: Residence Inn, Pearl') }
+            onClick={() => trackEvent('Travel',  {link: 'Hotel: Residence Inn, Pearl'}) }
             href='https://www.marriott.com/event-reservations/reservation-link.mi?id=1689711999522&key=GRP&app=resvlink'
             target='_blank'
           >
@@ -138,9 +138,7 @@ const Hotels = ({ trackEvent }) => {
 
 
 export const Travel = () => {
-
-  const trackEvent = useGoogleAnalytics();
-
+  const trackEvent = usePosthog();
   return (
     <>
       <HeroSection
@@ -159,21 +157,21 @@ export const Travel = () => {
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/united_airlines_logo.png' alt="United Airlines Logo" />
-          <CardLink onClick={() => trackEvent('Travel', 'click', 'Airfare: SFO | DEN') } href='https://www.united.com/en/us' target='_blank'>
+          <CardLink onClick={() => trackEvent('Travel',  {link: 'Airfare: SFO | DEN'}) } href='https://www.united.com/en/us' target='_blank'>
             Book out of SFO | DEN
           </CardLink>
         </Card>
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/southwest_airlines_logo.png' alt="Southwest Airlines Logo" />
-          <CardLink onClick={() => trackEvent('Travel', 'click', 'Airfare: SMF | DEN') } href='https://www.southwest.com/' target='_blank'>
+          <CardLink onClick={() => trackEvent('Travel', {link: 'Airfare: SMF | DEN'}) } href='https://www.southwest.com/' target='_blank'>
             Book out of SMF | DEN
           </CardLink>
         </Card>
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/alaska_airlines_logo.svg' alt="Alaska Airlines Logo" />
-          <CardLink onClick={() => trackEvent('Travel', 'click', 'Airfare: SMF | SFO') } href='https://www.alaskaair.com/' target='_blank'>
+          <CardLink onClick={() => trackEvent('Travel', { link: 'Airfare: SMF | SFO'}) } href='https://www.alaskaair.com/' target='_blank'>
             Book out of SMF | SFO
           </CardLink>
         </Card>

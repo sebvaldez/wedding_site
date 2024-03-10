@@ -21,33 +21,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
 import AdminDashboard from './pages/AdminDashboard';
 import styled from 'styled-components';
-import ReactGA from 'react-ga'; // TODO - remove this once PostHog is fully implemented
 import { PostHogProvider} from 'posthog-js/react'
 
 const options = {
   api_host: process.env.REACT_APP_PUBLIC_POSTHOG_HOST,
 }
-
-
-const TRACKING_ID = 'G-70ZJT8SXTR'; // Google Analytics Tracking ID
-ReactGA.initialize(TRACKING_ID);
-
-if (process.env.REACT_APP_ENV === 'production') {
-  const script1 = document.createElement("script");
-  script1.async = true;
-  script1.src = "https://www.googletagmanager.com/gtag/js?id=G-70ZJT8SXTR";
-  document.body.appendChild(script1);
-
-  const script2 = document.createElement("script");
-  script2.innerHTML = `
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-70ZJT8SXTR');
-  `;
-  document.body.appendChild(script2);
-}
-
 
 const Container = styled.div`
   width: 100%;
