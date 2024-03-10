@@ -12,7 +12,6 @@ import ResponsiveImage from './components/layout/ResponsiveImage'
 import SheSaidQuote from './components/SheSaidQuote';
 import HeSaidQuote from './components/HeSaidQuote';
 import WeatherSection from './components/WeatherSection';
-import useGoogleAnalytics from './hooks/useGoogleAnalytics';
 
 const InvitationSection = styled.div`
   padding: 2rem 1.4rem;
@@ -84,7 +83,6 @@ const ArrivalWrapper = styled.div`
 `;
 
 function App() {
-  useGoogleAnalytics(); // track the '/' page
 
   return (
     <>
