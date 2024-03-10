@@ -21,7 +21,13 @@ import ProtectedRoute from './components/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
 import AdminDashboard from './pages/AdminDashboard';
 import styled from 'styled-components';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga'; // TODO - remove this once PostHog is fully implemented
+import { PostHogProvider} from 'posthog-js/react'
+
+const options = {
+  api_host: process.env.REACT_APP_PUBLIC_POSTHOG_HOST,
+}
+
 
 const TRACKING_ID = 'G-70ZJT8SXTR'; // Google Analytics Tracking ID
 ReactGA.initialize(TRACKING_ID);
@@ -100,6 +106,10 @@ const RsvpTimer = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <PostHogProvider
+      apiKey={process.env.REACT_APP_PUBLIC_POSTHOG_KEY}
+      options={options}
+    >
     <QueryClientProvider client={queryClient}>
       <Auth0Provider
         domain={process.env.REACT_APP_AUTH0_DOMAIN}
@@ -133,6 +143,7 @@ root.render(
         <ReactQueryDevtools initialIsOpen={false} />
       </Auth0Provider>
     </QueryClientProvider>
+    </PostHogProvider>
   </React.StrictMode>
 );
 
