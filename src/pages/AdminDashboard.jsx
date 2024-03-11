@@ -5,6 +5,7 @@ import { useTable, useSortBy, usePagination } from 'react-table';
 import { useGetAllMembers } from '../hooks/members';
 import { useSendEmail, useSendText } from '../hooks/communications';
 import Toast from '../components/common/Toast';
+import Visualize from '../components/Visualize';
 
 const StyledAdminLayout = styled.div`
   display: flex;
@@ -289,7 +290,7 @@ const AdminDashboard = () => {
 
       <Routes>
         <Route index element={<MyTable data={members} columns={columns} />} />
-        <Route path='visualize' element={<Visualize />} />
+        <Route path='visualize' element={<Visualize memberData={members} />} />
       </Routes>
 
       {textToastMessage && <Toast message={textToastMessage} />}
@@ -324,6 +325,5 @@ const AdminNavigationButton = () => {
   );
 };
 
-const Visualize = () => <h1>Visualize</h1>;
 
 export default AdminDashboard;
