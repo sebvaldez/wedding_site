@@ -7,8 +7,6 @@ const GlobalFonts = createGlobalStyle`
 
   body {
     font-family: 'Montserrat', sans-serif;
-    /* font-family: 'Bellota Text', cursive; */
-    /* uncomment the font you want to use */
   }
   h2 {
     font-family: 'Tenor Sans', serif;
