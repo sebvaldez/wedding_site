@@ -13,7 +13,8 @@ const StyledAdminLayout = styled.div`
   gap: 1rem;
   padding: 1rem;
   margin-top: 1.2rem;
-`
+`;
+
 const TextReminderButton = styled.button`
   padding: 8px 20px;
   background-color: #007BFF;
@@ -240,7 +241,7 @@ const AdminDashboard = () => {
     },
     {
       Header: "Drink Preference",
-      accessor: "specialSippingpreference"
+      accessor: "specialSippingPreference"
     },
     {
       Header: "Text Reminder",
