@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-
+import { toTitleCaseNoSpaces } from "../../utils";
 import { ChartContainer, ChartTitle } from "../ChartComponents";
 
 
@@ -28,6 +28,8 @@ const BAR_COLORS = [
 const processDataForBarChart = (memberData) => {
   const transportCounts = memberData.reduce((acc, { plannedTransportation }) => {
     if (!plannedTransportation) return acc; // skip if no transportation plan
+    plannedTransportation = toTitleCaseNoSpaces(plannedTransportation);
+
     acc[plannedTransportation] = (acc[plannedTransportation] || 0) + 1;
     return acc;
   }, {});

@@ -139,9 +139,9 @@ export const GuestSelectionStep = ({ formik }) => {
           onChange={formik.handleChange}
         >
           <option value="" disabled>Select</option>
-          <option value="Renting a Car">Renting a Car</option>
-          <option value="Uber or Lyft">Uber or Lyft</option>
-          <option value="Carpooling">Carpooling</option>
+          <option value="renting_a_car">Renting a Car</option>
+          <option value="uber_or_lyft">Uber or Lyft</option>
+          <option value="carpooling">Carpooling</option>
         </StyledSelect>
       </Label>
 
@@ -154,13 +154,13 @@ export const GuestSelectionStep = ({ formik }) => {
           onChange={formik.handleChange}
         >
           <option value="" disabled>Select</option>
-          <option value="IPA">IPA</option>
-          <option value="Pilsner">Pilsner</option>
-          <option value="Classic Cocktails">Classic Cocktails</option>
-          <option value="NA | Mocktails">NA | Mocktails</option>
-          <option value="Red Wine">Red Wine</option>
-          <option value="White Wine">White Wine</option>
-          <option value="Rose">Rose</option>
+          <option value="ipa">IPA</option>
+          <option value="pilsner">Pilsner</option>
+          <option value="classic_cocktails">Classic Cocktails</option>
+          <option value="na_mocktails">NA | Mocktails</option>
+          <option value="red_wine">Red Wine</option>
+          <option value="white_wine">White Wine</option>
+          <option value="rose">Rose</option>
         </StyledSelect>
       </Label>
 
