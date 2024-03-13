@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 const DashboardContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  gap: 15px;
+  padding: 15px;
+  // Start with a base grid setup that works well on smaller screens
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr; /* Stack the charts on smaller screens */
+  // Adjust for larger screens if necessary
+  @media (min-width: 769px) {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   }
 `;
 
