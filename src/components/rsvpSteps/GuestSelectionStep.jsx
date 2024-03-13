@@ -88,9 +88,8 @@ export const GuestSelectionStep = ({ formik }) => {
           onChange={formik.handleChange}
         >
           <option value="" disabled>Select</option>
-          <option value="Vegetable Polenta Torte">Vegetable Polenta Torte</option>
-          <option value="Chicken Saltimcbocca">Chicken Saltimcbocca</option>
-          <option value="Kid's Buffet">Kid's Buffet</option>
+          <option value="balsamic_rosemary_chicken">Balsamic Rosemary Chicken</option>
+          <option value="grilled_vegetable_wellington">Grilled Vegetable Wellington</option>
         </StyledSelect>
       </Label>
 

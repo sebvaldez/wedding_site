@@ -1,12 +1,15 @@
 import React, { useMemo } from "react";
 import { PieChart, Pie, Tooltip, Legend, Cell } from "recharts";
+import { toTitleCaseNoSpaces } from "../../utils";
 import { ChartContainer, ChartTitle } from "../ChartComponents"
 
 const COLORS = ["#414A43", "#803404", "#995A6D", "#520707"];
 
 const preprocessDataForPieChart = (memberData) => {
   const countMap = memberData.reduce((acc, user) => {
-    const { dinnerSelection } = user;
+    let { dinnerSelection } = user;
+    dinnerSelection = toTitleCaseNoSpaces(dinnerSelection);
+
     acc[dinnerSelection] = (acc[dinnerSelection] || 0) + 1;
     return acc;
   }, {});
