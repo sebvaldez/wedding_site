@@ -86,7 +86,7 @@ export const Rsvp = () => {
       specialSippingPreference: '',
       rsvpTextUpdates: true
     },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       switch (step) {
         case 0:
           setStep(1);
@@ -100,15 +100,18 @@ export const Rsvp = () => {
           bulkUpdateMembers(values, {
             onSuccess: () => {
               navigate('/registry');
+              resetForm(); // Reset the form after the last step is complete
             },
             // Optionally handle onError
           });
           break;
         case 3:
           console.log(bulkUpdateMembers);
+          debugger;
           bulkUpdateMembers(values, {
             onSuccess: () => {
               setStep(4);
+              resetForm(); // Reset the form after the last step is complete
             },
             // Optionally handle onError
           });
@@ -129,6 +132,10 @@ export const Rsvp = () => {
 
   useEffect(() => {
     if (memberData && memberData?.email && formik.values.email !== memberData?.email) {
+        console.log('useEffect, memberdata is not the same as formik values');
+        formik.setFieldValue('id', memberData.id);
+        formik.setFieldValue('firstName', memberData.firstName);
+        formik.setFieldValue('lastName', memberData.lastName);
         formik.setFieldValue('id', memberData.id);
         formik.setFieldValue('email', memberData.email);
     }
@@ -138,7 +145,7 @@ export const Rsvp = () => {
   useEffect(() => {
     if (memberData && memberData.attending) {
       console.log('new useEffect, is user attending?', memberData.attending);
-      setStep(3); // if user had prev checked take them to their selections
+      // setStep(3); // this is a bug when using id params if user had prev checked take them to their selections 
     }
   }, [memberData,formik.values.attending]);
 
