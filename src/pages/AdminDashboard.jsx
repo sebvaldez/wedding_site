@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTable, useSortBy, usePagination } from 'react-table';
@@ -23,7 +23,14 @@ const TextReminderButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.8em;
+
+  &:disabled {
+    background-color: #AAB8C2; /* Lighter gray color for disabled state */
+    color: #E1E8ED; /* Darker gray for text color to indicate it's disabled */
+    cursor: not-allowed; /* Change cursor to indicate the button is not clickable */
+  }
 `;
+
 
 const StyledLink = styled(Link)`
   width: 120px;
@@ -194,8 +201,23 @@ function MyTable({ columns, data }) {
 
 const AdminDashboard = () => {
   const { data: members, isLoading: isLoadingData, isError, error, refetch } = useGetAllMembers();
-  const { mutate: sendText, isLoading: isTextLoading, toastMessage: textToastMessage } = useSendText()
+  const { mutateAsync: sendText, toastMessage: textToastMessage } = useSendText();
   const { mutate: sendEmail, isLoading: isEmailLoading, toastMessage: emailToastMessage } = useSendEmail();
+  const [sendingTexts, setSendingTexts] = useState({});
+
+  const sendTextForMember = async (member) => {
+    setSendingTexts(prev => ({ ...prev, [member.id]: true }));
+
+    try {
+      await sendText({ memberId: member.id, firstName: member.firstName });
+      // The toast message is already handled in the mutation's onSuccess
+    } catch (error) {
+      // Error handling
+      console.error("Error sending text:", error);
+    } finally {
+      setSendingTexts(prev => ({ ...prev, [member.id]: false }));
+    }
+  };
 
   if (isLoadingData) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;
@@ -248,9 +270,9 @@ const AdminDashboard = () => {
       disableSortBy: true,
       Cell: ({ row: { original } }) => (
         <TextReminderButton
-          disabled={isTextLoading}
-          onClick={() => sendText({ memberId: original.id, firstName: original.firstName }) }>
-            Text Reminder
+          disabled={!original.rsvpTextUpdates || sendingTexts[original.id]}
+          onClick={() => sendTextForMember(original)}>
+            {sendingTexts[original.id] ? 'Sending text...' : 'Text Reminder'}
         </TextReminderButton>
       )
     },
