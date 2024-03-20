@@ -31,7 +31,7 @@ export const ConfirmedStep = () => {
       }, 1000);
       return () => clearTimeout(timeoutId);
     } else {
-      navigate('/travel');
+      navigate('/travel#where-to-stay');
     }
   }, [counter, navigate]);
 

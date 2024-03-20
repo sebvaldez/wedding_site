@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -60,9 +60,14 @@ const HeroButton = styled(Link)`
     font-size: 1rem;
 `;
 
-const HeroSection = ({ height, overlay=true, backgroundImage, heroText, HeroTextFontSize, HeroTextFontWeight, subText, SubTextFontSize, buttonText, buttonLink }) => {
+const HeroSection = forwardRef(({
+  id, height, overlay=true, backgroundImage, heroText, HeroTextFontSize, 
+  HeroTextFontWeight, subText, SubTextFontSize, buttonText, buttonLink 
+}, ref) => {
   return (
     <HeroContainer
+      id={id}
+      ref={ref}
       overlay={overlay}
       height={height}
       backgroundImage={backgroundImage}
@@ -79,9 +84,9 @@ const HeroSection = ({ height, overlay=true, backgroundImage, heroText, HeroText
       }
       <SubText SubTextFontSize={SubTextFontSize}>{subText}</SubText>
       {buttonText && buttonLink && <HeroButton to={buttonLink}>{buttonText}</HeroButton>}
-    </HeroContainer>
+      </HeroContainer>
   );
-}
+});
 
 export default HeroSection;
 

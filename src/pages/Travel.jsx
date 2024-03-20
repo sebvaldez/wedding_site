@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components'
 import { useSpring, animated, config } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
@@ -31,6 +32,7 @@ const CardContainer = styled.div`
     align-items: baseline;
   }
 `;
+
 // Individual card style
 const Card = styled.div`
   display: flex;
@@ -45,12 +47,14 @@ const Card = styled.div`
     margin: 0 1rem;  // Add some horizontal spacing between cards on desktop
   }
 `;
+
 const CardHeader = styled.h2`
   font-weight: bold;
   text-align: center;
   margin: 0; // Ensure there's no extra margin from default h2 styles
   padding: 2rem 1rem;
 `;
+
 const CardImage = styled.img`
   width: 320px;   // Set the width, let the height auto adjust
   height: auto;   // This maintains the original image aspect ratio
@@ -58,11 +62,13 @@ const CardImage = styled.img`
   display: block;  // Remove any gaps under the image
   max-height: 200px;  // Ensure it doesn't get too tall (optional)
 `;
+
 const CardText = styled.p`
   text-align: center;
   margin: 1rem 0;  // Add some spacing between the text and the link
   padding: 0 1.2rem;
 `;
+
 const CardLink = styled.a`
   color: white;
   background-color: #000000; /* Example blue color */
@@ -136,9 +142,20 @@ const Hotels = ({ trackEvent }) => {
   );
 };
 
-
 export const Travel = () => {
   const trackEvent = usePosthog();
+  const whereToStayRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (whereToStayRef.current) {
+        whereToStayRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 500); // Adjust the delay as needed
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <HeroSection
@@ -179,6 +196,8 @@ export const Travel = () => {
       </CardContainer>
 
       <HeroSection
+        id='where-to-stay'
+        ref={whereToStayRef}
         backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/where_to_stay_img.jpg'
         height={'400px'}
         HeroTextFontWeight={'300'}
