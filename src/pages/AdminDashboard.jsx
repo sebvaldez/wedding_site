@@ -31,7 +31,6 @@ const TextReminderButton = styled.button`
   }
 `;
 
-
 const StyledLink = styled(Link)`
   width: 120px;
   height: 30px;
@@ -202,21 +201,28 @@ function MyTable({ columns, data }) {
 const AdminDashboard = () => {
   const { data: members, isLoading: isLoadingData, isError, error, refetch } = useGetAllMembers();
   const { mutateAsync: sendText, toastMessage: textToastMessage } = useSendText();
-  const { mutate: sendEmail, isLoading: isEmailLoading, toastMessage: emailToastMessage } = useSendEmail();
-  const [sendingTexts, setSendingTexts] = useState({});
+  const { mutateAsync: sendEmail, isLoading: isEmailLoading, toastMessage: emailToastMessage } = useSendEmail();
+  const [sendingStatuses, setSendingStatuses] = useState({});
 
-  const sendTextForMember = async (member) => {
-    setSendingTexts(prev => ({ ...prev, [member.id]: true }));
+  const sendAction = async (member, action, actionType) => {
+    const key = `${actionType}-${member.id}`;
+    setSendingStatuses(prev => ({ ...prev, [key]: true }));
 
     try {
-      await sendText({ memberId: member.id, firstName: member.firstName });
-      // The toast message is already handled in the mutation's onSuccess
+      await action({ memberId: member.id, firstName: member.firstName });
     } catch (error) {
-      // Error handling
-      console.error("Error sending text:", error);
+      console.error(`Error sending ${actionType}:`, error);
     } finally {
-      setSendingTexts(prev => ({ ...prev, [member.id]: false }));
+      setSendingStatuses(prev => ({ ...prev, [key]: false }));
     }
+  };
+
+  const sendTextForMember = (member) => sendAction(member, sendText, 'text');
+
+  const sendEmailForMember = (member) => sendAction(member, sendEmail, 'email');
+
+  const handleRefresh = () => {
+    refetch({ force: true }); // This tells React Query to bypass the cache and fetch fresh data
   };
 
   if (isLoadingData) return <p>Loading...</p>;
@@ -268,40 +274,38 @@ const AdminDashboard = () => {
     {
       Header: "Text Reminder",
       disableSortBy: true,
-      Cell: ({ row: { original } }) => (
-        <TextReminderButton
-          disabled={!original.rsvpTextUpdates || sendingTexts[original.id]}
-          onClick={() => sendTextForMember(original)}>
-            {sendingTexts[original.id] ? 'Sending text...' : 'Text Reminder'}
-        </TextReminderButton>
-      )
+      Cell: ({ row: { original } }) => {
+        const isSendingText = sendingStatuses[`text-${original.id}`];
+
+        return (
+          <TextReminderButton
+            disabled={!original.rsvpTextUpdates || isSendingText}
+            onClick={() => sendTextForMember(original)}>
+              {isSendingText ? 'Sending text...' : 'Text Reminder'}
+          </TextReminderButton>
+        );
+      }
     },
     {
       Header: "Send Invitation",
       disableSortBy: true,
       Cell: ({ row: { original } }) => {
-        if (original.emailedInvitation) {
-          return (
-            <AlreadySentButton disabled onClick={() => sendEmail({ memberId: original.id, firstName: original.firstName }) }>
-              Invitation Sent
-            </AlreadySentButton>
-          );
-        } else {
-          return (
-            <TextReminderButton
-              disabled={isEmailLoading}
-              onClick={() => sendEmail({ memberId: original.id, firstName: original.firstName }) }>
-                Send Invitation
-            </TextReminderButton>
-          );
-        }
+        const isSendingEmail = sendingStatuses[`email-${original.id}`];
+
+        return original.emailedInvitation ? (
+          <AlreadySentButton disabled>
+            Invitation Sent
+          </AlreadySentButton>
+        ) : (
+          <TextReminderButton
+            disabled={isSendingEmail}
+            onClick={() => sendEmailForMember(original)}>
+              {isSendingEmail ? 'Sending...' : 'Send Invitation'}
+          </TextReminderButton>
+        );
       }
     }
   ];
-
-  const handleRefresh = () => {
-    refetch({ force: true }); // This tells React Query to bypass the cache and fetch fresh data
-  };
 
   return (
     <StyledAdminLayout>
