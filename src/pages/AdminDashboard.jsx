@@ -201,7 +201,7 @@ function MyTable({ columns, data }) {
 const AdminDashboard = () => {
   const { data: members, isLoading: isLoadingData, isError, error, refetch } = useGetAllMembers();
   const { mutateAsync: sendText, toastMessage: textToastMessage } = useSendText();
-  const { mutateAsync: sendEmail, isLoading: isEmailLoading, toastMessage: emailToastMessage } = useSendEmail();
+  const { mutateAsync: sendEmail, toastMessage: emailToastMessage } = useSendEmail();
   const [sendingStatuses, setSendingStatuses] = useState({});
 
   const sendAction = async (member, action, actionType) => {
