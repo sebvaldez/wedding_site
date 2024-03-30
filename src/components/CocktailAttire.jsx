@@ -1,4 +1,35 @@
+import styled from 'styled-components';
+import {COLOR_PALETTE} from '../styles/Colors';
 import  Section  from './layout/Section';
+
+const PalletContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  overflow-x: auto; /* Allows for horizontal scrolling on smaller screens if necessary */
+
+  @media (min-width: 768px) {
+    max-width: 55%;
+    justify-content: center; /* Center items for larger screens */
+    overflow-x: hidden; /* Prevent horizontal scrolling on larger screens */
+  }
+`;
+
+const PaletteColor = styled.div`
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+  background-color: ${props => props.backgroundColor};
+
+  @media (min-width: 768px) {
+    height: 120px;
+    width: 120px;
+  }
+`;
+
 
 export default function CocktailAttire() {
   return (
@@ -14,13 +45,13 @@ export default function CocktailAttire() {
       <em style={{ fontWeight: '600'}}>Denim, Shorts, Baseball Caps, Athletic Wear, Athletic Shoes.</em>
     </p>
 
-    <img
-      style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
-      src="https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/attire_img_v2.png"
-      alt="Wedding Attire infographic"
-    />
+    <PalletContainer>
+      {
+        Object.keys(COLOR_PALETTE).map((color, index) => (
+          <PaletteColor key={index} backgroundColor={COLOR_PALETTE[color]} />
+        ))
+      }
+    </PalletContainer>
   </Section>
   )
-}
-
-
+};
