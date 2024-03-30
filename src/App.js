@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import HeroSection from './components/layout/HeroContainer';
+import CocktailAttire from './components/CocktailAttire';
 import Timeline from './components/Timeline';
 import Section from './components/layout/Section';
 import InfoWrapper from './components/InfoWrapper';
@@ -148,24 +149,7 @@ function App() {
         </InfoSection>
 
         <InfoSection spanColumns>
-          <Section title='Cocktail Attire'>
-            <p>
-              All guests are welcome (but not required) to dress in our color palette!
-            </p>
-
-            <br />
-
-            <h2><em style={{ fontWeight: '600'}}>Please refrain from wearing the following items:</em></h2>
-            <p style={{paddingBottom: '1.2rem'}}>
-              <em style={{ fontWeight: '600'}}>Denim, Shorts, Baseball Caps, Athletic Wear, Athletic Shoes.</em>
-            </p>
-
-            <img
-              style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
-              src="https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/homepage/attire_img_v2.png"
-              alt="Wedding Attire infographic"
-            />
-          </Section>
+          <CocktailAttire />
         </InfoSection>
 
         <InfoSection spanColumns>
