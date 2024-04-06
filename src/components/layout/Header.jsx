@@ -11,12 +11,12 @@ const Navbar = styled.div`
   height: 4rem;
   margin: 0 auto;
   padding: 0 2rem;
-  justify-content: space-between;  // Change from space-around to space-between
+  justify-content: space-between;
   align-items: center;
   z-index: 2000;
   position: relative;
   gap: .3rem;
-  max-width: 100%; // This will be your container's maximum width; adjust as needed
+  max-width: 100%;
 
   // Tablet styles (for screens larger than 768px)
   @media (min-width: 769px) {
@@ -26,38 +26,36 @@ const Navbar = styled.div`
 
   // Desktop styles (for screens larger than 1024px)
   @media (min-width: 1025px) {
-    flex-grow: .5;
-    // padding: 0 9.5rem;
-    height: 5rem;
-    max-width: 85%;  // Decreasing the maximum width on desktops for tighter grouping; adjust as needed
+    height: 4.5rem;
+    font-size: 1rem;  // Increase font size for desktops
+    max-width: 90%;  // Decreasing the maximum width on desktops for tighter grouping; adjust as needed
   }
 `;
 
-
 const NavBrand = styled.div`
-@media (max-width: 768px) {
-    margin-left: .5rem;
-    padding-left: 0;
-  }
+  @media (max-width: 768px) {
+      padding-left: 0;
+    }
 
-  padding: .2rem;
-  display:flex;
-  align-items: center;
-  gap: .3rem;
-  justify-content: flex-left;
-  z-indez: 1000;
+    padding: .2rem 0 .2rem .2rem;
+    display:flex;
+    align-items: center;
+    gap: .2rem;
+    justify-content: flex-left;
+    z-index: 1000;
 
-  img {
-    padding: .4rem;
-    width: 18%;
-  }
-`
+    img {
+      padding: .4rem;
+      width: 20%;
+    }
+`;
 
 const StyledNavLink = styled(NavLink)`
   font-family: 'Montserrat', sans-serif;
   color: #000000;
   text-decoration: none;
   margin: 0 1rem;
+  font-size: 1rem;
 
   &.active{
     color: #ff6347;
@@ -139,13 +137,16 @@ const DropdownMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-
+  width: auto;
+  margin-bottom: .2rem;
   transform: translateY(0);
   visibility: visible;
   @media (min-width: 769px) {
     position: static;
     background-color: transparent;
     box-shadow: none;
+    min-width: 70%; // Adjusted for larger screens
+    max-width: 90%; // Optional: you can set a max-width
     flex-direction: row;
 
     & a {
