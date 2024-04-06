@@ -158,6 +158,23 @@ export const Travel = () => {
 
   return (
     <>
+
+      <HeroSection
+        id='where-to-stay'
+        ref={whereToStayRef}
+        backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/where_to_stay_img.jpg'
+        height={'400px'}
+        HeroTextFontWeight={'300'}
+        heroText="Where to Stay"
+        SubTextFontSize={'1.8rem'}
+      />
+
+      <TravelHeader>
+        We have rooms blocked off for wedding guests at the following West Portland Hotels:
+      </TravelHeader>
+
+      <Hotels trackEvent={trackEvent} />
+
       <HeroSection
         height={'400px'}
         backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/portland_travel_hero_img.jpg'
@@ -194,22 +211,6 @@ export const Travel = () => {
         </Card>
 
       </CardContainer>
-
-      <HeroSection
-        id='where-to-stay'
-        ref={whereToStayRef}
-        backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/where_to_stay_img.jpg'
-        height={'400px'}
-        HeroTextFontWeight={'300'}
-        heroText="Where to Stay"
-        SubTextFontSize={'1.8rem'}
-      />
-
-      <TravelHeader>
-        We have rooms blocked off for wedding guests at the following West Portland Hotels:
-      </TravelHeader>
-
-      <Hotels trackEvent={trackEvent} />
 
       <Card style={{ marginBottom: '2rem' }}>
         <TravelHeader>
