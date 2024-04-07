@@ -3,6 +3,7 @@ import {COLOR_PALETTE} from '../styles/Colors';
 import  Section  from './layout/Section';
 
 const PalletContainer = styled.div`
+  max-width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -33,13 +34,7 @@ const PaletteColor = styled.div`
 
 export default function CocktailAttire() {
   return (
-    <Section title='Cocktail Attire'>
-    <p>
-      All guests are welcome (but not required) to dress in our color palette!
-    </p>
-
-    <br />
-
+    <Section title='Cocktail Formal'>
     <h2><em style={{ fontWeight: '600'}}>Please refrain from wearing the following items:</em></h2>
     <p style={{paddingBottom: '1.2rem'}}>
       <em style={{ fontWeight: '600'}}>Denim, Shorts, Baseball Caps, Athletic Wear, Athletic Shoes.</em>

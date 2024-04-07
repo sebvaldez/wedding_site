@@ -16,6 +16,7 @@ import Admin from './pages/Admin';
 import { FourOhFour } from './pages/FourOhFour';
 import { Travel } from './pages/Travel';
 import  ThingsToDo  from './pages/ThingsToDo';
+import  WeddingDetails  from './pages/WeddingDetails';
 import { WeddingRegistry } from './pages/WeddingRegistry';
 import { Rsvp } from './pages/Rsvp';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -110,10 +111,11 @@ root.render(
                 <AdminDashboard />
               </ProtectedRoute>
             } />
+            <Route path='/details' element={<WeddingDetails />} />
             <Route path='/hotel-blocks' element={<Travel />} />
-            <Route path='/things-to-do' element={<ThingsToDo />} />
             <Route path='/registry' element={<WeddingRegistry />} />
             <Route path='/rsvp' element={<RsvpTimer />} />
+            <Route path='/things-to-do' element={<ThingsToDo />} />
 
             <Route path='*' element={<FourOhFour />} />
           </Routes>
