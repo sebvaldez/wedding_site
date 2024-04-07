@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
+import usePosthog from '../hooks/usePostHog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import CocktailAttire from '../components/CocktailAttire';
@@ -25,6 +26,9 @@ const ArrivalWrapper = styled.div`
 `;
 
 const WeddingDetails = () => {
+  const trackEvent = usePosthog();
+  trackEvent('wedding-details');
+
   return (
     <>
       {/*  Deatails page below: */}

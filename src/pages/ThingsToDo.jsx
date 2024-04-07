@@ -67,6 +67,9 @@ const CardText = styled.p`
 `;
 
 const ThingsToDo = () => {
+  const trackEvent = usePosthog();
+  trackEvent('things-to-do');
+
   return (
   <>
     <HeroSection
