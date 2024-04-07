@@ -10,7 +10,7 @@ const Navbar = styled.div`
   display: flex;
   height: 4rem;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 .5rem;
   justify-content: space-between;
   align-items: center;
   z-index: 2000;
@@ -33,22 +33,25 @@ const Navbar = styled.div`
 `;
 
 const NavBrand = styled.div`
+  padding: .2rem 0 .2rem .2rem;
+  display: flex;
+  align-items: center;
+  gap: .2rem;
+  justify-content: flex-start; // Use flex-start instead of flex-left
+  z-index: 1000;
+  /* border: 1px solid red; */
+  img {
+    padding: .4rem;
+    width: 20%; // Keeps the image width consistent across devices
+  }
+
+  // Apply consistent padding for mobile devices
   @media (max-width: 768px) {
-      padding-left: 0;
-    }
-
-    padding: .2rem 0 .2rem .2rem;
-    display:flex;
-    align-items: center;
-    gap: .2rem;
-    justify-content: flex-left;
-    z-index: 1000;
-
-    img {
-      padding: .4rem;
-      width: 20%;
-    }
+    padding-left: 0;
+    width: 75%; // Adjusts the component width on smaller screens
+  }
 `;
+
 
 const StyledNavLink = styled(NavLink)`
   font-family: 'Montserrat', sans-serif;
@@ -236,6 +239,7 @@ const Header = () => {
             src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/header/navbrand_logo_v2.png'
           />
           <NavLink to='/'>
+            {/* / to be /relationship */}
             <H1>
               <em>
                 Welcome to our Wedding
@@ -267,18 +271,18 @@ const Header = () => {
           }
 
           <StyledNavLink
-            to='/'
+            to='/details'
             onClick={handleLinkClick}
             className="nav-link"
           >
-            Wedding
+            Details
           </StyledNavLink>
           <StyledNavLink
-            to='/travel'
+            to='/hotel-blocks'
             onClick={handleLinkClick}
             className="nav-link"
           >
-            Travel
+            Hotels
           </StyledNavLink>
           <StyledNavLink
             to='/registry'
@@ -286,6 +290,13 @@ const Header = () => {
             className="nav-link"
           >
             Registry
+          </StyledNavLink>
+          <StyledNavLink
+            to='/what-to-do'
+            onClick={handleLinkClick}
+            className="nav-link"
+          >
+            Things to do
           </StyledNavLink>
           <LargeButtonLink
             to='/rsvp'

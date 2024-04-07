@@ -109,7 +109,7 @@ root.render(
                 <AdminDashboard />
               </ProtectedRoute>
             } />
-            <Route path='/travel' element={<Travel />} />
+            <Route path='/hotel-blocks' element={<Travel />} />
             <Route path='/registry' element={<WeddingRegistry />} />
             <Route path='/rsvp' element={<RsvpTimer />} />
 
