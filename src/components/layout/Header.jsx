@@ -292,7 +292,7 @@ const Header = () => {
             Registry
           </StyledNavLink>
           <StyledNavLink
-            to='/what-to-do'
+            to='/things-to-do'
             onClick={handleLinkClick}
             className="nav-link"
           >

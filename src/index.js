@@ -15,6 +15,7 @@ import App from './App';
 import Admin from './pages/Admin';
 import { FourOhFour } from './pages/FourOhFour';
 import { Travel } from './pages/Travel';
+import  ThingsToDo  from './pages/ThingsToDo';
 import { WeddingRegistry } from './pages/WeddingRegistry';
 import { Rsvp } from './pages/Rsvp';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -110,6 +111,7 @@ root.render(
               </ProtectedRoute>
             } />
             <Route path='/hotel-blocks' element={<Travel />} />
+            <Route path='/things-to-do' element={<ThingsToDo />} />
             <Route path='/registry' element={<WeddingRegistry />} />
             <Route path='/rsvp' element={<RsvpTimer />} />
 
