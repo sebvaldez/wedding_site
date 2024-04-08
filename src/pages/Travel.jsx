@@ -9,8 +9,11 @@ import usePosthog from '../hooks/usePostHog';
 const TravelHeader = styled.h1`
   text-align: center;
   margin: 0 auto;
-  font-size: 1.1rem;
+  font-size: 1rem;
   padding: 1.8rem;
+  padding-bottom: 0;
+  font-style: italic;
+  font-weight: bold;
 
   @media (min-width: 1024px) {
     padding: 2rem 5rem 0 5rem;
@@ -24,11 +27,12 @@ const CardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 2rem;
+  padding: 0;
+  /* padding-bottom: 2rem; */
 
   // For larger screens
   @media (min-width: 768px) {
-    padding: 3rem 1.2rem;
+    padding: 1.5rem 1.2rem 3rem 1.2rem;
     flex-direction: row;
     align-items: baseline;
   }
@@ -40,7 +44,7 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  margin: 2rem 0; // Add some vertical spacing between cards on mobile
+  margin: 1rem 0; // Add some vertical spacing between cards on mobile
   flex-grow: .1;
   background-color: ${props => props.backgroundColor || 'transparent'}; // Adding background-color functionality here
 
@@ -53,7 +57,7 @@ const CardHeader = styled.h2`
   font-weight: bold;
   text-align: center;
   margin: 0; // Ensure there's no extra margin from default h2 styles
-  padding: 2rem 1rem;
+  padding: .5rem;
 `;
 
 const CardImage = styled.img`
@@ -171,7 +175,7 @@ export const Travel = () => {
       />
 
       <TravelHeader>
-        We have rooms blocked off for wedding guests at the following West Portland Hotels:
+        We have rooms blocked off for wedding guests at the following hotels:
       </TravelHeader>
 
       <Hotels trackEvent={trackEvent} />
@@ -184,8 +188,7 @@ export const Travel = () => {
         heroText="Travel"
       />
         <TravelHeader>
-            The following airlines out of Sacramento International Airport (SMF),
-            San Franscisco International Airport (SFO), and Denver International Airport (DEN) have direct flights to Portland (PDX) throughout the year.
+            The following airlines have direct flights to Portland (PDX) throughout the year.
         </TravelHeader>
 
       <CardContainer>
@@ -212,12 +215,6 @@ export const Travel = () => {
         </Card>
 
       </CardContainer>
-
-      <Card style={{ marginBottom: '2rem' }}>
-        <TravelHeader>
-          Estimated travel time from the above Hotel Blocks to the Wedding Venue is between 8 - 12 minutes on Sundays between 3:00 and 4:00 pm.
-        </TravelHeader>
-      </Card>
     </>
   )
 }
