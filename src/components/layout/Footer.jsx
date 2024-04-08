@@ -34,7 +34,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <NavContainer>
-        <NavLink to='/'>WeddingPage</NavLink>
+        <NavLink to='/'>Our Relationship</NavLink>
         <NavLink to='/admin'>Admin</NavLink>
         <NavLink to='/rsvp'>RSVP</NavLink>
       </NavContainer>
