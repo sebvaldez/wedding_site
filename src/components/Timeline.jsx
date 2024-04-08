@@ -6,14 +6,11 @@ import { useInView } from 'react-intersection-observer';
 const TimelineContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 25px;
     width: calc(55vw);
     margin-bottom: 6rem;
     justify-content: center;
     padding: 20px;
-    @media (min-width: 601px) {
-        grid-template-columns: repeat(5, 1fr);
-    }
 `;
 
 const EventItem = styled.div`
@@ -56,16 +53,16 @@ const AnimatedTimelineItem = ({ event, time }) => {
 
 const Timeline = () => {
   const events = [
-    { event: 'Find Seating', time: '4:00 PM' },
-    { event: 'Ceremony Begins', time: '4:30 PM' },
-    { event: 'Cocktail Hour', time: '5:00 PM' },
-    { event: 'Reception Introductions', time: '6:00 PM' },
-    { event: 'Our First Dance', time: '6:05 PM' },
-    { event: 'Dinner Begins', time: '6:15 PM' },
-    { event: 'Guest Toasts', time: '7:15 PM' },
-    { event: 'Time to Party', time: '7:30 PM' },
-    { event: 'The Last Dance', time: '9:55 PM' },
-    { event: 'Our Departure', time: '10:00 PM' },
+    { event: 'Find Seating', time: '4:00' },
+    { event: 'Ceremony Begins', time: '4:30' },
+    { event: 'Cocktail Hour', time: '5:00' },
+    { event: 'Reception Introductions', time: '6:00' },
+    { event: 'Our First Dance', time: '6:05' },
+    { event: 'Dinner Begins', time: '6:15' },
+    { event: 'Guest Toasts', time: '7:15' },
+    { event: 'Time to Party', time: '7:30' },
+    { event: 'The Last Dance', time: '9:55' },
+    { event: 'Our Departure', time: '10:00' },
   ];
 
   return (
