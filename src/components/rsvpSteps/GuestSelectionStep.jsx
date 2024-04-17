@@ -35,6 +35,14 @@ const GuestName = styled.div`
   padding: 0 0 1.2rem 0;
 `;
 
+const SubText = styled.div`
+  font-size: 1rem; /* Smaller font size for subtext */
+  font-weight: 200; /* Lighter weight */
+  text-align: center;
+  padding: 0;
+  margin-top: -1rem; /* Optional: Adjust spacing as needed */
+`;
+
 const ALLERGY_OPTIONS = ['None', 'Peanut', 'Gluten', 'Dairy', 'Eggs', 'Seafood', 'Tree Nuts', 'Soy', 'Other'];
 
 export const GuestSelectionStep = ({ formik }) => {
@@ -73,9 +81,19 @@ export const GuestSelectionStep = ({ formik }) => {
 
   return (
     <StyledSelection>
-      <GuestName>
-      Guest Selections
-      </GuestName>
+
+        <GuestName>
+          {(formik.values.dinnerSelection)
+            ? `Welcome back, ${formik.values.firstName}!`
+            : "Guest Selections"
+          }
+        </GuestName>
+
+        {formik.values.dinnerSelection &&
+          <SubText>
+            You can change your selection until August 15th, 2024.
+          </SubText>
+        }
 
       {/* Selector for dinner selection */}
       <Label>

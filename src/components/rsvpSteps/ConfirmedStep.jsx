@@ -31,7 +31,8 @@ export const ConfirmedStep = () => {
       }, 1000);
       return () => clearTimeout(timeoutId);
     } else {
-      navigate('/travel#where-to-stay');
+      // maybe 'submit' instead of navigate so that formik pushes us?
+      navigate('/hotel-blocks');
     }
   }, [counter, navigate]);
 

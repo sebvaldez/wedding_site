@@ -48,7 +48,6 @@ const rsvpStepFlow = {
       2: ConfirmationStep, // are you sure?
       3: GuestSelectionStep, // member api lookup
       4: ConfirmedStep, // confetti page
-      // 5: GuestConfirmed, // Looks like you already RSVP'd - todo
 }
 
 export const Rsvp = () => {
@@ -70,8 +69,6 @@ export const Rsvp = () => {
     : setStep(currentStep => currentStep - 1);
   };
 
-  const resetStep = () => setStep(0);
-
   const formik = useFormik({
     initialValues: {
       id: '',
@@ -89,40 +86,28 @@ export const Rsvp = () => {
     onSubmit: (values, { resetForm }) => {
       switch (step) {
         case 0:
-          setStep(1);
+          !values.attending ? setStep(1) : setStep(3);
           break;
         case 1:
           !values.attending
             ? setStep(2) // User should confirm one last time
             : setStep(3); // User picks their dinner
+
           break;
         case 2:
           bulkUpdateMembers(values, {
             onSuccess: () => {
               navigate('/registry');
-              resetForm(); // Reset the form after the last step is complete
             },
-            // Optionally handle onError
           });
           break;
         case 3:
-          console.log(bulkUpdateMembers);
-          debugger;
+          // console.log(bulkUpdateMembers);
           bulkUpdateMembers(values, {
             onSuccess: () => {
               setStep(4);
-              resetForm(); // Reset the form after the last step is complete
             },
-            // Optionally handle onError
           });
-          break;
-        case 4:
-          if (values.attending) {
-            // Assuming "isLastStep" is equivalent to "step === 4"
-            console.table(values);
-            resetStep();
-            navigate('/travel');
-          }
           break;
         default:
           console.log("Unhandled case for step:", step);
@@ -131,23 +116,29 @@ export const Rsvp = () => {
   });
 
   useEffect(() => {
-    if (memberData && memberData?.email && formik.values.email !== memberData?.email) {
-        console.log('useEffect, memberdata is not the same as formik values');
-        formik.setFieldValue('id', memberData.id);
-        formik.setFieldValue('firstName', memberData.firstName);
-        formik.setFieldValue('lastName', memberData.lastName);
-        formik.setFieldValue('id', memberData.id);
-        formik.setFieldValue('email', memberData.email);
-    }
-  }, [memberData.email, formik.values.email, formik.setFieldValue, formik, memberData]);
+    if (memberData && memberData?.email && formik.values.email !== memberData.email) {
+      console.log('useEffect, memberdata is not the same as formik values');
+      const newFormValues = {
+        id: memberData.id,
+        firstName: memberData.firstName,
+        lastName: memberData.lastName,
+        email: memberData.email,
+        dinnerSelection: memberData.dinnerSelection,
+        plannedTransportation: memberData.plannedTransportation,
+        specialSippingPreference: memberData.specialSippingPreference,
+        rsvpTextUpdates: memberData.rsvpTextUpdates,
+        foodAllergies: memberData.foodAllergies || [],
+        otherFoodAllergy: memberData.otherFoodAllergy || '',
+      };
 
-  // todo - if user has already checked in and is coming back.. skip step
-  useEffect(() => {
-    if (memberData && memberData.attending) {
-      console.log('new useEffect, is user attending?', memberData.attending);
-      // setStep(3); // this is a bug when using id params if user had prev checked take them to their selections 
+      formik.setValues({
+        ...formik.values,
+        ...newFormValues,
+      });
+
+      setStep(3); // user has been here before, take them to their selections
     }
-  }, [memberData,formik.values.attending]);
+  }, [memberData,formik, formik.values, formik.setValues]);
 
   if (isLoading && (idParam || groupIdParam)) {
     return (

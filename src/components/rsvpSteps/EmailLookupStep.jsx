@@ -27,6 +27,13 @@ export const EmailLookupStep = ({ formik }) => {
         formik.setFieldValue('firstName', member.firstName);
         formik.setFieldValue('lastName', member.lastName);
         formik.setFieldValue('email', member.email);
+        formik.setFieldValue('dinnerSelection', member.dinnerSelection);
+        formik.setFieldValue('plannedTransportation', member.plannedTransportation);
+        formik.setFieldValue('specialSippingPreference', member.specialSippingPreference);
+        formik.setFieldValue('rsvpTextUpdates', member.rsvpTextUpdates);
+        formik.setFieldValue('foodAllergies', member.foodAllergies || []);
+        formik.setFieldValue('otherFoodAllergy', member.otherFoodAllergy || '');
+
         formik.submitForm();
     } else if (isError && lookupClicked) {
         formik.setFieldError('email', 'Email not found.');
