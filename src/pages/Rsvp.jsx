@@ -7,7 +7,7 @@ import Loading from '../components/common/Loading';
 import { SubmitButton, BackButton } from '../components/common/formStyles';
 import { AttendanceStep, ConfirmationStep, EmailLookupStep, GuestSelectionStep, ConfirmedStep } from '../components/rsvpSteps';
 
-// http://localhost:3000/rsvp?id=24e2f24d-160d-488d-aa81-5cddc3c13bed&groupId=bd2c72a1-7540-49ef-ba6b-bb40df58f3e8
+// http://localhost:3000/rsvp?id=66cb0483-7ef8-4fed-b5fa-11acef6a23ac&groupId=bd2c72a1-7540-49ef-ba6b-bb40df58f3e8
 
 const PageContainer = styled.div`
     margin-top: 0rem;
@@ -86,14 +86,23 @@ export const Rsvp = () => {
     onSubmit: (values, { resetForm }) => {
       switch (step) {
         case 0:
-          !values.attending ? setStep(1) : setStep(3);
+          if (values.attending === null) {
+            setStep(1);
+          } else {
+            setStep(values.attending ? 3 : 1);
+          }
+          // !values.attending ? setStep(1) : setStep(3);
           break;
         case 1:
-          !values.attending
-            ? setStep(2) // User should confirm one last time
-            : setStep(3); // User picks their dinner
-
+          if (values.attending === null) {
+            setStep(1);
+          } else {
+            setStep(values.attending ? 3 : 2);
+          }
           break;
+          // !values.attending
+          //   ? setStep(2) // User should confirm one last time
+          //   : setStep(3); // User picks their dinner
         case 2:
           bulkUpdateMembers(values, {
             onSuccess: () => {
@@ -118,25 +127,35 @@ export const Rsvp = () => {
   useEffect(() => {
     if (memberData && memberData?.email && formik.values.email !== memberData.email) {
       console.log('useEffect, memberdata is not the same as formik values');
-      const newFormValues = {
+
+      let newFormValues = {
         id: memberData.id,
         firstName: memberData.firstName,
         lastName: memberData.lastName,
         email: memberData.email,
-        dinnerSelection: memberData.dinnerSelection,
-        plannedTransportation: memberData.plannedTransportation,
-        specialSippingPreference: memberData.specialSippingPreference,
-        rsvpTextUpdates: memberData.rsvpTextUpdates,
-        foodAllergies: memberData.foodAllergies || [],
-        otherFoodAllergy: memberData.otherFoodAllergy || '',
       };
+
+      if (memberData?.attending === true) {
+        newFormValues = {
+          ...newFormValues,
+          attending: memberData.attending,
+          dinnerSelection: memberData.dinnerSelection,
+          plannedTransportation: memberData.plannedTransportation,
+          specialSippingPreference: memberData.specialSippingPreference,
+          rsvpTextUpdates: memberData.rsvpTextUpdates,
+          foodAllergies: memberData.foodAllergies || [],
+          otherFoodAllergy: memberData.otherFoodAllergy || ''
+        };
+      }
 
       formik.setValues({
         ...formik.values,
         ...newFormValues,
       });
 
-      setStep(3); // user has been here before, take them to their selections
+      setStep(memberData?.attending ? 3 : 1);
+
+      // setStep(3); // user has been here before, take them to their selections
     }
   }, [memberData,formik, formik.values, formik.setValues]);
 
