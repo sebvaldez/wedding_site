@@ -4,8 +4,12 @@ import styled from 'styled-components';
 import { useTable, useSortBy, usePagination } from 'react-table';
 import { useGetAllMembers } from '../hooks/members';
 import { useSendEmail, useSendText } from '../hooks/communications';
+import useModal from '../hooks/useModal';
+import Modal from '../components/common/Modal';
 import Toast from '../components/common/Toast';
 import Visualize from '../components/Visualize';
+import TextMessage from '../components/AdminDashboard/Modal/TextMessage';
+import EmailModalContent from '../components/AdminDashboard/Modal/EmailMessage';
 
 const StyledAdminLayout = styled.div`
   display: flex;
@@ -202,6 +206,8 @@ const AdminDashboard = () => {
   const { data: members, isLoading: isLoadingData, isError, error, refetch } = useGetAllMembers();
   const { mutateAsync: sendText, toastMessage: textToastMessage } = useSendText();
   const { mutateAsync: sendEmail, toastMessage: emailToastMessage } = useSendEmail();
+  const { isOpen, openModal, closeModal } = useModal();
+  const [currentAction, setCurrentAction] = useState(null); 
   const [sendingStatuses, setSendingStatuses] = useState({});
 
   const sendAction = async (member, action, actionType) => {
@@ -223,6 +229,22 @@ const AdminDashboard = () => {
 
   const handleRefresh = () => {
     refetch({ force: true }); // This tells React Query to bypass the cache and fetch fresh data
+  };
+
+  const handleBulkAction = (actionType) => {
+    setCurrentAction(actionType); // Set current action
+    openModal();
+  }
+
+  const modalContent = () => {
+    switch (currentAction) {
+      case 'textMembers':
+        return <TextMessage />;
+      case 'emailMembers':
+        return <EmailModalContent />;
+      default:
+        return <p>Select an action</p>;
+    }
   };
 
   if (isLoadingData) return <p>Loading...</p>;
@@ -258,18 +280,6 @@ const AdminDashboard = () => {
       Header: "Attending",
       accessor: "attending",
       Cell: ({ value }) => value ? "Yes" : "No"
-    },
-    {
-      Header: "Transportation",
-      accessor: "plannedTransportation"
-    },
-    {
-      Header: "Dinner",
-      accessor: "dinnerSelection"
-    },
-    {
-      Header: "Drink Preference",
-      accessor: "specialSippingPreference"
     },
     {
       Header: "Text Reminder",
@@ -311,7 +321,8 @@ const AdminDashboard = () => {
     <StyledAdminLayout>
       <div style={{ display: 'flex', gap: '1.2rem'}}>
         <StyledButton onClick={handleRefresh}>Refresh</StyledButton>
-        <StyledButton onClick={() => {}}>Email Guest list</StyledButton>
+        <StyledButton onClick={() => handleBulkAction('textMembers')}>Bulk Text</StyledButton>
+        <StyledButton onClick={() => handleBulkAction('emailMembers')}>Bulk Email</StyledButton>
         <AdminNavigationButton />
       </div>
 
@@ -322,6 +333,12 @@ const AdminDashboard = () => {
 
       {textToastMessage && <Toast message={textToastMessage} />}
       {emailToastMessage && <Toast message={emailToastMessage} />}
+
+      {isOpen && (
+        <Modal onClose={closeModal}>
+          {modalContent()}
+        </Modal>
+      )}
     </StyledAdminLayout>
   );
 }
