@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import Modal from '../../common/Modal';
-import { Form, SubmitButton } from '../../common/formStyles'
+import { Form, ScrollableContainer, SubmitButton } from '../../common/formStyles'
+
+
 
 const TextMessage = () => {
   // State to store the selected text template
@@ -16,6 +18,7 @@ const TextMessage = () => {
     <Modal.Content>
       <Modal.Header>Text Message All Guests</Modal.Header>
       <Form>
+        <ScrollableContainer>
         <div>
           <input
             type="radio"
@@ -96,6 +99,7 @@ const TextMessage = () => {
             Its that time to RSV, Please check your email for the link to RSVP. We look forward to seeing you soon!
           </blockquote>
         </div>
+        </ScrollableContainer>
         <SubmitButton type="submit">
           Bulk send texts
           <FontAwesomeIcon icon={faPaperPlane} size='lg' style={{ marginLeft: '0.5rem' }} />

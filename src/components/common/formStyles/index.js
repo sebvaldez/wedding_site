@@ -1,4 +1,4 @@
-import { Form } from './Form';
+import { Form, ScrollableContainer } from './Form';
 import { BackButton } from './BackButton';
 import { ErrorMessage } from './ErrorMessage';
 import { Input, InputSm } from './Input';
@@ -7,6 +7,7 @@ import { Label } from "./Label";
 
 export {
   Form,
+  ScrollableContainer,
   BackButton,
   ErrorMessage,
   Input,
