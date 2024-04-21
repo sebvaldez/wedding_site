@@ -214,7 +214,8 @@ const AdminDashboard = () => {
   const { data: members, isLoading: isLoadingData, isError, error, refetch } = useGetAllMembers();
   const { mutateAsync: sendEmail, toastMessage: emailToastMessage } = useSendEmail();
   const { isOpen, openModal, closeModal } = useModal();
-  const [currentAction, setCurrentAction] = useState(null); 
+  const [currentAction, setCurrentAction] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [sendingStatuses, setSendingStatuses] = useState({});
 
   const sendAction = async (member, action, actionType) => {
@@ -232,8 +233,13 @@ const AdminDashboard = () => {
 
   const sendEmailForMember = (member) => sendAction(member, sendEmail, 'email');
 
-  const handleRefresh = () => {
-    refetch({ force: true }); // This tells React Query to bypass the cache and fetch fresh data
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch({ force: true }); // This tells React Query to bypass the cache and fetch fresh data
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   const handleBulkAction = (actionType) => {
@@ -310,7 +316,9 @@ const AdminDashboard = () => {
   return (
     <StyledAdminLayout>
       <ControlBar>
-        <StyledButton onClick={handleRefresh}>Refresh</StyledButton>
+        <StyledButton onClick={handleRefresh}>
+          {isRefreshing ? 'Loading...' : 'Refresh'}
+        </StyledButton>
         <MemberExport data={members} />
         <StyledButton onClick={() => handleBulkAction('textMembers')}>Bulk Text</StyledButton>
         <StyledButton onClick={() => handleBulkAction('emailMembers')}>Bulk Email</StyledButton>
