@@ -3,7 +3,7 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTable, useSortBy, usePagination } from 'react-table';
 import { useGetAllMembers } from '../hooks/members';
-import { useSendEmail, useSendText } from '../hooks/communications';
+import { useSendEmail } from '../hooks/communications';
 import useModal from '../hooks/useModal';
 import Modal from '../components/common/Modal';
 import Toast from '../components/common/Toast';
@@ -204,7 +204,6 @@ function MyTable({ columns, data }) {
 
 const AdminDashboard = () => {
   const { data: members, isLoading: isLoadingData, isError, error, refetch } = useGetAllMembers();
-  const { mutateAsync: sendText, toastMessage: textToastMessage } = useSendText();
   const { mutateAsync: sendEmail, toastMessage: emailToastMessage } = useSendEmail();
   const { isOpen, openModal, closeModal } = useModal();
   const [currentAction, setCurrentAction] = useState(null); 
@@ -222,8 +221,6 @@ const AdminDashboard = () => {
       setSendingStatuses(prev => ({ ...prev, [key]: false }));
     }
   };
-
-  const sendTextForMember = (member) => sendAction(member, sendText, 'text');
 
   const sendEmailForMember = (member) => sendAction(member, sendEmail, 'email');
 
@@ -282,21 +279,6 @@ const AdminDashboard = () => {
       Cell: ({ value }) => value ? "Yes" : "No"
     },
     {
-      Header: "Text Reminder",
-      disableSortBy: true,
-      Cell: ({ row: { original } }) => {
-        const isSendingText = sendingStatuses[`text-${original.id}`];
-
-        return (
-          <TextReminderButton
-            disabled={!original.rsvpTextUpdates || isSendingText}
-            onClick={() => sendTextForMember(original)}>
-              {isSendingText ? 'Sending text...' : 'Text Reminder'}
-          </TextReminderButton>
-        );
-      }
-    },
-    {
       Header: "Send Invitation",
       disableSortBy: true,
       Cell: ({ row: { original } }) => {
@@ -331,7 +313,6 @@ const AdminDashboard = () => {
         <Route path='visualize' element={<Visualize memberData={members} />} />
       </Routes>
 
-      {textToastMessage && <Toast message={textToastMessage} />}
       {emailToastMessage && <Toast message={emailToastMessage} />}
 
       {isOpen && (
