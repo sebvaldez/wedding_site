@@ -8,6 +8,7 @@ import useModal from '../hooks/useModal';
 import Modal from '../components/common/Modal';
 import Toast from '../components/common/Toast';
 import Visualize from '../components/Visualize';
+import MemberExport from '../components/AdminDashboard/MemberExport';
 import TextMessage from '../components/AdminDashboard/Modal/TextMessage';
 import EmailModalContent from '../components/AdminDashboard/Modal/EmailMessage';
 
@@ -310,6 +311,7 @@ const AdminDashboard = () => {
     <StyledAdminLayout>
       <ControlBar>
         <StyledButton onClick={handleRefresh}>Refresh</StyledButton>
+        <MemberExport data={members} />
         <StyledButton onClick={() => handleBulkAction('textMembers')}>Bulk Text</StyledButton>
         <StyledButton onClick={() => handleBulkAction('emailMembers')}>Bulk Email</StyledButton>
         <AdminNavigationButton />
