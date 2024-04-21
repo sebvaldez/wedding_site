@@ -90,6 +90,13 @@ const AlreadySentButton = styled(TextReminderButton)`
   background-color: lightgray;
 `;
 
+const ControlBar = styled.div`
+  display: flex;
+  gap: 1.2rem;
+  align-items: center; /* Align items vertically in the center */
+  margin-bottom: 1.2rem; /* Add margin at the bottom */
+`;
+
 function MyTable({ columns, data }) {
   const {
     getTableProps,
@@ -301,12 +308,12 @@ const AdminDashboard = () => {
 
   return (
     <StyledAdminLayout>
-      <div style={{ display: 'flex', gap: '1.2rem'}}>
+      <ControlBar>
         <StyledButton onClick={handleRefresh}>Refresh</StyledButton>
         <StyledButton onClick={() => handleBulkAction('textMembers')}>Bulk Text</StyledButton>
         <StyledButton onClick={() => handleBulkAction('emailMembers')}>Bulk Email</StyledButton>
         <AdminNavigationButton />
-      </div>
+      </ControlBar>
 
       <Routes>
         <Route index element={<MyTable data={members} columns={columns} />} />
@@ -344,9 +351,7 @@ const AdminNavigationButton = () => {
   }
 
   return (
-    <StyledLink to={linkPath} style={{ width: '120px', height: '30px', display: 'inline-block', textAlign: 'center', lineHeight: '30px', textDecoration: 'none', color: 'black', background: 'lightgrey', borderRadius: '5px' }}>
-      {linkText}
-    </StyledLink>
+    <StyledLink to={linkPath}>{linkText}</StyledLink>
   );
 };
 
