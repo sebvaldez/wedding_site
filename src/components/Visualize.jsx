@@ -2,6 +2,7 @@ import styled from "styled-components";
 import DashboardContainer from "./DashboardContainer";
 import {
   FoodSelectionPieChart,
+  RSVPConfirmationCount,
   RSVPConfirmationTimeline,
   DrinkPreferenceBarChart,
   TransportationChoicesBarChart,
@@ -21,15 +22,20 @@ export default function Visualize({ memberData }) {
   return (
     <DashboardContainer>
       <FoodSelectionPieChart memberData={memberData} title="Food Selection" />
-      <BarChartWrapper>
-        <RSVPConfirmationTimeline memberData={memberData} title="User RSVPs" />
-      </BarChartWrapper>
+
       <BarChartWrapper>
         <DrinkPreferenceBarChart
           memberData={memberData}
           title="Drink Preference"
         />
       </BarChartWrapper>
+
+      <BarChartWrapper>
+        <RSVPConfirmationTimeline memberData={memberData} title="User RSVPs" />
+      </BarChartWrapper>
+
+      <RSVPConfirmationCount memberData={memberData} title="RSVP Confirmation" />
+
       <TransportationChoicesBarChart
         memberData={memberData}
         title="Transport Choice"
