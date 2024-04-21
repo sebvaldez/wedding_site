@@ -73,6 +73,11 @@ const Message = styled.h3`
 
 const registryList = [
   {
+    vendor: 'The Newlywed Fund',
+    url: 'https://www.honeyfund.com/site/cesena-valdez-09-08-2024',
+    logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/newly_wed_image.png'
+  },
+  {
     vendor: 'CB2',
     url: 'https://www.cb2.com/gift-registry/allegra-sebastian-cesena-valdez/r6741434',
     logo: 'https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/registry/cb2.png'
