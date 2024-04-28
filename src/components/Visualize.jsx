@@ -36,10 +36,12 @@ export default function Visualize({ memberData }) {
 
       <RSVPConfirmationCount memberData={memberData} title="RSVP Confirmation" />
 
-      <TransportationChoicesBarChart
-        memberData={memberData}
-        title="Transport Choice"
-      />
+      <BarChartWrapper>
+        <TransportationChoicesBarChart
+          memberData={memberData}
+          title="Transport Choice"
+        />
+      </BarChartWrapper>
   </DashboardContainer>
   );
 }
