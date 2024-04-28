@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
@@ -12,7 +12,6 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Page from './components/layout/Page';
 import App from './App';
-import Admin from './pages/Admin';
 import { FourOhFour } from './pages/FourOhFour';
 import { Travel } from './pages/Travel';
 import  ThingsToDo  from './pages/ThingsToDo';
@@ -21,9 +20,11 @@ import { WeddingRegistry } from './pages/WeddingRegistry';
 import { Rsvp } from './pages/Rsvp';
 import ProtectedRoute from './components/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
-import AdminDashboard from './pages/AdminDashboard';
 import styled from 'styled-components';
 import { PostHogProvider} from 'posthog-js/react'
+
+const Admin = lazy(() => import('./pages/Admin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 
 const options = {
   api_host: process.env.REACT_APP_PUBLIC_POSTHOG_HOST,
@@ -105,11 +106,17 @@ root.render(
           <Container>
           <Routes>
             <Route path='/' element={<App />} />
-            <Route path='/admin' element={<Admin />} />
+            <Route path='/admin' element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Admin />
+              </Suspense>
+            } />
             <Route path='/dashboard/*' element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
+              <Suspense fallback={<div>Loading...</div>}>
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              </Suspense>
             } />
             <Route path='/details' element={<WeddingDetails />} />
             <Route path='/hotel-blocks' element={<Travel />} />
