@@ -53,17 +53,22 @@ const AnimatedTimelineItem = ({ event, time }) => {
 
 const Timeline = () => {
   const events = [
-    { event: 'Find Seating', time: '4:00' },
-    { event: 'Ceremony Begins', time: '4:30' },
-    { event: 'Cocktail Hour', time: '5:00' },
-    { event: 'Reception Introductions', time: '6:00' },
-    { event: 'Our First Dance', time: '6:05' },
-    { event: 'Dinner Begins', time: '6:15' },
-    { event: 'Guest Toasts', time: '7:15' },
-    { event: 'Time to Party', time: '7:30' },
-    { event: 'The Last Dance', time: '9:55' },
-    { event: 'Our Departure', time: '10:00' },
+    { event: 'Guests Arrival', time: '3:30' },
+    { event: 'Guests Seated', time: '3:55' },
+    { event: 'Ceremony Processional', time: '4:00' },
+    { event: 'Cocktail Hour', time: '4:30' },
+    { event: 'First Dance', time: '5:30' },
+    { event: 'Dinner Toast', time: '5:35' },
+    { event: 'Service Begins', time: '5:40' },
+    { event: 'Guest Toasts', time: '6:15' },
+    { event: 'Group Photo Opt', time: '6:40' },
+    { event: 'Dessert & Dancing', time: '6:50' },
+    { event: 'Last Call', time: '9:30' },
+    { event: 'Last Dance', time: '9:40' },
+    { event: 'Grand Exit', time: '9:45' },
+    { event: 'Guests Departed', time: '10:00' }
   ];
+
 
   return (
     <TimelineContainer>
