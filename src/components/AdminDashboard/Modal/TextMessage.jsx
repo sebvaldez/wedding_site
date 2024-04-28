@@ -14,91 +14,54 @@ const TextMessage = () => {
     setSelectedTemplate(event.target.value);
   };
 
+  const textTemplates = [
+    {
+      id: 'rsvpHotelNotice',
+      name: 'RSVP & Hotel Notice | TBD - Manual',
+      message: `Hello [Guest Name], it’s Sebastian & Allegra!\n\nThe online portal to RSVP for our wedding on September 8, 2024 in Portland, OR is now available! A formal invitation has been sent to your email, and includes a direct link to RSVP for yourself or for your entire party, as well details on the location, arrival time, and attire. Your submissions will remain editable up to the RSVP by date of July 31st.\n\nFor additional information regarding hotel blocks and local activities, please visit our wedding website at www.allegrasebwedding.com.\n\nWe hope to have you join us for our special day!`
+    },
+    {
+      id: 'rsvpReminderJune30',
+      name: 'RSVP Reminder | June 30th - Manual',
+      message: `Hello [Guest Name], it’s Sebastian & Allegra!\n\nOur wedding is only 70 days away!\n\nIf you need to update your previous RSVP response, or have yet to RSVP, please be sure to do so no later than July 31st, so that we can provide final numbers in the required timeframe for  our vendors.\n\nFor additional information regarding hotel blocks and local activities, please visit our wedding website at www.allegrasebwedding.com.\n\nWe hope to have you join us for our special day!`
+    },
+    {
+      id: 'rsvpReminderJuly15',
+      name: 'RSVP Reminder | July 15th - Manual',
+      message: `Hello [Guest Name], it’s Sebastian & Allegra!\n\nThe deadline to RSVP to our wedding is 2 weeks away!\n\nIf you need to update your previous RSVP response, or have yet to RSVP, please be sure to do so no later than July 31st, so that we can provide final numbers in the required timeframe for  our vendors.\n\nFor additional information regarding hotel blocks and local activities, please visit our wedding website at www.allegrasebwedding.com.\n\nWe hope to have you join us for our special day!`
+    },
+    {
+      id: 'hotelBlockReminderJuly25',
+      name: 'Hotel Block Reminder | July 25th - Manual',
+      message: `Hello [Guest Name], it’s Sebastian & Allegra!\n\nJust a quick reminder that the deadline to book one of our hotel block rates is August 8, 2024.\n\nPlease visit our wedding website www.allegrasebwedding.com/hotel-blocks to take advantage of the discounted rates and book with one of our recommended hotels.\n\nLooking forward to seeing you soon!`
+    }
+  ];
+
   return (
     <Modal.Content>
       <Modal.Header>Text Message All Guests</Modal.Header>
       <Form>
         <ScrollableContainer>
-        <div>
-          <input
-            type="radio"
-            id="template1"
-            name="textTemplate"
-            value="template1"
-            checked={selectedTemplate === 'template1'}
-            onChange={handleTemplateChange}
-          />
-          <label htmlFor="template1">
-            <strong>Template 1</strong>
-          </label>
-          <blockquote>
-            Its that time to RSV, Please check your email for the link to RSVP. We look forward to seeing you soon!
-          </blockquote>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="template2"
-            name="textTemplate"
-            value="template2"
-            checked={selectedTemplate === 'template2'}
-            onChange={handleTemplateChange}
-          />
-          <label htmlFor="template2">
-            <strong>Template 2</strong>
-          </label>
-          <blockquote>
-            Its that time to RSV, Please check your email for the link to RSVP. We look forward to seeing you soon!
-          </blockquote>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="template3"
-            name="textTemplate"
-            value="template3"
-            checked={selectedTemplate === 'template3'}
-            onChange={handleTemplateChange}
-          />
-          <label htmlFor="template3">
-            <strong>Template 3</strong>
-          </label>
-          <blockquote>
-            Its that time to RSV, Please check your email for the link to RSVP. We look forward to seeing you soon!
-          </blockquote>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="template4"
-            name="textTemplate"
-            value="template4"
-            checked={selectedTemplate === 'template4'}
-            onChange={handleTemplateChange}
-          />
-          <label htmlFor="template4">
-            <strong>Template 4</strong>
-          </label>
-          <blockquote>
-            Its that time to RSV, Please check your email for the link to RSVP. We look forward to seeing you soon!
-          </blockquote>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="template5"
-            name="textTemplate"
-            value="template5"
-            checked={selectedTemplate === 'template5'}
-            onChange={handleTemplateChange}
-          />
-          <label htmlFor="template5">
-            <strong>Template 5</strong>
-          </label>
-          <blockquote>
-            Its that time to RSV, Please check your email for the link to RSVP. We look forward to seeing you soon!
-          </blockquote>
-        </div>
+        {textTemplates.map(template => (
+    <div key={template.id}>
+      <input
+        type="radio"
+        id={template.id}
+        name="textTemplate"
+        value={template.id}
+        checked={selectedTemplate === template.id}
+        onChange={handleTemplateChange}
+      />
+      <label htmlFor={template.id}>
+        <strong>{template.name}</strong>
+      </label>
+      <blockquote>
+        {template.message.split('\n\n').map((paragraph, index) => (
+          <p style={{paddingBottom: '15px'}} key={index}>{paragraph}</p>
+        ))}
+      </blockquote>
+    </div>
+  ))}
         </ScrollableContainer>
         <SubmitButton type="submit">
           Bulk send texts
