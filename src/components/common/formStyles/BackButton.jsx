@@ -23,25 +23,9 @@ const BreadcrumbButton = styled.button`
   }
 `;
 
-const getBreadcrumbText = (currentStep) => {
-  switch (currentStep) {
-    case 1:
-      return "back to email lookup";
-    case 2:
-      return "back to confirmation";
-    default:
-      return "back";
-  }
-};
-
-export const BackButton = ({ handleBack, memberData, step }) => {
-  // For step 1, if there is memberData, we won't render the breadcrumb.
-  if (step === 1 && memberData) return null;
-
-  return (
+export const BackButton = ({ handleBack, crumbText = 'Back' }) => (
     <BreadcrumbButton type='button' onClick={handleBack}>
       <FontAwesomeIcon className="breadcrumb-icon" icon={faLessThan} size='sm' />
-      {getBreadcrumbText(step)}
+      {crumbText}
     </BreadcrumbButton>
-  );
-}
+);
