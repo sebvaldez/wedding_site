@@ -16,7 +16,8 @@ export const useGetMember = (id) => {
   };
 
   return useQuery(['member', id], getMember, {
-    enabled: !!id,  // Ensure that id is provided
+    enabled: !!id, // we might disable this because user came from email lookup
+    refetchOnWindowFocus: false, // Don't refetch on window focus
   });
 };
 
