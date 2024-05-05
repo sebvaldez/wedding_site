@@ -59,7 +59,6 @@ const Loading = ({ fullscreen = false }) => {
   return (
     <LoaderContainer fullscreen={fullscreen}>
       <Image src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/header/navbrand_logo_v2.png' alt="Loading Icon" />
-      {/* <Image src="https://static.vecteezy.com/system/resources/previews/024/251/955/original/coffee-branch-icon-in-black-and-white-color-vector.jpg" alt="Loading Icon" /> */}
       <EllipsesContainer>
         <Dot></Dot>
         <Dot></Dot>
