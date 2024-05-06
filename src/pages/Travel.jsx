@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components'
 import { useSpring, animated, config } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
 import HeroSection from '../components/layout/HeroContainer'
 import usePosthog from '../hooks/usePostHog';
-
 
 const TravelHeader = styled.h1`
   text-align: center;
@@ -149,24 +148,12 @@ const Hotels = ({ trackEvent }) => {
 
 export const Travel = () => {
   const trackEvent = usePosthog();
-  const whereToStayRef = useRef(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (whereToStayRef.current) {
-        whereToStayRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 500); // Adjust the delay as needed
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <>
 
       <HeroSection
         id='where-to-stay'
-        ref={whereToStayRef}
         backgroundImage='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/where_to_stay_img.jpg'
         height={'400px'}
         HeroTextFontWeight={'300'}
