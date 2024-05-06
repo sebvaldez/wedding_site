@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR_PALETTE } from '../../../styles/Colors';
 
-export const SubmitButton = styled.button`
+const SubmitButtonStyle = styled.button`
     padding: 1rem 2rem;  // Increased padding for easy click on mobile
     background-color: ${COLOR_PALETTE['sageGreen']}; // Sage green button when active
     color: white;
@@ -29,3 +29,7 @@ export const SubmitButton = styled.button`
         cursor: not-allowed;
     }
 `;
+
+export const SubmitButton = ({ field, ...props}) => (
+    <SubmitButtonStyle field={field} {...props} />
+)
