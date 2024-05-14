@@ -127,14 +127,14 @@ const Hotels = ({ trackEvent }) => {
         </AnimatedCard>
 
         <AnimatedCard style={animationProps2} ref={inViewRef2}>
-          <CardHeader>RESIDENCE INN, PEARL</CardHeader>
+          <CardHeader>RESIDENCE INN, RIVERPLACE</CardHeader>
           <CardText>
-            1150 NW 9th Ave<br />
+            2115 S RIVER PKWY<br />
             Portland, OR<br />
-            (503) 220-1339
+            (503) 552-9500
           </CardText>
           <CardLink
-            onClick={() => trackEvent('Travel',  {link: 'Hotel: Residence Inn, Pearl'}) }
+            onClick={() => trackEvent('Travel',  {link: 'Hotel: Residence Inn, Riverplace'}) }
             href='https://www.marriott.com/event-reservations/reservation-link.mi?id=1689711999522&key=GRP&app=resvlink'
             target='_blank'
           >
