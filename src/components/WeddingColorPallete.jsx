@@ -32,7 +32,7 @@ const PaletteColor = styled.div`
 `;
 
 export const WeddingColorPallete = () => (
-  <Section title='Wedding Colors'>
+  <Section title='Wedding Party Colors'>
   <PalletContainer>
     {
       Object.keys(COLOR_PALETTE).map((color, index) => (
