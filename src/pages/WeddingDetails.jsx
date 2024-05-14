@@ -10,6 +10,7 @@ import InfoWrapper from '../components/InfoWrapper';
 import InfoSection from '../components/layout/InfoSection';
 import Timeline from '../components/Timeline';
 import Section from '../components/layout/Section';
+import { WeddingColorPallete } from '../components/WeddingColorPallete';
 
 const ArrivalWrapper = styled.div`
   @media (max-width: 1024px) {
@@ -67,6 +68,10 @@ const WeddingDetails = () => {
 
               <InfoSection spanColumns>
                 <CocktailAttire />
+              </InfoSection>
+
+              <InfoSection spanColumns>
+                <WeddingColorPallete />
               </InfoSection>
 
               <InfoSection spanColumns>
