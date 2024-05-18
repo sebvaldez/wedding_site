@@ -7,7 +7,7 @@ export default function CocktailAttire() {
         <p>Please refrain from wearing the following items:</p>
         <p>Denim, Shorts, Baseball Caps, Athletic Wear, Athletic Shoes.</p>
 
-        <a href="https://pin.it/1UjE8D8I9" target='_blank'>
+        <a href="https://pin.it/1UjE8D8I9" target='_blank' rel="noopener noreferrer">
           <p style={{ paddingTop: '.2rem', fontWeight: '600'}}><em>Need inspiration? <u>CLICK HERE</u></em></p>
         </a>
       </Section>
