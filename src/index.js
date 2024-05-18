@@ -18,6 +18,7 @@ import  ThingsToDo  from './pages/ThingsToDo';
 import  WeddingDetails  from './pages/WeddingDetails';
 import { WeddingRegistry } from './pages/WeddingRegistry';
 import { Rsvp } from './pages/Rsvp';
+import {Faq} from './pages/Faq';
 import ProtectedRoute from './components/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
 import styled from 'styled-components';
@@ -118,6 +119,7 @@ root.render(
                 </ProtectedRoute>
               </Suspense>
             } />
+            <Route path='/faq' element={<Faq />} />
             <Route path='/details' element={<WeddingDetails />} />
             <Route path='/hotel-blocks' element={<Travel />} />
             <Route path='/registry' element={<WeddingRegistry />} />
