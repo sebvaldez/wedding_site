@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Fuse from 'fuse.js';
 
@@ -125,7 +125,11 @@ export const Faq = () => {
 
   const results = fuse.search(query);
   const faqResults = query ? results.map(result => result.item) : faqs;
-  
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [query]);
+
   return (
     <>
     <Heading>Frequently Asked Questions</Heading>
