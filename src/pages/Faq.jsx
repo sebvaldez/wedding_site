@@ -63,7 +63,7 @@ const faqs = [
   },
   {
     question: "Where should I stay?",
-    answer: `<p>The couple has secured studio suites, single king, and double queen room blocks at the <b>Hotel Vance and Marriott Residence Inn RiverPlace</b>. <a style='font-weight: 600;color: blue;' href='/travel-details'>Please visit the Hotels page</a> to book rooms at either location. Rooms are available for booking at the discounted rate until <b>August 3, 2024</b>, after which time any remaining rooms unbooked will return to their adjusted market rates.</p>`
+    answer: `<p>The couple has secured studio suites, single king, and double queen room blocks at the <b>Hotel Vance and Marriott Residence Inn RiverPlace</b>. <a style='font-weight: 600;color: blue;' href='/hotel-blocks'>Please visit the Hotels page</a> to book rooms at either location. Rooms are available for booking at the discounted rate until <b>August 3, 2024</b>, after which time any remaining rooms unbooked will return to their adjusted market rates.</p>`
   },
   {
     question: "Will there be shuttles or arranged transportation to and from the venue?",
