@@ -18,12 +18,12 @@ const TextMessage = () => {
     {
       id: 'rsvpHotelNotice',
       name: 'RSVP & Hotel Notice | TBD - Manual',
-      message: `Hello [Guest Name], it’s Sebastian & Allegra!\n\nThe online portal to RSVP for our wedding on September 8, 2024 in Portland, OR is now available! A formal invitation has been sent to your email, and includes a direct link to RSVP for yourself or for your entire party, as well details on the location, arrival time, and attire. Your submissions will remain editable up to the RSVP by date of July 31st.\n\nFor additional information regarding hotel blocks and local activities, please visit our wedding website at www.allegrasebwedding.com.\n\nWe hope to have you join us for our special day!`
+      message: `Hello [Guest Name], it’s Sebastian & Allegra!\n\nThe online portal to RSVP for our wedding on September 8, 2024 in Portland, OR is now available! A formal invitation has been sent to your email, and includes a direct link to RSVP for yourself or for your entire party, as well details on the location, arrival time, and attire. Your submissions will remain editable up to the RSVP by date of July 31st.\n\nFor additional information regarding hotel blocks and F.A.Qs, please visit our wedding website at www.allegrasebwedding.com.\n\nWe hope to have you join us for our special day!`
     },
     {
       id: 'rsvpReminderJune30',
       name: 'RSVP Reminder | June 30th - Manual',
-      message: `Hello [Guest Name], it’s Sebastian & Allegra!\n\nOur wedding is only 70 days away!\n\nIf you need to update your previous RSVP response, or have yet to RSVP, please be sure to do so no later than July 31st, so that we can provide final numbers in the required timeframe for  our vendors.\n\nFor additional information regarding hotel blocks and local activities, please visit our wedding website at www.allegrasebwedding.com.\n\nWe hope to have you join us for our special day!`
+      message: `Hello [Guest Name], it’s Sebastian & Allegra!\n\nOur wedding is only 70 days away!\n\nIf you need to update your previous RSVP response, or have yet to RSVP, please be sure to do so no later than July 31st, so that we can provide final numbers in the required timeframe for  our vendors.\n\nFor additional information regarding hotel blocks and F.A.Qs, please visit our wedding website at www.allegrasebwedding.com.\n\nWe hope to have you join us for our special day!`
     },
     {
       id: 'rsvpReminderJuly15',
