@@ -111,6 +111,22 @@ const Hotels = ({ trackEvent }) => {
     <>
       <CardContainer>
         <AnimatedCard style={animationProps1} ref={inViewRef1}>
+          <CardHeader>RESIDENCE INN, PEARL DISTRICT</CardHeader>
+          <CardText>
+            1150 NW 9th<br />
+            Portland, OR<br />
+            (503) 220-1339
+          </CardText>
+          <CardLink
+            onClick={() => trackEvent('Travel', { link: 'Hotel: Residence Inn, Portland Downtown/Pearl District'}) }
+            href='https://marriott.com/event-reservations/reservation-link.mi?id=1716323690853&key=GRP&app=resvlink'
+            target='_blank'
+          >
+            BOOK NOW
+          </CardLink>
+        </AnimatedCard>
+
+        <AnimatedCard style={animationProps1} ref={inViewRef1}>
           <CardHeader>THE HOTEL VANCE</CardHeader>
           <CardText>
             1455 Broadway St<br />
