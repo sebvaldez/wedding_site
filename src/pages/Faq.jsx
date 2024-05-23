@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Fuse from 'fuse.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export const FAQContainer = styled.div`
   display: flex;
@@ -47,12 +49,26 @@ const Heading = styled.h2`
   text-align: center;
 `;
 
-const SearchInput = styled.input`
-  padding: 10px;
+const SearchWrapper = styled.div`
+  position: relative;
+  width: 100%;
   margin-bottom: 20px;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 10px 40px 10px 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  width: 100%;
+  font-size: 1rem;
+`;
+
+const SearchIcon = styled(FontAwesomeIcon)`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
 `;
 
 const faqs = [
@@ -134,12 +150,15 @@ export const Faq = () => {
     <>
     <Heading>Frequently Asked Questions</Heading>
     <FAQContainer>
-      <SearchInput
-        type="text"
-        placeholder="Search FAQs..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      <SearchWrapper>
+        <SearchInput
+          type="text"
+          placeholder="Search FAQs..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <SearchIcon icon={faSearch} />
+      </SearchWrapper>
       {faqResults.map((faq, index) => (
         <FAQCard key={index}>
           <Question>{faq.question}</Question>
@@ -147,7 +166,7 @@ export const Faq = () => {
         </FAQCard>
       ))}
     </FAQContainer>
-    </>
+  </>
   );
 };
 
