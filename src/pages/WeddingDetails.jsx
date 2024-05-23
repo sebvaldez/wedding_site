@@ -59,9 +59,9 @@ const WeddingDetails = () => {
               <InfoSection spanColumns>
                 <Section title="Arrival">
                   <ArrivalWrapper>
-                    <p>The ceremony will begin promptly at 4:30 PM, with cocktail hour and dinner to follow. </p>
+                    <p>The ceremony will begin promptly at 4:00 PM, with cocktail hour and dinner to follow. </p>
                     <br />
-                    <p>Please do not enter the venue prior to 4 PM unless otherwise instructed so as to permit our vendors time to complete their set up without interruption.</p>
+                    <p>Please do not enter the venue prior to 3:30 PM unless otherwise instructed so as to permit our vendors time to complete their set up without interruption.</p>
                   </ArrivalWrapper>
                 </Section>
               </InfoSection>
