@@ -1,9 +1,24 @@
 import React, { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from '../Logout';
 import { COLOR_PALETTE } from '../../styles/Colors';
+
+// Global styles to manage media queries
+const GlobalStyle = createGlobalStyle`
+  @media (max-width: 768px) {
+    .desktop-only {
+      display: none;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-only {
+      display: none;
+    }
+  }
+`;
 
 const Navbar = styled.div`
   display: flex;
@@ -30,7 +45,7 @@ const Navbar = styled.div`
 
 const NavBrand = styled.div`
   padding: .2rem 0 .2rem 0;
-  display: flex;;
+  display: flex;
   align-items: center;
   justify-content: space-evenly; // Use flex-start instead of flex-left
   z-index: 1000;
@@ -61,7 +76,7 @@ const StyledNavLink = styled(NavLink)`
   font-size: 1.3rem;
   font-weight: 800;
 
-  &.active{
+  &.active {
     color: ${COLOR_PALETTE['rust']};
     font-weight: bold;
     text-decoration: underline;
@@ -69,71 +84,59 @@ const StyledNavLink = styled(NavLink)`
 
   @media (max-width: 768px) {
     font-size: 1rem;
+    padding: .3rem;
     font-weight: bold;
   }
 `;
-
 
 const Header = () => {
   const { isAuthenticated } = useAuth0();
   const navbarRef = useRef(null);
 
   return (
+    <ThemeProvider theme={{}}>
+      <GlobalStyle />
       <Navbar ref={navbarRef}>
         <NavBrand>
-          <NavLink to='/'>
+          <NavLink to='/' className="desktop-only">
             <h1 id='nav-text-logo'>A | S</h1>
           </NavLink>
         </NavBrand>
 
-        {
-            isAuthenticated && (
-              <>
-                <StyledNavLink
-                  to='/dashboard'
-                  activeClassName="active"
-                >
-                  Dashboard
-                </StyledNavLink>
-                <LogoutButton />
-              </>
-            )
-          }
+        {isAuthenticated && (
+          <>
+            <StyledNavLink
+              to='/dashboard'
+              activeClassName="active"
+            >
+              Dashboard
+            </StyledNavLink>
+            <LogoutButton />
+          </>
+        )}
 
-          <StyledNavLink
-            to='/details'
-            className="nav-link"
-          >
-            <em>Details</em>
-          </StyledNavLink>
-          <StyledNavLink
-            to='/hotel-blocks'
-            className="nav-link"
-          >
-            <em>Hotels</em>
-          </StyledNavLink>
-          <StyledNavLink
-            to='/registry'
-            className="nav-link"
-          >
-            <em>Registry</em>
-          </StyledNavLink>
-          <StyledNavLink
-            to='/things-to-do'
-            className="nav-link"
-          >
-            <em>Activities</em>
-          </StyledNavLink>
-          <StyledNavLink
-            to='/rsvp'
-            className="nav-link"
-          >
-            <em>RSVP</em>
-          </StyledNavLink>
+        <StyledNavLink to='/faq' className="nav-link">
+          <em>F.A.Q</em>
+        </StyledNavLink>
+        <StyledNavLink to='/details' className="nav-link">
+          <em>Details</em>
+        </StyledNavLink>
+        <StyledNavLink to='/hotel-blocks' className="nav-link">
+          <em>Hotels</em>
+        </StyledNavLink>
+        <StyledNavLink to='/registry' className="nav-link">
+          <em>Registry</em>
+        </StyledNavLink>
+        <StyledNavLink to='/things-to-do' className="nav-link">
+          <em>Activities</em>
+        </StyledNavLink>
+        <StyledNavLink to='/rsvp' className="nav-link">
+          <em>RSVP</em>
+        </StyledNavLink>
         <br />
       </Navbar>
+    </ThemeProvider>
   );
-}
+};
 
 export default Header;
-
