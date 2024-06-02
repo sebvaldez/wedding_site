@@ -8,6 +8,9 @@ const COLORS = ["#414A43", "#803404", "#995A6D", "#520707"];
 const preprocessDataForPieChart = (memberData) => {
   const countMap = memberData.reduce((acc, user) => {
     let { dinnerSelection } = user;
+
+    if (!dinnerSelection) return acc; // skip if no dinner selection
+
     dinnerSelection = toTitleCaseNoSpaces(dinnerSelection);
 
     acc[dinnerSelection] = (acc[dinnerSelection] || 0) + 1;
