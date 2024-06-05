@@ -1,4 +1,8 @@
+import { useEffect } from 'react'
 import styled from 'styled-components';
+import { useSelector } from '@xstate/react';
+import { useGetMember } from '../../hooks/members';
+import Loading from '../common/Loading';
 import Greeting from '../Greeting';
 import { COLOR_PALETTE } from '../../styles/Colors';
 
@@ -43,20 +47,36 @@ const AttendanceOptions = styled.div`
   margin-bottom: 4rem;
 `;
 
-export const AttendanceStep = ({ formik, memberData }) => {
+export const AttendanceStep = ({ actor, send }) => {
+  let { userId, firstName, lastName } = useSelector(actor, s => s.context);
+
+  // ? NOTE: we have a extra fetch when coming from email look up, going to live with it for now
+  const { data: memberData, isLoading } = useGetMember(userId);
+
+  useEffect(() =>{
+    if (memberData) {
+      // needed to handle when parms ID exists, we have to await auth token retry
+      send({ type: 'USER_FOUND', memberData });
+    }
+  }, [memberData, send])
+
   const handleAttending = () => {
-    formik.setFieldValue('attending', true);
+    send({ type: 'USER_WILL_BE_ATTENDING', memberData, attending: true })
   }
 
   const handleNotAttending = () => {
-    formik.setFieldValue('attending', false);
+    send({ type: 'USER_NOT_ATTENDING', memberData, attending: false })
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return (
     <>
       <Greeting
-        firstName={ formik.values.firstName || memberData?.firstName }
-        lastName={  formik.values.lastName || memberData?.lastName }
+        firstName={ firstName }
+        lastName={ lastName }
       />
       <AttendanceOptions>
         <NotAttendingButton type='submit' onClick={handleNotAttending}>

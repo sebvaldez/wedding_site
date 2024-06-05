@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState} from 'react';
 import styled from 'styled-components';
-import { useGetMember, useBulkUpdateMembers } from '../hooks/members';
-import Loading from '../components/common/Loading';
-import { SubmitButton, BackButton } from '../components/common/formStyles';
+import { useMachine } from '@xstate/react';
+import { BackButton } from '../components/common/formStyles';
 import { AttendanceStep, ConfirmationStep, EmailLookupStep, GuestSelectionStep, ConfirmedStep } from '../components/rsvpSteps';
 
-// http://localhost:3000/rsvp?id=66cb0483-7ef8-4fed-b5fa-11acef6a23ac&groupId=bd2c72a1-7540-49ef-ba6b-bb40df58f3e8
+import { CheckParams, UserMultiAttendance, GroupMemberSelection, GroupMemberDinnerSelection } from '../components/RSVP/components';
+
+
+import { rsvpMachine } from '../stateMachines/rsvpMachine';
+
+// http://localhost:3000/rsvp?userId=66cb0483-7ef8-4fed-b5fa-11acef6a23ac&groupId=bc274c78-90a8-4366-8e01-853764701642
 
 const PageContainer = styled.div`
     margin-top: 0rem;
@@ -21,169 +23,91 @@ const PageContainer = styled.div`
 
     @media (min-width: 768px) {  // Example breakpoint for larger devices
       margin-top: 3rem;
-      justify-content: flex-start;
+      /* justify-content: flex-start; */
       height: auto;
       padding-bottom: 0;
     }
 `;
 
-const StyledForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 2rem 2rem;
-    margin-bottom: 2.5rem;
-    width: 100%;
+const JsonDebugger = ({ data }) => {
+  const [ toggle, setToggle ] = useState(false)
 
-    @media (min-width: 768px) { // for smaller devices
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-`;
+  const handleToggle = () => setToggle(s => !s);
 
-const rsvpStepFlow = {
-      // STEPS
-      0: EmailLookupStep, // whats your email?
-      1: AttendanceStep, // will you go? yes | no
-      2: ConfirmationStep, // are you sure?
-      3: GuestSelectionStep, // member api lookup
-      4: ConfirmedStep, // confetti page
+  const s = {
+    backgroundColor: '#edf2f7',
+    padding: '10px',
+    display: 'flex',
+    flexDirecton: 'column',
+    gap: '.2rem',
+    justifyContent: 'center',
+    alignContent: 'center'
+  }
+
+  return (
+    <div style={s}>
+      <button style={{ height: "18px", textAlign: 'center'}} onClick={handleToggle}>x</button>
+      { toggle && <pre>{ JSON.stringify(data, null, 2) }</pre>}
+    </div>
+  )
 }
 
 export const Rsvp = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const searchParams = new URLSearchParams(location.search);
-  const idParam = searchParams.get('id') || '';
-  const groupIdParam = searchParams.get('groupId') || '';
-  const [step, setStep] = useState(idParam || groupIdParam ? 1 : 0);
-  const isLastStep = step === 4;
-
-  const { data: memberData = {}, isLoading } = useGetMember(idParam);
-  const { mutate: bulkUpdateMembers} = useBulkUpdateMembers();
-
-  const handleBack = () => {
-    step === 3
-    ? setStep(1) // take user from GuestSelection to AttendanceStep
-    : setStep(currentStep => currentStep - 1);
-  };
-
-  const formik = useFormik({
-    initialValues: {
-      id: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      dinnerSelection: '',
-      foodAllergies: [],
-      otherFoodAllergy: '',
-      attending: null,
-      plannedTransportation: '',
-      specialSippingPreference: '',
-      rsvpTextUpdates: true
-    },
-    onSubmit: (values, { resetForm }) => {
-      switch (step) {
-        case 0:
-          if (values.attending === null) {
-            setStep(1);
-          } else {
-            setStep(values.attending ? 3 : 1);
-          }
-          // !values.attending ? setStep(1) : setStep(3);
-          break;
-        case 1:
-          if (values.attending === null) {
-            setStep(1);
-          } else {
-            setStep(values.attending ? 3 : 2);
-          }
-          break;
-          // !values.attending
-          //   ? setStep(2) // User should confirm one last time
-          //   : setStep(3); // User picks their dinner
-        case 2:
-          bulkUpdateMembers(values, {
-            onSuccess: () => {
-              navigate('/registry');
-            },
-          });
-          break;
-        case 3:
-          // console.log(bulkUpdateMembers);
-          bulkUpdateMembers(values, {
-            onSuccess: () => {
-              setStep(4);
-            },
-          });
-          break;
-        default:
-          console.log("Unhandled case for step:", step);
-      }
-    },
-  });
-
-  useEffect(() => {
-    if (memberData && memberData?.email && formik.values.email !== memberData.email) {
-      console.log('useEffect, memberdata is not the same as formik values');
-
-      let newFormValues = {
-        id: memberData.id,
-        firstName: memberData.firstName,
-        lastName: memberData.lastName,
-        email: memberData.email,
-      };
-
-      if (memberData?.attending === true) {
-        newFormValues = {
-          ...newFormValues,
-          attending: memberData.attending,
-          dinnerSelection: memberData.dinnerSelection,
-          plannedTransportation: memberData.plannedTransportation,
-          specialSippingPreference: memberData.specialSippingPreference,
-          rsvpTextUpdates: memberData.rsvpTextUpdates,
-          foodAllergies: memberData.foodAllergies || [],
-          otherFoodAllergy: memberData.otherFoodAllergy || ''
-        };
-      }
-
-      formik.setValues({
-        ...formik.values,
-        ...newFormValues,
-      });
-
-      setStep(memberData?.attending ? 3 : 1);
-
-      // setStep(3); // user has been here before, take them to their selections
-    }
-  }, [memberData,formik, formik.values, formik.setValues]);
-
-  if (isLoading && (idParam || groupIdParam)) {
-    return (
-        <Loading fullscreen='true' />
-    );
-  }
-
-  const RsvpStep = rsvpStepFlow[step];
+  const [state, send, actor] = useMachine(rsvpMachine);
 
   return (
     <PageContainer>
-      <StyledForm onSubmit={formik.handleSubmit}>
 
-        {step > 0 && step < 4 && <BackButton memberData={memberData} step={step} handleBack={handleBack} />}
+        {/* Check URL query params on /rsvp page load */}
+        {state.matches('CheckParams') && <CheckParams send={send} />}
 
-        <RsvpStep formik={formik} memberData={memberData} />
+        {state.matches('UserLookupEmail') && <EmailLookupStep actor={actor} send={send} />}
 
-        {[2,3].includes(step) && (
-            <SubmitButton
-                type="submit"
-                disabled={ step === 3 && !formik.values.dinnerSelection }
-            >
-              { isLastStep || step === 2 ? 'Submit' : 'Next' }
-            </SubmitButton>
+        {state.matches('UserAttendance') && (
+          <>
+          {/* TODO there may be a idiomatic way to use like xstate history or something.. */}
+          {state.context.previousState === 'UserLookupEmail' && <BackButton handleBack={() => send({ type: 'BACK'})} /> }
+          {state.context.previousState === 'UserMultiAttendance' && <BackButton crumbText={'Check-in options'} handleBack={() => send({ type: 'BACK_FROM_USER_MULTI_ATTENDANCE'})} /> }
+          <AttendanceStep actor={actor} send={send} />
+          </>
         )}
-      </StyledForm>
+
+        {state.matches('UserConfirmOptOut') && (
+          <>
+            <BackButton crumbText={'Back to attendance options'}  handleBack={() => send({ type: 'BACK'})} />
+            <ConfirmationStep actor={actor} send={send} />
+          </>
+        )}
+
+        {state.matches('UserDiningPreferences') && (
+          <>
+            <BackButton crumbText={'Back to attendance options'}  handleBack={() => send({ type: 'BACK'})} />
+            <GuestSelectionStep actor={actor} send={send} />
+          </>
+        )}
+
+        {state.matches('UserMultiAttendance') && (
+          <>
+            <UserMultiAttendance actor={actor} send={send} />
+          </>
+        )}
+
+        {state.matches('GroupMemberSelection') && (
+          <>
+            <BackButton crumbText={'Check-in options'} handleBack={() => send({ type: 'BACK'})} />
+            <GroupMemberSelection actor={actor} send={send} />
+          </>
+        )}
+
+        {state.matches('GroupDiningPreferences') && (
+          <>
+            <BackButton crumbText={'Back to attendance options'} handleBack={() => send({ type: 'BACK'})} />
+            <GroupMemberDinnerSelection actor={actor} send={send} />
+          </>
+        )}
+
+        {state.matches('Completed') && <ConfirmedStep actor={actor} send={send} />}
+      <JsonDebugger data={state} />
     </PageContainer>
   );
 };

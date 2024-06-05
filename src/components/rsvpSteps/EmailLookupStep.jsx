@@ -1,74 +1,84 @@
+import * as yup from 'yup';
 import React, { useEffect, useCallback, useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+import styled from 'styled-components';
 import { useGetMemberByEmail } from '../../hooks/members';
 import { Input, SubmitButton } from '../common/formStyles';
 import { ErrorMessage } from '../common/formStyles/ErrorMessage';
 import Loading from '../common/Loading';
+import { useSelector } from '@xstate/react';
 
-export const EmailLookupStep = ({ formik }) => {
-  const [lookupClicked, setLookupClicked] = useState(false);
-  const { data: member, isError, isLoading: isQueryLoading } = useGetMemberByEmail(formik.values.email, lookupClicked);
+const EMAIL_INVALID_MESSAGE = 'Email must be valid!';
+const EMAIL_REQUIRED_MESSAGE = 'Email is required!';
 
-  const isEmailValid = (email) => {
-    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return regex.test(email);
-  };
+const validationSchema = yup.object().shape({
+  email: yup.
+    string().
+    email(EMAIL_INVALID_MESSAGE).
+    required(EMAIL_REQUIRED_MESSAGE)
+});
 
-  const lookupEmail = useCallback(() => {
-    if (isEmailValid(formik.values.email)) {
-      setLookupClicked(true);
-    } else {
-      formik.setFieldError('email', 'Please provide a valid email.');
-    }
-  }, [formik]);
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+`;
+
+export const EmailLookupStep = ({ actor, send }) => {
+  const [ lookupClicked, setLookupClicked ] = useState(false);
+  const [ lookupEmail, setLookupEmail ] = useState(null);
+  const { data: memberData, isError, isLoading: isQueryLoading } = useGetMemberByEmail(lookupEmail, lookupClicked);
+
 
   useEffect(() => {
-    if (member && !isError) { // Check for the absence of an error here as well
-        formik.setFieldValue('id', member.id);
-        formik.setFieldValue('firstName', member.firstName);
-        formik.setFieldValue('lastName', member.lastName);
-        formik.setFieldValue('email', member.email);
-
-        if (member.attending) {
-          formik.setFieldValue('dinnerSelection', member.dinnerSelection);
-          formik.setFieldValue('plannedTransportation', member.plannedTransportation);
-          formik.setFieldValue('specialSippingPreference', member.specialSippingPreference);
-          formik.setFieldValue('rsvpTextUpdates', member.rsvpTextUpdates);
-          formik.setFieldValue('foodAllergies', member.foodAllergies || []);
-          formik.setFieldValue('otherFoodAllergy', member.otherFoodAllergy || '');
-        }
-
-        formik.submitForm();
-    } else if (isError && lookupClicked) {
-        formik.setFieldError('email', 'Email not found.');
-        setLookupClicked(false);
+    if (memberData) {
+      send({ type: 'USER_EMAIL_LOOKUP', lookupEmail, memberData });
     }
-}, [member, isError, formik, lookupClicked]);
+  }, [memberData]);
 
+
+  const emailContext = useSelector(actor, (s) => s?.context.email);
+
+  const handleSubmit = (e) => {
+    const email = e.email;
+    setLookupEmail(email)
+    setLookupClicked(true)
+  }
 
   if (isQueryLoading && lookupClicked) {
     return <Loading fullscreen='true' />;
   }
 
   return (
-    <>
-      <ErrorMessage>
-        {formik.errors.email}
-      </ErrorMessage>
-      <h2>Guest Lookup</h2>
-      <Input
-        type="email"
-        name="email"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.email}
-        placeholder="Enter your email"
-      />
-      <SubmitButton
-        onClick={lookupEmail}
-        disabled={!formik.values.email || !isEmailValid(formik.values.email)}
-      >
-        Look me up
-      </SubmitButton>
-    </>
+    <Formik
+      initialValues={{ email: emailContext || '' }}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ errors, touched, isValidating, isValid, dirty }) => (
+        <StyledForm>
+          {errors.email && touched.email && (
+            <ErrorMessage>{errors.email}</ErrorMessage>
+          )}
+          <Field
+            component={Input}
+            placeholder="Please enter your email"
+            type="email"
+            name="email"
+          />
+          <SubmitButton
+            type="submit"
+            disabled={isValidating || !isValid || !dirty}
+          >
+            Submit
+          </SubmitButton>
+        </StyledForm>
+      )}
+    </Formik>
   );
 };
