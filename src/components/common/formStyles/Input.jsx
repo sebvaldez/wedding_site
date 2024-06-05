@@ -3,12 +3,13 @@ import styled from 'styled-components'
 const InputStyle = styled.input`
   font-size: 1.5rem;  // Larger font for better readability
   padding: 0.5rem;  // Sufficient padding
-  width: 100%;  // Takes full width of its container
+  width: 85%;  // Takes full width of its container
   max-width: 40rem;  // Reasonable max width for large screens, adjust as needed
   border: none;
   border-bottom: 1px solid #d9d9d9;
   background-color: transparent;
   transition: border-color 0.3s ease;
+  text-align: center;
 
   &:focus {
     outline: none;
