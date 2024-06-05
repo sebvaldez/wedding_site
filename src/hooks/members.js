@@ -109,6 +109,21 @@ export const useBulkUpdateMembers = () => {
   });
 };
 
+export const useFetchMembersByGroupId = (groupId) => {
+  const axiosPrivate = useAuthenticatedAxios();
+
+  const getMembersByGroupId = async ({ queryKey }) => {
+    const [, groupId] = queryKey;
+    const { data } = await axiosPrivate.get(`/wedding/group/${groupId}/members`);
+    return data;
+  };
+
+  return useQuery(['membersByGroupId', groupId], getMembersByGroupId, {
+    enabled: !!groupId, // Ensure that groupId is provided
+    refetchOnWindowFocus: false, // Don't refetch on window focus
+  });
+}
+
 // Todo - get below working
 
 // CREATE member
