@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLOR_PALETTE } from '../../../styles/Colors';
 
 const SubmitButtonStyle = styled.button`
+    margin: 0 auto; // Center the button
     padding: 1rem 2rem;  // Increased padding for easy click on mobile
     background-color: ${COLOR_PALETTE['sageGreen']}; // Sage green button when active
     color: white;
@@ -12,9 +13,8 @@ const SubmitButtonStyle = styled.button`
     align-items: center;
     justify-content: center;
     gap: 8px;  // gap between icon and text
-
     max-width: 450px; // Set your desired maximum width
-    width: 100%; // This will ensure the button takes the full width up to max-width
+    width: 85%; // This will ensure the button takes the full width up to max-width
     align-self: center;
 
     transition: background-color 0.3s ease;
