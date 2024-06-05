@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLessThan } from '@fortawesome/free-solid-svg-icons';
-
+import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { COLOR_PALETTE } from '../../../styles/Colors';
 const BreadcrumbButton = styled.button`
   display: flex;
   align-items: center;
@@ -9,7 +9,7 @@ const BreadcrumbButton = styled.button`
   border: none;
   cursor: pointer;
   color: #333333; // You can set any color you like.
-  font-size: 1rem;
+  font-size: 1.2rem;
   padding: 2rem 0;
   text-decoration: none; // giving it a breadcrumb feel
 
@@ -25,7 +25,7 @@ const BreadcrumbButton = styled.button`
 
 export const BackButton = ({ handleBack, crumbText = 'Back' }) => (
     <BreadcrumbButton type='button' onClick={handleBack}>
-      <FontAwesomeIcon className="breadcrumb-icon" icon={faLessThan} size='sm' />
+      <FontAwesomeIcon style={{ color: COLOR_PALETTE['burgundy']}} className="breadcrumb-icon" icon={faCircleArrowLeft} size='xl' />
       {crumbText}
     </BreadcrumbButton>
 );
