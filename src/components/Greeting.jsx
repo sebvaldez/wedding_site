@@ -14,7 +14,7 @@ const GuestName = styled(animated.div)`
     padding: 0 0 1.2rem 0;
 `;
 
-const Greeting = ({ firstName, lastName }) => {
+const Greeting = ({ firstName, lastName, groupName }) => {
     const helloProps = useSpring({
         from: { opacity: 0 },
         to: { opacity: 1 },
@@ -31,7 +31,10 @@ const Greeting = ({ firstName, lastName }) => {
     return (
         <>
             <StyledGreeting style={helloProps}>Hello,</StyledGreeting>
-            <GuestName style={nameProps}>{`${firstName} ${lastName}`}</GuestName>
+            { groupName
+                ? <GuestName style={nameProps}>{groupName}</GuestName>
+                : <GuestName style={nameProps}>{`${firstName} ${lastName}`}</GuestName>
+            }
         </>
     );
 }
