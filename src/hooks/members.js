@@ -3,7 +3,6 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuthenticatedAxios } from './useAuthenticatedAxios';
 import backend from '../api/backend';
 
-// Fetch a specific member
 export const useGetMember = (id) => {
   const axiosPrivate = useAuthenticatedAxios();
 
@@ -38,7 +37,6 @@ export const useGetMemberByEmail = (email, shouldQuery) => {
   });
 };
 
-// Fetch all members
 export const useGetAllMembers = () => {
   const { getIdTokenClaims } = useAuth0();
 
@@ -70,7 +68,6 @@ export const useGetAllMembers = () => {
   });
 };
 
-// BULK UPDATE members
 export const useBulkUpdateMembers = () => {
   const axiosPrivate = useAuthenticatedAxios(); // handles injecting the token
 
@@ -122,6 +119,23 @@ export const useFetchMembersByGroupId = (groupId) => {
     enabled: !!groupId, // Ensure that groupId is provided
     refetchOnWindowFocus: false, // Don't refetch on window focus
   });
+}
+
+
+export const useFetchGroup = (groupId) => {
+  const axiosPrivate = useAuthenticatedAxios();
+
+  const getGroup = async ({ queryKey }) => {
+    const [, groupId] = queryKey;
+    const { data } = await axiosPrivate.get(`/wedding/groups/${groupId}`);
+    return data;
+  };
+
+  return useQuery(['group', groupId], getGroup, {
+    enabled: !!groupId, // Ensure that groupId is provided
+    refetchOnWindowFocus: false, // Don't refetch on window focus
+  });
+
 }
 
 // Todo - get below working

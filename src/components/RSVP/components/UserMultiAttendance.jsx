@@ -2,8 +2,10 @@ import React from 'react';
 import styled from "styled-components";
 import { faUser, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "@xstate/react";
+import { useFetchGroup } from '../../../hooks/members';
 import Greeting from '../../Greeting';
 import Card from "../../common/Card";
+import Loading from "../../common/Loading";
 
 const CardContainer = styled.div`
   display: flex;
@@ -16,13 +18,20 @@ const CardContainer = styled.div`
 `;
 
 export const UserMultiAttendance = ({ actor, send }) => {
-  const { lastName } = useSelector(actor, state => state.context);
+  const { groupId } = useSelector(actor, state => state.context);
+  const { data, isLoading, isError } = useFetchGroup(groupId);
 
   const handleSubmit = (event) => send({ type: event });
 
+  if (isError) return <div>Oops Something went wrong.</div>;
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div>
-      <Greeting firstName={'Valdez'} lastName={'Family'} />
+      <Greeting groupName={data.name || 'Party Checkin'} />
       <CardContainer>
         <Card onClick={() => handleSubmit('USER_CHECK_IN')}>
           <Card.Title>Self Check in</Card.Title>
