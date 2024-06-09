@@ -54,11 +54,12 @@ const Dot = styled.div`
   }
 `;
 
-const Loading = ({ fullscreen = false }) => {
+const Loading = ({ fullscreen = false, message }) => {
 
   return (
     <LoaderContainer fullscreen={fullscreen}>
       <Image src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/header/navbrand_logo_v2.png' alt="Loading Icon" />
+      { message && <h1>{message}</h1> }
       <EllipsesContainer>
         <Dot></Dot>
         <Dot></Dot>
