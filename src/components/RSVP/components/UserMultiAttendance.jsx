@@ -26,7 +26,7 @@ export const UserMultiAttendance = ({ actor, send }) => {
   if (isError) return <div>Oops Something went wrong.</div>;
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading fullscreen />;
   }
 
   return (

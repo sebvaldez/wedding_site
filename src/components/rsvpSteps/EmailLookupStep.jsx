@@ -54,7 +54,7 @@ export const EmailLookupStep = ({ actor, send }) => {
   }
 
   if (isQueryLoading && lookupClicked) {
-    return <Loading fullscreen='true' />;
+    return <Loading fullscreen />;
   }
 
   return (

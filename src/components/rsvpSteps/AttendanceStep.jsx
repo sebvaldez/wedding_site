@@ -60,16 +60,14 @@ export const AttendanceStep = ({ actor, send }) => {
     }
   }, [memberData, send])
 
+  if (isLoading) return <Loading fullscreen />
+
   const handleAttending = () => {
     send({ type: 'USER_WILL_BE_ATTENDING', memberData, attending: true })
   }
 
   const handleNotAttending = () => {
     send({ type: 'USER_NOT_ATTENDING', memberData, attending: false })
-  }
-
-  if (isLoading) {
-    return <Loading />
   }
 
   return (
