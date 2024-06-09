@@ -2,63 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from '@xstate/react';
 import { Formik, Form, Field } from 'formik';
+
 import { useFetchMembersByGroupId } from '../../../hooks/members';
 import { SubmitButton } from '../../common/formStyles';
 import Loading from '../../common/Loading';
-
-const mockMemberData = [
-  {
-    email: "valdez.sebastian4@gmail.com",
-    id: "66cb0483-7ef8-4fed-b5fa-11acef6a23ac",
-    userId: "66cb0483-7ef8-4fed-b5fa-11acef6a23ac",
-    groupId: "bc274c78-90a8-4366-8e01-853764701642",
-    firstName: "Sebastian",
-    lastName: "Valdez",
-    attending: null,
-    dinnerSelection: "balsamic_rosemary_chicken",
-    foodAllergies: ["None"],
-    plannedTransportation: "uber_or_lyft",
-    specialSippingPreference: "classic_cocktails",
-    phoneNumber: 4152994331,
-  },
-  {
-    id: "a8013bc4-f2bd-4b9e-b6a0-a94834df0055",
-    userId: "a8013bc4-f2bd-4b9e-b6a0-a94834df0055",
-    firstName: "Allegra",
-    lastName: "Cesena",
-    email: "allegracesena@gmail.com",
-    phoneNumber: 2096630485,
-    rsvpTextUpdates: true,
-    attending: null,
-    dinnerSelection: "grilled_vegetable_wellington",
-    foodAllergies: [
-      "Other"
-    ],
-    plannedTransportation: "uber_or_lyft",
-    specialSippingPreference: "rose",
-    otherFoodAllergy: "Vegan",
-    groupId: "bc274c78-90a8-4366-8e01-853764701642",
-  },
-  {
-    id: "96854b50-bfac-46a0-ac43-0309fcb7265a",
-    userId: "96854b50-bfac-46a0-ac43-0309fcb7265a",
-    firstName: "Jordan",
-    lastName: "Meyers",
-    email: "jordan.meyers209@gmail.com",
-    phoneNumber: 2092945877,
-    rsvpTextUpdates: true,
-    emailedInvitation: false,
-    attending: null,
-    dinnerSelection: "balsamic_rosemary_chicken",
-    foodAllergies: [
-      "None"
-    ],
-    plannedTransportation: "carpooling",
-    specialSippingPreference: "white_wine",
-    otherFoodAllergy: "",
-    groupId: "bc274c78-90a8-4366-8e01-853764701642",
-  }
-];
 
 const CheckInContainer = styled.div`
   display: flex;
@@ -124,12 +71,10 @@ const OptionsContainer = styled.div`
 
 export const GroupMemberSelection = ({ actor, send}) => {
   const groupId  = useSelector(actor, s => s?.context.groupId);
-  console.log('GroupMemberSelection:', groupId);
-  const { data, isLoading, error } = useFetchMembersByGroupId(groupId);
+  // add handle error
+  const { data, isLoading } = useFetchMembersByGroupId(groupId);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   const initialValues = {
     members: data.map(member => ({
@@ -142,14 +87,25 @@ export const GroupMemberSelection = ({ actor, send}) => {
     <Formik
       initialValues={initialValues}
       onSubmit={(values, actions) => {
-        // select only members that are not skipping
-        const attendingMembers = values.members.filter(member => member.attending !== 'skip');
 
-        // console.log('Submitting:', JSON.stringify(attendingMembers, null, 2));
-        send({ type: 'USER_GROUP_DINING_PREFERENCES', attendingMembers });
+        const validMembers = values.members.filter(member => member.attending !== 'skip');
+
+        // handle when all members are not attending
+        const allMembersSelectedNo = validMembers.every(member => member.attending === 'false');
+        if (allMembersSelectedNo) {
+          send({ type: 'USER_GROUP_NOT_ATTENDING', nonAttendingMembers: values.members });
+          return;
+        }
+
+        // select only members that are not skipping
+        const attendingMembers = validMembers.filter(member => member.attending === 'true');
+        const nonAttendingMembers = validMembers.filter(member => member.attending === 'false');
+
+        send({ type: 'USER_GROUP_DINING_PREFERENCES', attendingMembers, nonAttendingMembers });
       }}
       validate={values => {
         const errors = {};
+
         // Check if all members have made a selection
         if (values.members.some(member => member.attending === null)) {
           errors.members = 'All members must make a selection';
@@ -161,30 +117,36 @@ export const GroupMemberSelection = ({ actor, send}) => {
         return errors;
       }}
     >
-      {({ values, isValid, dirty }) => (
-        <Form>
-          <CheckInContainer>
-            <h1>Who would you like to check-in?</h1>
-            {values.members.map((member, index) => (
-              <Row key={member.userId} selected={member.attending === 'false'}>
-                <Name>{`${member.firstName} ${member.lastName}`}</Name>
-                <OptionsContainer>
-                  <Label>
-                    <Field type="radio" name={`members[${index}].attending`} value="true" /> Attending
-                  </Label>
-                  <Label>
-                    <Field type="radio" name={`members[${index}].attending`} value="false" /> Not Attending
-                  </Label>
-                  <Label>
-                    <Field type="radio" name={`members[${index}].attending`} value="skip" /> Skip
-                  </Label>
-                </OptionsContainer>
-              </Row>
-            ))}
-            <SubmitButton  disabled={!isValid || !dirty} type="submit" style={{ marginTop: '2rem' }}>Next</SubmitButton>
-          </CheckInContainer>
-        </Form>
-      )}
+      {({ values, isValid, dirty }) => {
+        const allMembersAttending = values.members.every(member => member.attending === 'true');
+
+        return (
+          <Form>
+            <CheckInContainer>
+              <h1>Who would you like to check-in?</h1>
+              {values.members.map((member, index) => (
+                <Row key={member.userId} selected={member.attending === 'false'}>
+                  <Name>{`${member.firstName} ${member.lastName}`}</Name>
+                  <OptionsContainer>
+                    <Label>
+                      <Field type="radio" name={`members[${index}].attending`} value="true" /> Attending
+                    </Label>
+                    <Label>
+                      <Field type="radio" name={`members[${index}].attending`} value="false" /> Not Attending
+                    </Label>
+                    <Label>
+                      <Field type="radio" name={`members[${index}].attending`} value="skip" /> Skip
+                    </Label>
+                  </OptionsContainer>
+                </Row>
+              ))}
+              <SubmitButton disabled={!isValid || (!dirty && !allMembersAttending)} type="submit" style={{ marginTop: '2rem' }}>
+                Next
+              </SubmitButton>
+            </CheckInContainer>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
