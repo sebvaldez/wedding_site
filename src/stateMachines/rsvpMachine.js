@@ -1,6 +1,5 @@
 import { assign, setup, fromPromise } from "xstate";
 import axiosInstance from '../api/backend';
-import { clear } from "@testing-library/user-event/dist/clear";
 
 const initialContext = {
   previousState: null,
