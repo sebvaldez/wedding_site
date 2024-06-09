@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import styled from 'styled-components';
 import { useGetMemberByEmail } from '../../hooks/members';
@@ -11,12 +11,14 @@ import { useSelector } from '@xstate/react';
 const EMAIL_INVALID_MESSAGE = 'Email must be valid!';
 const EMAIL_REQUIRED_MESSAGE = 'Email is required!';
 
+/* eslint-disable dot-location */
 const validationSchema = yup.object().shape({
   email: yup.
     string().
     email(EMAIL_INVALID_MESSAGE).
     required(EMAIL_REQUIRED_MESSAGE)
 });
+/* eslint-enable dot-location */
 
 const StyledForm = styled(Form)`
   display: flex;
@@ -32,14 +34,15 @@ const StyledForm = styled(Form)`
 export const EmailLookupStep = ({ actor, send }) => {
   const [ lookupClicked, setLookupClicked ] = useState(false);
   const [ lookupEmail, setLookupEmail ] = useState(null);
-  const { data: memberData, isError, isLoading: isQueryLoading } = useGetMemberByEmail(lookupEmail, lookupClicked);
 
+  // todo handle isError
+  const { data: memberData, isLoading: isQueryLoading } = useGetMemberByEmail(lookupEmail, lookupClicked);
 
   useEffect(() => {
     if (memberData) {
       send({ type: 'USER_EMAIL_LOOKUP', lookupEmail, memberData });
     }
-  }, [memberData]);
+  }, [memberData, lookupEmail, send]);
 
 
   const emailContext = useSelector(actor, (s) => s?.context.email);
