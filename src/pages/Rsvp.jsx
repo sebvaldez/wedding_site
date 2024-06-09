@@ -11,7 +11,6 @@ import { rsvpMachine } from '../stateMachines/rsvpMachine';
 // http://localhost:3000/rsvp?userId=81c9668e-cbff-4662-acd4-8405e1045b6b&groupId=bc274c78-90a8-4366-8e01-853764701642
 
 const PageContainer = styled.div`
-    border: 2px solid red;
     margin-top: 0rem;
     padding-bottom: 60px;  // Room for the button at the bottom
     display: flex;
@@ -118,7 +117,6 @@ export const Rsvp = () => {
         )}
 
         {state.matches('Completed') && <ConfirmedStep actor={actor} send={send} />}
-      <JsonDebugger data={state} />
     </PageContainer>
   );
 };
