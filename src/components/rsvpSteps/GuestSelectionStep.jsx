@@ -14,7 +14,7 @@ const StyledSelection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  align-items: center;
+
   @media (min-width: 768px) {
       flex-wrap: wrap;
       justify-content: space-between;
@@ -30,7 +30,7 @@ const StyledSelect = styled.select`
   box-sizing: border-box;
 `;
 
-const GuestName = styled.div`
+const GuestName = styled.h1`
   font-size: 2rem;
   font-weight: 300;
   text-align: center;
@@ -107,7 +107,7 @@ export const GuestSelectionStep = ({ actor, send }) => {
       onSubmit={handleSubmit}
     >
       {({ setFieldValue, values }) => (
-        <Form>
+        <Form style={{ marginBottom: '1.2rem' }}>
           <StyledSelection>
 
             <GuestName>
@@ -117,7 +117,7 @@ export const GuestSelectionStep = ({ actor, send }) => {
               }
             </GuestName>
 
-            {dinnerSelection && <SubText>You can change your selection until August 15th, 2024.</SubText>}
+            {dinnerSelection && <SubText>You can change your selection until August 10th, 2024.</SubText>}
 
             {/* Selector for dinner selection */}
             <Label>
@@ -138,7 +138,7 @@ export const GuestSelectionStep = ({ actor, send }) => {
             {/* Selector for Food allergies */}
             <Label>
               <span>
-                Food Allergies <FontAwesomeIcon style={{ fontSize: '.8rem', color: '#A64444' }} icon={faStarOfLife} size='xs' />
+                Food Allergies | Dietary Restrictions <FontAwesomeIcon style={{ fontSize: '.8rem', color: '#A64444' }} icon={faStarOfLife} size='xs' />
               </span>
               <div>
                 {/* Dynamically generate checkboxes for allergies */}
@@ -204,20 +204,8 @@ export const GuestSelectionStep = ({ actor, send }) => {
               </Field>
             </Label>
 
-            {/* Checkbox for RSVP text updates */}
-            <div style={{ marginTop: '10px' }}>
-              <Field
-                type="checkbox"
-                id="rsvpTextUpdates"
-                name="rsvpTextUpdates"
-                checked={values.rsvpTextUpdates}
-              />
-              <label htmlFor="rsvpTextUpdates">
-                Send me my RSVP confirmation and invite link via text message.
-              </label>
-            </div>
-          <SubmitButton  disabled={!isDinnerSelected(values.dinnerSelection) || !areAllergiesSelected(values.foodAllergies)}  type="submit">Submit</SubmitButton>
           </StyledSelection>
+          <SubmitButton  disabled={!isDinnerSelected(values.dinnerSelection) || !areAllergiesSelected(values.foodAllergies)}  type="submit">Submit</SubmitButton>
         </Form>
       )}
     </Formik>
