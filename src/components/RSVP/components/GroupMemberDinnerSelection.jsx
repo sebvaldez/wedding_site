@@ -4,6 +4,7 @@ import { Formik, Form, Field, FieldArray } from 'formik';
 import { useSelector } from "@xstate/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStarOfLife } from '@fortawesome/free-solid-svg-icons';
+
 import Space from '../../common/Space';
 import { SubmitButton, InputSm } from '../../common/formStyles';
 
@@ -85,33 +86,35 @@ const handleAllergyChange = (event, setFieldValue, values, index) => {
 };
 
 const validateForm = (values) => {
-  const errors = {};
-  errors.members = values.members.map((member, index) => {
+  const errors = { members: [] };
+
+  values.members.forEach((member, index) => {
     const memberErrors = {};
-    if (!member.dinnerSelection) {
+
+    if (member.dinnerSelection === "") {
       memberErrors.dinnerSelection = 'Required';
     }
-    if (!member.foodAllergies || member.foodAllergies.length === 0) {
+    if (member.foodAllergies.length === 0) {
       memberErrors.foodAllergies = 'Required';
     }
-    if (member.foodAllergies.includes('Other') && !member.otherFoodAllergy) {
+    if (member.foodAllergies.includes('Other') && (!member.otherFoodAllergy || member.otherFoodAllergy === '')) {
       memberErrors.otherFoodAllergy = 'Required';
     }
-    return memberErrors;
+
+    if (Object.keys(memberErrors).length > 0) {
+      errors.members[index] = memberErrors;
+    }
   });
 
-  // Check if any member errors exist
-  if (errors.members.some(memberErrors => Object.keys(memberErrors).length > 0)) {
+  if (errors.members.length > 0) {
     return errors;
   }
-
   return {};
 };
 
-
 export const GroupMemberDinnerSelection = ({ actor, send }) => {
-  const {userId, groupMembersAttending} = useSelector(actor, state => {
-    return { userId: state.context.userId, groupMembersAttending: state.context.groupMembersAttending}
+  const {userId, groupMembersAttending } = useSelector(actor, state => {
+    return { userId: state.context.userId, groupMembersAttending: state.context.groupMembersAttending };
   });
 
   return (
@@ -124,20 +127,20 @@ export const GroupMemberDinnerSelection = ({ actor, send }) => {
           specialSippingPreference: member.specialSippingPreference || '' // Ensure specialSippingPreference is initialized
         }))
       }}
-      onSubmit={(values, actions) => {
-        console.log('Submitting:', values);
-        // send('SUBMIT', { data: values.members });
-        actions.setSubmitting(false);
+      onSubmit={(values, _actions) => {
+        const { members } = values;
+        send({ type: 'USER_CONFIRMED_PREFERENCES', members });
       }}
+      validateOnMount={true}
       validate={validateForm}
     >
-      {({ values, setFieldValue, isSubmitting, isValid, dirty, errors }) => (
+      {({ values, setFieldValue, isSubmitting, isValid }) => (
         <Form style={{ marginBottom: '1.2rem' }}>
           <FieldArray name="members">
             {({ insert, remove, push }) => (
               <StyledFieldArray>
                 {values.members.length > 0 && values.members.map((member, index) => (
-                  <div key={member.id}>
+                  <div id='test' key={member.id}>
 
                     { member.id === userId && 'Primary Person' }
 
@@ -158,7 +161,7 @@ export const GroupMemberDinnerSelection = ({ actor, send }) => {
                     <br />
 
                     <span>
-                      Food Allergies <FontAwesomeIcon style={{ fontSize: '.8rem', color: '#A64444' }} icon={faStarOfLife} size='xs' />
+                      Food Allergies | Dietary Restrictions <FontAwesomeIcon style={{ fontSize: '.8rem', color: '#A64444' }} icon={faStarOfLife} size='xs' />
                     </span>
                     {ALLERGY_OPTIONS.map(allergy => (
                       <div key={allergy}>
@@ -228,7 +231,7 @@ export const GroupMemberDinnerSelection = ({ actor, send }) => {
               </StyledFieldArray>
             )}
           </FieldArray>
-          <SubmitButton type="submit" disabled={isSubmitting || !isValid || !dirty}>
+          <SubmitButton type="submit" disabled={isSubmitting || !isValid }>
             Submit
           </SubmitButton>
         </Form>

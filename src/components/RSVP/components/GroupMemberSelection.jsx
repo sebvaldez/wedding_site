@@ -69,12 +69,26 @@ const OptionsContainer = styled.div`
   }
 `;
 
+const validateForm = values => {
+  const errors = {};
+
+  // Check if all members have made a selection
+  if (values.members.some(member => member.attending === null)) {
+    errors.members = 'All members must make a selection';
+  }
+  // Check if all members have 'skip' selected
+  if (values.members.every(member => member.attending === 'skip')) {
+    errors.members = 'At least one member must attend or not attend (not all can skip)';
+  }
+  return errors;
+}
+
 export const GroupMemberSelection = ({ actor, send}) => {
   const groupId  = useSelector(actor, s => s?.context.groupId);
   // add handle error
   const { data, isLoading } = useFetchMembersByGroupId(groupId);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Loading fullscreen />;
 
   const initialValues = {
     members: data.map(member => ({
@@ -86,14 +100,14 @@ export const GroupMemberSelection = ({ actor, send}) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values, actions) => {
+      onSubmit={(values, _actions) => {
 
         const validMembers = values.members.filter(member => member.attending !== 'skip');
 
         // handle when all members are not attending
         const allMembersSelectedNo = validMembers.every(member => member.attending === 'false');
         if (allMembersSelectedNo) {
-          send({ type: 'USER_GROUP_NOT_ATTENDING', nonAttendingMembers: values.members });
+          send({ type: 'USER_GROUP_NOT_ATTENDING', nonAttendingMembers: validMembers });
           return;
         }
 
@@ -103,22 +117,10 @@ export const GroupMemberSelection = ({ actor, send}) => {
 
         send({ type: 'USER_GROUP_DINING_PREFERENCES', attendingMembers, nonAttendingMembers });
       }}
-      validate={values => {
-        const errors = {};
-
-        // Check if all members have made a selection
-        if (values.members.some(member => member.attending === null)) {
-          errors.members = 'All members must make a selection';
-        }
-        // Check if all members have 'skip' selected
-        if (values.members.every(member => member.attending === 'skip')) {
-          errors.members = 'At least one member must attend or not attend (not all can skip)';
-        }
-        return errors;
-      }}
+      validateOnMount={true}
+      validate={validateForm}
     >
-      {({ values, isValid, dirty }) => {
-        const allMembersAttending = values.members.every(member => member.attending === 'true');
+      {({ values, isValid, }) => {
 
         return (
           <Form>
@@ -140,7 +142,7 @@ export const GroupMemberSelection = ({ actor, send}) => {
                   </OptionsContainer>
                 </Row>
               ))}
-              <SubmitButton disabled={!isValid || (!dirty && !allMembersAttending)} type="submit" style={{ marginTop: '2rem' }}>
+              <SubmitButton disabled={!isValid } type="submit" style={{ marginTop: '2rem' }}>
                 Next
               </SubmitButton>
             </CheckInContainer>
