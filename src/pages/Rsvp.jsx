@@ -1,17 +1,17 @@
 import React, { useState} from 'react';
 import styled from 'styled-components';
-import { useMachine } from '@xstate/react';
+import { useMachine, useSelector } from '@xstate/react';
+
+import Loading from '../components/common/Loading';
 import { BackButton } from '../components/common/formStyles';
 import { AttendanceStep, ConfirmationStep, EmailLookupStep, GuestSelectionStep, ConfirmedStep } from '../components/rsvpSteps';
-
 import { CheckParams, UserMultiAttendance, GroupMemberSelection, GroupMemberDinnerSelection } from '../components/RSVP/components';
-
-
 import { rsvpMachine } from '../stateMachines/rsvpMachine';
 
-// http://localhost:3000/rsvp?userId=66cb0483-7ef8-4fed-b5fa-11acef6a23ac&groupId=bc274c78-90a8-4366-8e01-853764701642
+// http://localhost:3000/rsvp?userId=81c9668e-cbff-4662-acd4-8405e1045b6b&groupId=bc274c78-90a8-4366-8e01-853764701642
 
 const PageContainer = styled.div`
+    border: 2px solid red;
     margin-top: 0rem;
     padding-bottom: 60px;  // Room for the button at the bottom
     display: flex;
@@ -24,7 +24,7 @@ const PageContainer = styled.div`
     @media (min-width: 768px) {  // Example breakpoint for larger devices
       margin-top: 3rem;
       /* justify-content: flex-start; */
-      height: auto;
+      height: 65vh;  // Take up the full viewport height
       padding-bottom: 0;
     }
 `;
@@ -54,6 +54,9 @@ const JsonDebugger = ({ data }) => {
 
 export const Rsvp = () => {
   const [state, send, actor] = useMachine(rsvpMachine);
+  const { loading } = useSelector(actor, state => state.context);
+
+  if (loading) return <Loading fullscreen message='Submitting your RSVP selections' />
 
   return (
     <PageContainer>
@@ -96,6 +99,14 @@ export const Rsvp = () => {
           <>
             <BackButton crumbText={'Check-in options'} handleBack={() => send({ type: 'BACK'})} />
             <GroupMemberSelection actor={actor} send={send} />
+          </>
+        )}
+
+
+        {state.matches('GroupConfirmOptOut') && (
+          <>
+            <BackButton crumbText={'Back to attendance options'} handleBack={() => send({ type: 'BACK'})} />
+            <ConfirmationStep actor={actor} send={send} />
           </>
         )}
 

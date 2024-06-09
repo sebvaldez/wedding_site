@@ -1,36 +1,33 @@
 import { assign, setup, fromPromise } from "xstate";
 import axiosInstance from '../api/backend';
-
-
-// My convention:
-// any state lowercase is not rendering UI
-// any state capitalized will render UI
-// there may be refactoring on this later
+import { clear } from "@testing-library/user-event/dist/clear";
 
 const initialContext = {
   previousState: null,
   email: '',
   userId: '',
   groupId: '',
+  loading: false,
   firstName: null,
   lastName: null,
   attending: null,
   rsvpTextUpdates: null,
-  dinnerSelection: null,
+  dinnerSelection: '',
   foodAllergies: [],
   plannedTransportation: '',
   specialSippingPreference: '',
   otherFoodAllergy: '',
   groupMembersAttending: [],
+  groupMembersNotAttending: [],
 };
 
 export const rsvpMachine = setup(
   {
     actions: {
-      clearUserContext: assign(({ context, event }) => {
-        console.log('action: clear user context');
-        return { ...context, ...initialContext };
-      }),
+      setLoading: assign({ loading: true }),
+      clearLoading: assign({ loading: false }),
+      clearUserContext: assign((context, _event) => ({ ...context, ...initialContext })),
+      clearGroupMembers: assign({ groupMembersAttending: [], groupMembersNotAttending: [] }),
       setUserContext: assign(({context, event}) => {
         return {
           ...context, // Spread existing context to maintain other properties
@@ -65,9 +62,17 @@ export const rsvpMachine = setup(
       setGroupMembersAttending: assign(({ context, event }) => {
         return {
           ...context,
-          groupMembersAttending: event.attendingMembers
+          groupMembersAttending: event?.attendingMembers || [],
+          groupMembersNotAttending: event?.nonAttendingMembers || []
         };
-      })
+      }),
+      setAttendingBasedOnGroupMembers: assign(({ context, event}) => {
+        const attending = [ ...context.groupMembersAttending, ...context.groupMembersNotAttending ].some(member => member.attending === 'true');
+        return {
+          ...context,
+          attending
+        };
+      }),
     },
     actors: {
       bulkUpdateMembers:  fromPromise(async ({input}) => {
@@ -85,12 +90,7 @@ export const rsvpMachine = setup(
           console.error('Failed to update members:', error);
           throw error; // Rethrowing the error to be handled by the machine's onError transition
         }
-      }),
-      fetchUsersByGroupId: fromPromise({
-      }),
-      getMemberByEmail: fromPromise({
-        /* ... */
-      }),
+      })
     },
     guards: {
       "USER_AND_GROUP_SET?": ({ context, event }, params) => {
@@ -170,7 +170,7 @@ export const rsvpMachine = setup(
           },
           USER_CONFIRM_OPT_OUT: {
             target: "UpdateUserData",
-
+            actions: 'setLoading'
           },
         }
       },
@@ -181,6 +181,7 @@ export const rsvpMachine = setup(
           },
           USER_CONFIRMED_PREFERENCES: {
             target: "UpdateUserData",
+            actions: 'setLoading'
           },
         },
       },
@@ -214,7 +215,12 @@ export const rsvpMachine = setup(
       GroupMemberSelection: {
         on: {
           BACK: {
-            target: 'UserMultiAttendance'
+            target: 'UserMultiAttendance',
+            actions: 'clearGroupMembers'
+          },
+          USER_GROUP_NOT_ATTENDING: {
+            target: "GroupConfirmOptOut",
+            actions: ['setGroupMembersAttending','setAttendingBasedOnGroupMembers']
           },
           USER_GROUP_DINING_PREFERENCES: {
             target: "GroupDiningPreferences",
@@ -222,25 +228,59 @@ export const rsvpMachine = setup(
           }
         },
       },
+      GroupConfirmOptOut: {
+        on: {
+          BACK: {
+            target: 'GroupMemberSelection',
+            actions: 'clearGroupMembers'
+          },
+          USER_CONFIRM_OPT_OUT: {
+            target: "UpdateBulkUserData",
+            actions: [
+              'setAttendingBasedOnGroupMembers',
+              'setLoading',
+              assign({
+                previousState: 'UserMultiAttendance'
+              })
+            ]
+          },
+        }
+      },
       GroupDiningPreferences: {
         on: {
           BACK: {
-            target: 'GroupMemberSelection'
+            target: 'GroupMemberSelection',
+            actions: 'clearGroupMembers'
           },
-          USER_GROUP_COMPLETE: {
-            target: "Completed",
+          USER_CONFIRMED_PREFERENCES: {
+            target: "UpdateBulkUserData",
+            actions: [
+              'setAttendingBasedOnGroupMembers',
+              'setLoading',
+              assign(({ context, event }) => ({
+                ...context,
+                groupMembersAttending: event.members
+              }))
+            ]
           },
           USER_BACK_TO_GROUP_SELECTION: {
             target: "GroupMemberSelection",
           },
         },
       },
-      Completed: {
+      UpdateBulkUserData: {
         invoke: {
-          input: {},
+          // combine non attending and attending members with their selections
+          input: ({ context, _event }) => [ ...context.groupMembersNotAttending, ...context.groupMembersAttending ],
           src: "bulkUpdateMembers",
-          id: "bulkUpdateMembers",
-        },
+          onDone: {
+            target: "Completed",
+          }
+        }
+      },
+      Completed: {
+        // I dont think i need any transitions here
+        entry: 'clearLoading'
       },
     },
   }
