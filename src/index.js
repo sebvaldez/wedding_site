@@ -1,16 +1,15 @@
-import React, { useEffect, useState, Suspense, lazy } from 'react';
+import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
+import styled from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { PostHogProvider} from 'posthog-js/react'
 import { Auth0Provider } from '@auth0/auth0-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
-import ApiProvider from './providers/ApiProvider';
+
 import { GlobalFonts, GlobalStyle } from './styles';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import Page from './components/layout/Page';
 import App from './App';
 import { FourOhFour } from './pages/FourOhFour';
 import { Travel } from './pages/Travel';
@@ -21,8 +20,7 @@ import { Rsvp } from './pages/Rsvp';
 import {Faq} from './pages/Faq';
 import ProtectedRoute from './components/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
-import styled from 'styled-components';
-import { PostHogProvider} from 'posthog-js/react'
+
 
 const Admin = lazy(() => import('./pages/Admin'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
@@ -48,42 +46,6 @@ const Container = styled.div`
 `;
 
 const queryClient = new QueryClient();
-
-const RsvpTimer = () => {
-  const [isTimeForRsvp, setIsTimeForRsvp] = useState(false);
-
-  useEffect(() => {
-    console.log('REACT ENV:',process.env.REACT_APP_ENV)
-    const checkTime = () => {
-      if (process.env.REACT_APP_ENV === 'development') {
-        setIsTimeForRsvp(true);
-      } else {
-        // const targetDateTime = new Date('2023-11-21T13:20:00-08:00'); // 1:20 PM PST on 11/21/2023
-        const targetDateTime = new Date('2024-03-01T13:00:00').toLocaleString("en-US", {timeZone: "America/Los_Angeles"});
-        const currentDateTime = new Date();
-
-        setIsTimeForRsvp(currentDateTime >= targetDateTime);
-      }
-    };
-
-    // Check immediately and then set an interval
-    checkTime();
-    const intervalId = setInterval(checkTime, 60000); // Check every minute
-
-    // Clear the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []);
-
-  return isTimeForRsvp
-    ? <ApiProvider><Rsvp /></ApiProvider>
-    : (
-      <Page>
-        <h1 style={{fontSize: "2rem"}}>RSVP is not available yet.</h1>
-        <FontAwesomeIcon style={{ marginBottom: '.3rem'}} icon={faScrewdriverWrench} size='2x' />
-        <p style={{fontSize: "1.5rem"}}>Please check back soon.</p>
-      </Page>
-    )
-};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -123,7 +85,7 @@ root.render(
             <Route path='/details' element={<WeddingDetails />} />
             <Route path='/hotel-blocks' element={<Travel />} />
             <Route path='/registry' element={<WeddingRegistry />} />
-            <Route path='/rsvp' element={<RsvpTimer />} />
+            <Route path='/rsvp' element={<Rsvp />} />
             <Route path='/things-to-do' element={<ThingsToDo />} />
 
             <Route path='*' element={<FourOhFour />} />

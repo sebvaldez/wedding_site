@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useMachine, useSelector } from '@xstate/react';
+import posthog from 'posthog-js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 
+import Page from '../components/layout/Page';
 import Loading from '../components/common/Loading';
 import { BackButton } from '../components/common/formStyles';
 import { AttendanceStep, ConfirmationStep, EmailLookupStep, GuestSelectionStep, ConfirmedStep } from '../components/rsvpSteps';
@@ -36,64 +40,74 @@ export const Rsvp = () => {
 
   return (
     <PageContainer>
+      { posthog.isFeatureEnabled('feat-rsvp')
+        ? <>
+            {/* Check URL query params on /rsvp page load */}
+            {state.matches('CheckParams') && <CheckParams send={send} />}
 
-        {/* Check URL query params on /rsvp page load */}
-        {state.matches('CheckParams') && <CheckParams send={send} />}
+            {state.matches('UserLookupEmail') && <EmailLookupStep actor={actor} send={send} />}
 
-        {state.matches('UserLookupEmail') && <EmailLookupStep actor={actor} send={send} />}
+            {state.matches('UserAttendance') && (
+              <>
+              {/* TODO there may be a idiomatic way to use like xstate history or something.. */}
+              {state.context.previousState === 'UserLookupEmail' && <BackButton handleBack={() => send({ type: 'BACK'})} /> }
+              {state.context.previousState === 'UserMultiAttendance' && <BackButton crumbText={'Check-in options'} handleBack={() => send({ type: 'BACK_FROM_USER_MULTI_ATTENDANCE'})} /> }
+              <AttendanceStep actor={actor} send={send} />
+              </>
+            )}
 
-        {state.matches('UserAttendance') && (
-          <>
-          {/* TODO there may be a idiomatic way to use like xstate history or something.. */}
-          {state.context.previousState === 'UserLookupEmail' && <BackButton handleBack={() => send({ type: 'BACK'})} /> }
-          {state.context.previousState === 'UserMultiAttendance' && <BackButton crumbText={'Check-in options'} handleBack={() => send({ type: 'BACK_FROM_USER_MULTI_ATTENDANCE'})} /> }
-          <AttendanceStep actor={actor} send={send} />
-          </>
-        )}
+            {state.matches('UserConfirmOptOut') && (
+              <>
+                <BackButton crumbText={'Back to attendance options'}  handleBack={() => send({ type: 'BACK'})} />
+                <ConfirmationStep actor={actor} send={send} />
+              </>
+            )}
 
-        {state.matches('UserConfirmOptOut') && (
-          <>
-            <BackButton crumbText={'Back to attendance options'}  handleBack={() => send({ type: 'BACK'})} />
-            <ConfirmationStep actor={actor} send={send} />
-          </>
-        )}
+            {state.matches('UserDiningPreferences') && (
+              <>
+                <BackButton crumbText={'Back to attendance options'}  handleBack={() => send({ type: 'BACK'})} />
+                <GuestSelectionStep actor={actor} send={send} />
+              </>
+            )}
 
-        {state.matches('UserDiningPreferences') && (
-          <>
-            <BackButton crumbText={'Back to attendance options'}  handleBack={() => send({ type: 'BACK'})} />
-            <GuestSelectionStep actor={actor} send={send} />
-          </>
-        )}
+            {state.matches('UserMultiAttendance') && (
+              <>
+                <UserMultiAttendance actor={actor} send={send} />
+              </>
+            )}
 
-        {state.matches('UserMultiAttendance') && (
-          <>
-            <UserMultiAttendance actor={actor} send={send} />
-          </>
-        )}
-
-        {state.matches('GroupMemberSelection') && (
-          <>
-            <BackButton crumbText={'Check-in options'} handleBack={() => send({ type: 'BACK'})} />
-            <GroupMemberSelection actor={actor} send={send} />
-          </>
-        )}
+            {state.matches('GroupMemberSelection') && (
+              <>
+                <BackButton crumbText={'Check-in options'} handleBack={() => send({ type: 'BACK'})} />
+                <GroupMemberSelection actor={actor} send={send} />
+              </>
+            )}
 
 
-        {state.matches('GroupConfirmOptOut') && (
-          <>
-            <BackButton crumbText={'Back to attendance options'} handleBack={() => send({ type: 'BACK'})} />
-            <ConfirmationStep actor={actor} send={send} />
-          </>
-        )}
+            {state.matches('GroupConfirmOptOut') && (
+              <>
+                <BackButton crumbText={'Back to attendance options'} handleBack={() => send({ type: 'BACK'})} />
+                <ConfirmationStep actor={actor} send={send} />
+              </>
+            )}
 
-        {state.matches('GroupDiningPreferences') && (
-          <>
-            <BackButton crumbText={'Back to attendance options'} handleBack={() => send({ type: 'BACK'})} />
-            <GroupMemberDinnerSelection actor={actor} send={send} />
-          </>
-        )}
+            {state.matches('GroupDiningPreferences') && (
+              <>
+                <BackButton crumbText={'Back to attendance options'} handleBack={() => send({ type: 'BACK'})} />
+                <GroupMemberDinnerSelection actor={actor} send={send} />
+              </>
+            )}
 
-        {state.matches('Completed') && <ConfirmedStep actor={actor} send={send} />}
+            {state.matches('Completed') && <ConfirmedStep actor={actor} send={send} />}
+        </>
+      : (
+        <Page>
+          <h1 style={{fontSize: "2rem"}}>RSVP is not available yet.</h1>
+          <FontAwesomeIcon style={{ marginBottom: '.3rem'}} icon={faScrewdriverWrench} size='2x' />
+          <p style={{fontSize: "1.5rem"}}>Please check back soon.</p>
+        </Page>
+      )
+    }
     </PageContainer>
   );
 };
