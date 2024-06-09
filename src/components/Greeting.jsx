@@ -5,6 +5,11 @@ const StyledGreeting = styled(animated.div)`
     font-size: 2.8rem;          // Large header
     font-weight: 300;         // Thin font weight
     text-align: center;
+
+    // reduce font-size when mobile
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+    }
 `;
 
 const GuestName = styled(animated.div)`
@@ -12,6 +17,11 @@ const GuestName = styled(animated.div)`
     font-weight: 300;
     text-align: center;
     padding: 0 0 1.2rem 0;
+
+    // reduce font-size when mobile
+    @media (max-width: 768px) {
+        font-size: 1.8rem;
+    }
 `;
 
 const Greeting = ({ firstName, lastName, groupName }) => {
