@@ -11,7 +11,6 @@ const PromptContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
-  // 
 `;
 
 const EmailMessage = () => {

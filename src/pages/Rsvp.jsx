@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useMachine, useSelector } from '@xstate/react';
-import posthog from 'posthog-js';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
+// import { usePostHog } from 'posthog-js/react'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
 
-import Page from '../components/layout/Page';
+// import Page from '../components/layout/Page';
+import ApiProvider from '../providers/ApiProvider';
 import Loading from '../components/common/Loading';
 import { BackButton } from '../components/common/formStyles';
 import { AttendanceStep, ConfirmationStep, EmailLookupStep, GuestSelectionStep, ConfirmedStep } from '../components/rsvpSteps';
@@ -35,13 +36,13 @@ const PageContainer = styled.div`
 export const Rsvp = () => {
   const [state, send, actor] = useMachine(rsvpMachine);
   const { loading } = useSelector(actor, state => state.context);
+  // const posthog = usePostHog();
 
   if (loading) return <Loading fullscreen message='Submitting your RSVP selections' />
 
   return (
+ <ApiProvider>
     <PageContainer>
-      { posthog.isFeatureEnabled('feat-rsvp')
-        ? <>
             {/* Check URL query params on /rsvp page load */}
             {state.matches('CheckParams') && <CheckParams send={send} />}
 
@@ -99,15 +100,7 @@ export const Rsvp = () => {
             )}
 
             {state.matches('Completed') && <ConfirmedStep actor={actor} send={send} />}
-        </>
-      : (
-        <Page>
-          <h1 style={{fontSize: "2rem"}}>RSVP is not available yet.</h1>
-          <FontAwesomeIcon style={{ marginBottom: '.3rem'}} icon={faScrewdriverWrench} size='2x' />
-          <p style={{fontSize: "1.5rem"}}>Please check back soon.</p>
-        </Page>
-      )
-    }
-    </PageContainer>
+      </PageContainer>
+    </ApiProvider>
   );
 };
