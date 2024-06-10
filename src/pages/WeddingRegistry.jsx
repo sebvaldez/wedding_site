@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Container from '../components/common/Container';
 import HeroSection from '../components/layout/HeroContainer';
-import usePosthog from '../hooks/usePostHog';
+import { usePostHog } from 'posthog-js/react';
 
 const RegistryContainer = styled.div`
     display: grid;
@@ -120,7 +120,7 @@ const registryList = [
 ];
 
 export const WeddingRegistry = () => {
-  const trackEvent = usePosthog();
+  const posthog = usePostHog();
 
   return (
     <Container>
@@ -144,7 +144,7 @@ export const WeddingRegistry = () => {
               href={item.url}
               target='_blank'
               aria-label={`Link to ${item.vendor} registry`}
-              onClick={() => trackEvent('Registry', { vendorLink: item.vendor })}
+              onClick={() => posthog.capture('Registry', { vendorLink: item.vendor })}
             ></RegistryLink>
           </RegistryItem>
         ))}

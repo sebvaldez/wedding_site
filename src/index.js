@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import posthog from 'posthog-js';
 import { PostHogProvider} from 'posthog-js/react'
 import { Auth0Provider } from '@auth0/auth0-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -21,13 +22,11 @@ import {Faq} from './pages/Faq';
 import ProtectedRoute from './components/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
 
-
 const Admin = lazy(() => import('./pages/Admin'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 
-const options = {
-  api_host: process.env.REACT_APP_PUBLIC_POSTHOG_HOST,
-}
+posthog.init( process.env.REACT_APP_PUBLIC_POSTHOG_KEY,
+  { api_host: process.env.REACT_APP_PUBLIC_POSTHOG_HOST } );
 
 const Container = styled.div`
   width: 100%;
@@ -51,8 +50,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <PostHogProvider
-      apiKey={process.env.REACT_APP_PUBLIC_POSTHOG_KEY}
-      options={options}
+      client={posthog}
     >
     <QueryClientProvider client={queryClient}>
       <Auth0Provider

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useSpring, animated, config } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
 import HeroSection from '../components/layout/HeroContainer'
-import usePosthog from '../hooks/usePostHog';
+import { usePostHog } from 'posthog-js/react'
 
 const TravelHeader = styled.h1`
   text-align: center;
@@ -118,7 +118,7 @@ const Hotels = ({ trackEvent }) => {
             (503) 220-1339
           </CardText>
           <CardLink
-            onClick={() => trackEvent('Travel', { link: 'Hotel: Residence Inn, Portland Downtown/Pearl District'}) }
+            onClick={() => trackEvent.capture('Travel', { link: 'Hotel: Residence Inn, Portland Downtown/Pearl District'}) }
             href='https://marriott.com/event-reservations/reservation-link.mi?id=1716323690853&key=GRP&app=resvlink'
             target='_blank'
           >
@@ -134,7 +134,7 @@ const Hotels = ({ trackEvent }) => {
             (503) 334-2167
           </CardText>
           <CardLink
-            onClick={() => trackEvent('Travel', { link: 'Hotel: The Hotel Vance'}) }
+            onClick={() => trackEvent.capture('Travel', { link: 'Hotel: The Hotel Vance'}) }
             href='https://www.marriott.com/event-reservations/reservation-link.mi?app=resvlink&id=1689261779325&key=GRP'
             target='_blank'
           >
@@ -150,7 +150,7 @@ const Hotels = ({ trackEvent }) => {
             (503) 552-9500
           </CardText>
           <CardLink
-            onClick={() => trackEvent('Travel',  {link: 'Hotel: Residence Inn, Riverplace'}) }
+            onClick={() => trackEvent.capture('Travel',  {link: 'Hotel: Residence Inn, Riverplace'}) }
             href='https://www.marriott.com/event-reservations/reservation-link.mi?id=1689711999522&key=GRP&app=resvlink'
             target='_blank'
           >
@@ -163,7 +163,7 @@ const Hotels = ({ trackEvent }) => {
 };
 
 export const Travel = () => {
-  const trackEvent = usePosthog();
+  const posthog = usePostHog();
 
   return (
     <>
@@ -177,11 +177,13 @@ export const Travel = () => {
         SubTextFontSize={'1.8rem'}
       />
 
+{ posthog.isFeatureEnabled('feat-rsvp') && <h2 style={{ textAlign: 'center'}}>🎉Feature enabled🎉</h2> }
+
       <TravelHeader>
         We have rooms blocked off for wedding guests at the following hotels:
       </TravelHeader>
 
-      <Hotels trackEvent={trackEvent} />
+      <Hotels trackEvent={posthog} />
 
       <HeroSection
         height={'400px'}
@@ -198,21 +200,21 @@ export const Travel = () => {
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/united_airlines_logo.png' alt="United Airlines Logo" />
-          <CardLink onClick={() => trackEvent('Travel',  {link: 'Airfare: SFO | DEN'}) } href='https://www.united.com/en/us' target='_blank'>
+          <CardLink onClick={() => posthog.capture('Travel',  {link: 'Airfare: SFO | DEN'}) } href='https://www.united.com/en/us' target='_blank'>
             Book out of SFO | DEN
           </CardLink>
         </Card>
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/southwest_airlines_logo.png' alt="Southwest Airlines Logo" />
-          <CardLink onClick={() => trackEvent('Travel', {link: 'Airfare: SMF | DEN'}) } href='https://www.southwest.com/' target='_blank'>
+          <CardLink onClick={() => posthog.capture('Travel', {link: 'Airfare: SMF | DEN'}) } href='https://www.southwest.com/' target='_blank'>
             Book out of SMF | DEN
           </CardLink>
         </Card>
 
         <Card>
           <CardImage src='https://static-image-bucket-service-dev.s3.us-west-2.amazonaws.com/travelpage/alaska_airlines_logo.svg' alt="Alaska Airlines Logo" />
-          <CardLink onClick={() => trackEvent('Travel', { link: 'Airfare: SMF | SFO'}) } href='https://www.alaskaair.com/' target='_blank'>
+          <CardLink onClick={() => posthog.capture('Travel', { link: 'Airfare: SMF | SFO'}) } href='https://www.alaskaair.com/' target='_blank'>
             Book out of SMF | SFO
           </CardLink>
         </Card>

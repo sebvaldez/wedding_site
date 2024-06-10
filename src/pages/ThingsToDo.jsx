@@ -1,8 +1,7 @@
 
 import styled from 'styled-components'
 import HeroSection from '../components/layout/HeroContainer'
-import usePosthog from '../hooks/usePostHog';
-
+import { usePostHog } from 'posthog-js/react'
 
 const TravelHeader = styled.h1`
   text-align: center;
@@ -67,8 +66,8 @@ const CardText = styled.p`
 `;
 
 const ThingsToDo = () => {
-  const trackEvent = usePosthog();
-  trackEvent('things-to-do');
+  const posthog = usePostHog();
+  posthog.capture('things-to-do');
 
   return (
   <>
