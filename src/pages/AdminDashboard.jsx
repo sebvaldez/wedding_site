@@ -279,10 +279,7 @@ const AdminDashboard = () => {
       Header: "Email",
       accessor: "email",
       disableSortBy: true,
-      Cell: ({ value }) => {
-        if (!value) return null;  // or return "N/A" or any default value you'd like
-        return value.length > 12 ? `${value.substring(0, 12)}...` : value;
-      }
+      Cell: ({ value }) => value
     },
     {
       Header: "Phone Number",
@@ -293,7 +290,15 @@ const AdminDashboard = () => {
     {
       Header: "Attending",
       accessor: "attending",
-      Cell: ({ value }) => value ? "Yes" : "No"
+      Cell: ({ value }) => {
+        if (value === true || value === "true") {
+          return "Yes";
+        } else if (value === false || value === "false") {
+          return "No";
+        } else {
+          return "Pending";
+        }
+      }
     },
     {
       Header: "Send Invitation",
@@ -324,7 +329,7 @@ const AdminDashboard = () => {
         </StyledButton>
         <MemberExport data={members} />
         <StyledButton onClick={() => handleBulkAction('textMembers')}>Bulk Text</StyledButton>
-        <StyledButton onClick={() => handleBulkAction('emailMembers')}>Bulk Email</StyledButton>
+        {/* <StyledButton disabled={true} onClick={() => handleBulkAction('emailMembers')}>Bulk Email</StyledButton> */}
         <AdminNavigationButton />
       </ControlBar>
 
