@@ -177,8 +177,6 @@ export const Travel = () => {
         SubTextFontSize={'1.8rem'}
       />
 
-{ posthog.isFeatureEnabled('feat-rsvp') && <h2 style={{ textAlign: 'center'}}>🎉Feature enabled🎉</h2> }
-
       <TravelHeader>
         We have rooms blocked off for wedding guests at the following hotels:
       </TravelHeader>
