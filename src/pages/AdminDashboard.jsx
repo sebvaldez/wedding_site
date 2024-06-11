@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTable, useSortBy, usePagination } from 'react-table';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 import { useGetAllMembers } from '../hooks/members';
 import { useBulkSendText, useSendEmail, useBulkSendEmail } from '../hooks/communications';
 import useModal from '../hooks/useModal';
@@ -96,6 +99,29 @@ const ControlBar = styled.div`
   gap: 1.2rem;
   align-items: center; /* Align items vertically in the center */
   margin-bottom: 1.2rem; /* Add margin at the bottom */
+`;
+
+const SearchWrapper = styled.div`
+  position: relative;
+  width: 25%;
+  margin-left: 8rem;
+  /* margin-bottom: 20px; */
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+`;
+
+const SearchIcon = styled(FontAwesomeIcon)`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
 `;
 
 function MyTable({ columns, data }) {
@@ -220,6 +246,17 @@ const AdminDashboard = () => {
   const [currentAction, setCurrentAction] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [sendingStatuses, setSendingStatuses] = useState({});
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+
+  const filteredMembers = useMemo(() => {
+    if (!searchQuery) return members;
+    return members.filter(member => 
+      member.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      member.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      member.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      member.phoneNumber.toString().toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [members, searchQuery]);
 
   const sendAction = async (member, action, actionType) => {
     const key = `${actionType}-${member.id}`;
@@ -331,10 +368,22 @@ const AdminDashboard = () => {
         <StyledButton onClick={() => handleBulkAction('textMembers')}>Bulk Text</StyledButton>
         {/* <StyledButton disabled={true} onClick={() => handleBulkAction('emailMembers')}>Bulk Email</StyledButton> */}
         <AdminNavigationButton />
+
+        <SearchWrapper>
+          <SearchIcon icon={faSearch} />
+          <SearchInput
+            type="text"
+            placeholder="Name, Email, or Phone Number"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+      </SearchWrapper>
+
+
       </ControlBar>
 
       <Routes>
-        <Route index element={<MyTable data={members} columns={columns} />} />
+        <Route index element={<MyTable data={filteredMembers} columns={columns} />} />
         <Route path='visualize' element={<Visualize memberData={members} />} />
       </Routes>
 
