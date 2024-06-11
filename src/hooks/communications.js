@@ -103,7 +103,7 @@ export const useBulkSendEmail = () => {
       const promises = members.map(member => {
         const url = `/sendInvitation/${member.id}`;
 
-        return backend.post(url, { headers: { 'Authorization': `Bearer ${idToken}` } });
+        return backend.post(url, {}, { headers: { 'Authorization': `Bearer ${idToken}` } });
       });
 
       return Promise.all(promises);
@@ -113,6 +113,7 @@ export const useBulkSendEmail = () => {
       showToast(`Emails sent to ${successCount} members successfully!`);
     },
     onError: (error) => {
+      console.log(error);
       const errorMessage = error.response ? error.response.data.message : error.message;
       showToast(`Error: ${errorMessage}`);
     }
