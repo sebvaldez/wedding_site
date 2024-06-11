@@ -50,9 +50,6 @@ const TextMessage = ({ members, sendBulkTexts, isLoading }) => {
     }
 
     sendBulkTexts({ members: validMembers, messageType: selectedTemplate });
-
-    console.log('Valid members:', JSON.stringify(validMembers, null, 2));
-    console.log('Sending text messages with template: ', selectedTemplate);
   };
 
   return (
