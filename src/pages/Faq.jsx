@@ -75,7 +75,7 @@ const faqs = [
   {
     question: "How do I RSVP, and when are RSVPs due?",
     answer: `<p>You may RSVP directly on the wedding website for either yourself, or for your group by <a style='font-weight: 600;color: blue;' href='/rsvp'>visiting the RSVP page</a>, or through the emailed RSVP sent to the email address you provided. Group members are defined as your spouse, children under 18, or plus ones if you have been given one from the bride and groom.</p><br />
-    <p>RSVPs will remain editable on your attendee portal until <b>the RSVP deadline of July 31st</b>, after which time all RSVP selections are final and provided to our relevant vendors.</p>`
+    <p>RSVPs will remain editable on your attendee portal until <b>the RSVP deadline of August 10th</b>, after which time all RSVP selections are final and provided to our relevant vendors.</p>`
   },
   {
     question: "Where should I stay?",
@@ -107,7 +107,7 @@ const faqs = [
   },
   {
     question: "Will there be an open bar?",
-    answer: `The couple will be hosting a <b>partially open bar</b>, in which they will cover a set cost of the drinks for the evening, after which time the bar will transition to cash bar. The venue can accommodate most all major credit/debit cards, cash, and tap to pay for the cash bar portion of the evening. Wine, Beer, Cider, and a Signature Cocktail will be available, as well as non-alcoholic refreshments.`
+    answer: `The couple will have a <b>partially hosted bar</b>, in which they will cover a set cost of the drinks for the evening, after which time the bar will transition to cash bar. The venue can accommodate most all major credit/debit cards, cash, and tap to pay for the cash bar portion of the evening. Wine, Beer, Cider, and a Signature Cocktail will be available, as well as non-alcoholic refreshments.`
   },
   {
     question: "What should I wear/not wear?",
