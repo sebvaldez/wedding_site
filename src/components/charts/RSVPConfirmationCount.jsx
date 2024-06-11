@@ -3,16 +3,17 @@ import { PieChart, Pie, Tooltip, Legend, Cell } from "recharts";
 import { COLOR_PALETTE } from "../../styles/Colors";
 import { ChartContainer, ChartTitle } from "../ChartComponents"
 
-
 const processDataForTimeline = (memberData) => {
   const countMap = memberData.reduce((acc, user) => {
     let { attending } = user;
 
-    // Increment count for attending and non-attending users
+    // Increment count for attending, non-attending, and pending users
     if (attending === true || attending === "true") {
       acc["Yes"] = (acc["Yes"] || 0) + 1;
-    } else if (attending === false || attending === "false" || attending === null) {
+    } else if (attending === false || attending === "false") {
       acc["No"] = (acc["No"] || 0) + 1;
+    } else {
+      acc["Pend"] = (acc["Pend"] || 0) + 1;
     }
 
     return acc;
@@ -23,7 +24,7 @@ const processDataForTimeline = (memberData) => {
 
 const RSVPConfirmationCount = ({ memberData, title }) => {
   const data = useMemo(() => processDataForTimeline(memberData), [memberData]);
-  const COLORS = [COLOR_PALETTE.sageGreen, COLOR_PALETTE.mauve]; // Define colors for "Yes" and "No"
+  const COLORS = [COLOR_PALETTE.sageGreen, COLOR_PALETTE.mauve, COLOR_PALETTE.coral]; // Define colors for "Yes", "No", and "Pending"
 
   return (
     <ChartContainer>
@@ -49,7 +50,5 @@ const RSVPConfirmationCount = ({ memberData, title }) => {
     </ChartContainer>
   );
 };
-
-
 
 export default RSVPConfirmationCount;
