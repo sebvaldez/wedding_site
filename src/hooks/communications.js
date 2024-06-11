@@ -33,7 +33,6 @@ export const useSendText = () => {
 };
 
 // SEND BULK TEXT
-
 export const useBulkSendText = () => {
   const { getIdTokenClaims } = useAuth0();
   const { toastMessage, showToast } = useToast();
@@ -87,6 +86,37 @@ export const useSendEmail = () => {
       showToast(`Error: ${error.message}`);
     }
   }, [showToast]);
+
+  return { ...mutation, toastMessage }; // Return the mutation object along with the toastMessage
+};
+
+// SEND BULK EMAIL
+export const useBulkSendEmail = () => {
+  const { getIdTokenClaims } = useAuth0();
+  const { toastMessage, showToast } = useToast();
+
+  const mutation = useMutation({
+    mutationFn: async ({ members }) => {
+      const claims = await getIdTokenClaims();
+      const idToken = claims.__raw;
+
+      const promises = members.map(member => {
+        const url = `/sendInvitation/${member.id}`;
+
+        return backend.post(url, { headers: { 'Authorization': `Bearer ${idToken}` } });
+      });
+
+      return Promise.all(promises);
+    },
+    onSuccess: (data, { members }) => {
+      const successCount = data.filter(response => response.status === 201).length;
+      showToast(`Emails sent to ${successCount} members successfully!`);
+    },
+    onError: (error) => {
+      const errorMessage = error.response ? error.response.data.message : error.message;
+      showToast(`Error: ${errorMessage}`);
+    }
+  });
 
   return { ...mutation, toastMessage }; // Return the mutation object along with the toastMessage
 };

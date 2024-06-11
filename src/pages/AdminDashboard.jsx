@@ -3,7 +3,7 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTable, useSortBy, usePagination } from 'react-table';
 import { useGetAllMembers } from '../hooks/members';
-import { useBulkSendText, useSendEmail } from '../hooks/communications';
+import { useBulkSendText, useSendEmail, useBulkSendEmail } from '../hooks/communications';
 import useModal from '../hooks/useModal';
 import Modal from '../components/common/Modal';
 import Toast from '../components/common/Toast';
@@ -214,6 +214,7 @@ const AdminDashboard = () => {
   const { data: members, isLoading: isLoadingData, isError, error, refetch } = useGetAllMembers();
   const { mutateAsync: sendEmail, toastMessage: emailToastMessage } = useSendEmail();
   const { mutateAsync: sendBulkTexts, toastMessage: textToastMessage, isLoading: isLoadingBulkTextSend } = useBulkSendText();
+  const { mutateAsync: sendBulkEmails, toastMessage: bulkEmailToastMessage, isLoading: isLoadingBulkEmailSend } = useBulkSendEmail();
 
   const { isOpen, openModal, closeModal } = useModal();
   const [currentAction, setCurrentAction] = useState(null);
@@ -254,7 +255,7 @@ const AdminDashboard = () => {
       case 'textMembers':
         return <TextMessage members={members} sendBulkTexts={sendBulkTexts} isLoading={isLoadingBulkTextSend} />;
       case 'emailMembers':
-        return <EmailModalContent />;
+        return <EmailModalContent members={members} sendBulkEmails={sendBulkEmails} isLoading={isLoadingBulkEmailSend} />;
       default:
         return <p>Select an action</p>;
     }
@@ -333,6 +334,7 @@ const AdminDashboard = () => {
       </Routes>
 
       {textToastMessage && <Toast message={textToastMessage} />}
+      {bulkEmailToastMessage && <Toast message={bulkEmailToastMessage} />}
       {emailToastMessage && <Toast message={emailToastMessage} />}
 
       {isOpen && (
