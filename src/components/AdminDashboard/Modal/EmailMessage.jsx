@@ -16,19 +16,17 @@ const PromptContainer = styled.div`
 `;
 
 
-// https://y34is4ckgc.execute-api.us-west-2.amazonaws.com/prod/sendInvitation/4cb28a43-5b13-471a-ba86-356333d2d282
-
 const BAD_EMAIL = 'no-email@test.com';
 
-const filterMembers = members => members.filter(member => !!member.email && member.email === 'valdez.sebastian4@gmail.com');
+const filterMembers = members => members.filter(member => !!member.email && member.email !== BAD_EMAIL);
 
 const EmailMessage = ({ members, sendBulkEmails, isLoading}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const validMembers = filterMembers(members);
-    // console.log('validMembers', validMembers);
-    sendBulkEmails({  members: validMembers });
+    console.log('validMembers', validMembers);
+    // sendBulkEmails({  members: validMembers });
   }
 
   return <Modal.Content>
