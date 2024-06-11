@@ -9,9 +9,9 @@ const processDataForTimeline = (memberData) => {
     let { attending } = user;
 
     // Increment count for attending and non-attending users
-    if (attending === true) {
+    if (attending === true || attending === "true") {
       acc["Yes"] = (acc["Yes"] || 0) + 1;
-    } else if (attending === false || attending === null) {
+    } else if (attending === false || attending === "false" || attending === null) {
       acc["No"] = (acc["No"] || 0) + 1;
     }
 
