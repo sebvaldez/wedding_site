@@ -4,6 +4,7 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 import Modal from '../../common/Modal';
 import { Form, ScrollableContainer, SubmitButton } from '../../common/formStyles'
+import { LoadingEllipse } from '../../common/LoadingEllipse';
 
 const textTemplates = [
   {
@@ -81,8 +82,8 @@ const TextMessage = ({ members, sendBulkTexts, isLoading }) => {
           ))}
         </ScrollableContainer>
         <SubmitButton onClick={handleSubmit} type="submit" disabled={isLoading}>
-          {isLoading ? 'Texting members...' : 'Bulk send texts'}
-          <FontAwesomeIcon icon={faPaperPlane} size='lg' style={{ marginLeft: '0.5rem' }} />
+          {isLoading ? 'Texting members' : 'Bulk send texts'}
+          {isLoading ? <LoadingEllipse size={'sm'}color={'#fff'} />: <FontAwesomeIcon icon={faPaperPlane} size='lg' /> }
         </SubmitButton>
       </Form>
     </Modal.Content>
