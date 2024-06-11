@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useMutation } from '@tanstack/react-query';
+
 import backend from '../api/backend';
 import { useToast } from './useToast';
 
@@ -29,6 +30,37 @@ export const useSendText = () => {
   }, [showToast]);
 
     return { ...mutation, toastMessage }; // Return the mutation object along with the toastMessage
+};
+
+// SEND BULK TEXT
+
+export const useBulkSendText = () => {
+  const { getIdTokenClaims } = useAuth0();
+  const { toastMessage, showToast } = useToast();
+
+  const mutation = useMutation({
+    mutationFn: async ({ members, messageType }) => {
+      const claims = await getIdTokenClaims();
+      const idToken = claims.__raw;
+
+      const promises = members.map(member => {
+        const url = `/text/${member.id}?messageType=${messageType}`;
+
+        return backend.post(url, {}, { headers: { 'Authorization': `Bearer ${idToken}` } });
+      });
+
+      return Promise.all(promises);
+    },
+    onSuccess: (data, { members, messageType }) => {
+      const successCount = data.filter(response => response.status === 201).length;
+      showToast(`Text sent to ${successCount} members using template ID: ${messageType} successfully!`);
+    },
+    onError: (error) => {
+      showToast(`Error: ${error.message}`);
+    }
+  });
+
+  return { ...mutation, toastMessage };
 };
 
 // SEND EMAIL
