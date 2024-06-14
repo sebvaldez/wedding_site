@@ -50,10 +50,12 @@ const StyledLink = styled(Link)`
   background: lightgrey;
   border-radius: 5px;
   cursor: pointer;
+  @media (max-width: 768px) {
+    width: 100%; /* Make buttons full width on small screens */
+  }
 `;
 
 const StyledButton = styled.button`
-  width: 120px;
   height: 30px;
   display: inline-block;
   text-align: center;
@@ -62,7 +64,13 @@ const StyledButton = styled.button`
   background: lightgrey;
   border-radius: 5px;
   cursor: pointer;
-  border: none; // Add this to remove default button border styling
+  border: none; /* Remove default button border styling */
+  white-space: nowrap; /* Prevent text from wrapping */
+  min-width: 120px;
+
+  @media (max-width: 768px) {
+    width: 100%; /* Make buttons full width on small screens */
+  }
 `;
 
 const StyledTable = styled.table`
@@ -96,16 +104,39 @@ const AlreadySentButton = styled(TextReminderButton)`
 
 const ControlBar = styled.div`
   display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
   gap: 1.2rem;
   align-items: center; /* Align items vertically in the center */
   margin-bottom: 1.2rem; /* Add margin at the bottom */
+  padding: .5rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack items vertically */
+    align-items: stretch; /* Stretch items to fill the container */
+  }
+`;
+
+const ControlBarGroup = styled.div`
+  display: flex;
+  gap: 1.2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack buttons vertically on mobile */
+    width: 100%; /* Make buttons full width on small screens */
+  }
 `;
 
 const SearchWrapper = styled.div`
   position: relative;
-  width: 25%;
+  justify-items: center;
   margin-left: 8rem;
-  /* margin-bottom: 20px; */
+  width: 30%;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: 100%;
+  }
+
 `;
 
 const SearchInput = styled.input`
@@ -361,6 +392,7 @@ const AdminDashboard = () => {
   return (
     <StyledAdminLayout>
       <ControlBar>
+        <ControlBarGroup>
         <StyledButton onClick={handleRefresh}>
           {isRefreshing ? 'Loading...' : 'Refresh'}
         </StyledButton>
@@ -368,7 +400,7 @@ const AdminDashboard = () => {
         <StyledButton onClick={() => handleBulkAction('textMembers')}>Bulk Text</StyledButton>
         {/* <StyledButton disabled={true} onClick={() => handleBulkAction('emailMembers')}>Bulk Email</StyledButton> */}
         <AdminNavigationButton />
-
+        </ControlBarGroup>
         <SearchWrapper>
           <SearchIcon icon={faSearch} />
           <SearchInput
@@ -378,8 +410,6 @@ const AdminDashboard = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
       </SearchWrapper>
-
-
       </ControlBar>
 
       <Routes>
