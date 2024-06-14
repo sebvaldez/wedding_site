@@ -13,6 +13,9 @@ const StyledButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
   border: none; // Add this to remove default button border styling
+  @media (max-width: 768px) {
+    display: none; /* Hide on mobile */
+  }
 `;
 
 const MemberExport = ({ data }) => {
