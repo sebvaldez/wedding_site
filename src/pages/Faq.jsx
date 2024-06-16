@@ -5,11 +5,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export const FAQContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
   padding: 20px;
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
+
+  @media (min-width: 600px) {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 export const FAQCard = styled.div`
@@ -22,7 +31,7 @@ export const FAQCard = styled.div`
 
 export const Question = styled.h3`
   font-size: 1.2em;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
 `;
 
 export const Answer = styled.p`
@@ -50,9 +59,17 @@ const Heading = styled.h2`
 `;
 
 const SearchWrapper = styled.div`
+  grid-column: span 1; /* Ensures it takes the full width in a 3-column layout */
   position: relative;
   width: 100%;
   margin-bottom: 20px;
+  @media (min-width: 600px) {
+    grid-column: span 2; /* Ensures it takes the full width in a 3-column layout */
+    }
+
+    @media (min-width: 900px) {
+    grid-column: span 3; /* Ensures it takes the full width in a 3-column layout */
+  }
 `;
 
 const SearchInput = styled.input`
@@ -130,7 +147,6 @@ const faqs = [
     answer: `The main table <b>florals</b> themselves are for anyone to take. The vases, candle stick holders, signage, plates, flatware, platters, desserts stands, linens…etc however are not for guests to take as most have been rented. There will be flower bags near the welcome table to bundle stems for the taking.`
   }
 ];
-
 
 export const Faq = () => {
   const [query, setQuery] = useState('');
