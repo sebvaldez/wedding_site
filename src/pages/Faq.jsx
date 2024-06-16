@@ -107,7 +107,7 @@ const faqs = [
   },
   {
     question: "Will there be an open bar?",
-    answer: `The couple will have a <b>partially hosted bar</b>, in which they will cover a set cost of the drinks for the evening, after which time the bar will transition to cash bar. The venue can accommodate most all major credit/debit cards, cash, and tap to pay for the cash bar portion of the evening. Wine, Beer, Cider, and a Signature Cocktail will be available, as well as non-alcoholic refreshments.`
+    answer: `There will be a <b>partially hosted bar</b>, for which a pre-set cost of the drinks for the evening will be covered by the couple. Partially covered beverages will include a wide selection of Beers on tap, Wine by the glass, and a limited Signature Cocktail and Mocktail! Simple spirit drinks will be available for purchase by guests on request. Once the pre-set cost is reached, the bar will transition to a cash bar. The venue can accommodate most all major credit/debit cards, cash, and tap to pay.`
   },
   {
     question: "What should I wear/not wear?",
