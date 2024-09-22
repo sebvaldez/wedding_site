@@ -130,9 +130,11 @@ const Header = () => {
         <StyledNavLink to='/things-to-do' className="nav-link">
           <em>Activities</em>
         </StyledNavLink>
+{/*
         <StyledNavLink to='/rsvp' className="nav-link">
           <em>RSVP</em>
         </StyledNavLink>
+ */}
         <br />
       </Navbar>
     </ThemeProvider>

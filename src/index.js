@@ -83,7 +83,9 @@ root.render(
             <Route path='/details' element={<WeddingDetails />} />
             <Route path='/hotel-blocks' element={<Travel />} />
             <Route path='/registry' element={<WeddingRegistry />} />
-            <Route path='/rsvp' element={<Rsvp />} />
+
+            {/* <Route path='/rsvp' element={<Rsvp />} /> */ }
+
             <Route path='/things-to-do' element={<ThingsToDo />} />
 
             <Route path='*' element={<FourOhFour />} />
